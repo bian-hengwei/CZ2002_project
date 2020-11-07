@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class Staff extends People {
+public class Staff extends Account {
     public Staff(String id, String password, String name) {
         super(id, password, name);
     }
