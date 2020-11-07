@@ -1,4 +1,4 @@
-public abstract class People {
+public abstract class Account {
     protected String id;
     protected String password;
     protected String name;
