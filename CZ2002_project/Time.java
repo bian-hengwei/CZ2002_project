@@ -1,7 +1,7 @@
 import java.time.DayOfWeek;
 import java.util.Date;
 
-public enum Week
+enum Week
 {
 	ODD, EVEN, BOTH;
 }
