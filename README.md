@@ -12,7 +12,7 @@
 - Yin Jiarui
   
 ## Functions:
-- TBD
+- [STRUCTURE.md](STRUCTURE.md)
 
 ## Report & Demonstration:
 1. A detailed UML Class Diagram for the application (exported as an image)
