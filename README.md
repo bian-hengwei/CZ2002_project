@@ -1,8 +1,9 @@
 # CE/CZ2002: Object-Oriented Design & Programming
-## CZ2002_SS12_G2 Group Assignment
-## Build An OO Application: _My STudent Automated Registration System (MySTARS)_
+CZ2002_SS12_G2 Group Assignment  
+Build An OO Application: _My STudent Automated Registration System (MySTARS)_
   
-## Targets: The assignment for your group will be to design and develop a Console-based application (non-Graphical UI): My STudent Automated Registration System (MySTARS)
+## Targets:
+The assignment for your group will be to design and develop a Console-based application (non-Graphical UI): My STudent Automated Registration System (MySTARS)
   
 ## Group Members (Alphabetical Order):
 - Bian Hengwei
