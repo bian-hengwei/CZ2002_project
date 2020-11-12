@@ -20,15 +20,15 @@ We plan to use
 pattern in our design.
   
 ## Entity Properties
-- Account (abstract):
+- [Account (abstract)](Account.java):
   - Account
   - Nationality
   
-- Administrator:
+- [Administrator](Admin.java):
   - Account
   - Nationality
   
-- User:
+- [User](Student.java):
   - Account
   - Nationality
   - Matric Number
@@ -38,13 +38,13 @@ pattern in our design.
   - Indexes taking
   - Current AU
   
-- Course:
+- [Course](Course.java):
   - Course id
   - Course name
   - Indexes of courses
   - Number of AU
   
-- Index:
+- [Index](Index.java):
   - Course id
   - Course name
   - Index number
@@ -61,7 +61,7 @@ pattern in our design.
   - (Optional) Lab time
   - (Optional) Lab venue
 
-- Main:
+- [Main](Main.java):
   - Login periods
   - Courses
   - Indexes
