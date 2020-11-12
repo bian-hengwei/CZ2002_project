@@ -16,6 +16,7 @@ public class Course
     private School school;
     private Map<Integer, Index> indexes;  // map indexNumber to Index object
     private Time[] lectureTimes;
+    private String lectureVenue;
     private Time examTime;
     private int au;
 
@@ -88,7 +89,7 @@ public class Course
     }
 
     // return all the index of this course in a set
-    // why set?
+    // why set? 
     public Set<Integer> getIndexes(){
         Set<Integer> indexArray = new HashSet<Integer>();
         for(Map.Entry<Integer, Index> entry : indexes.entrySet()){
@@ -125,25 +126,5 @@ public class Course
         System.out.println("Number of AU: " + getAu());
     }
 
-    // add a student to the wait list of given index
-    public void addWaitlist(String matricNo, int indexNumber) {
-        Index i = indexes.get(indexNumber);
-        i.addWaitlist(matricNo);
-    }
-
-    // add a student to studentList of given index, decrement vacancy
-    public void registerStudent(int indexNumber, String matricNo) {
-        Index i = indexes.get(indexNumber);
-        i.addStudent(matricNo);
-    }
-
-    public Time getTutorialTime(int indexNumber){
-        Index i = indexes.get(indexNumber);
-        return i.getTutorialTime();
-    }
-
-    public Time getLabTime(int indexNumber){
-        Index i = indexes.get(indexNumber);
-        return i.getLabTime();
-    }
+    
 }

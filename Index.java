@@ -7,8 +7,8 @@ public class Index{
     private String courseId;  // cz2002
     private int indexNumber;  // 10203
     private int vacancy;
-    private Time tutorialTime;
-    private Time labTime;
+    private String tutorialTime;
+    private String labTime;
     private Queue<String> waitlist;
     private Set<String> studentList;
     
@@ -36,11 +36,11 @@ public class Index{
         return vacancy;
     }
 
-    public Time getTutorialTime(){
+    public String getTutorialTime(){
         return tutorialTime;
     }
 
-    public Time getLabTime(){
+    public String getLabTime(){
         return labTime;
     }
 
@@ -50,6 +50,10 @@ public class Index{
 
     public Set<String> getStudentList(){
         return studentList;
+    }
+
+    public int getWaitListLength(){
+        return waitlist.size();
     }
 
     public void setCourseId(String courseId){
@@ -64,12 +68,12 @@ public class Index{
         this.vacancy = vacancy;
     }
 
-    public void setTutorial(Time t) {
-        tutorialTime = t;
+    public void setTutorialTime(String tutorialTime) {
+        this.tutorialTime = tutorialTime;
     }
 
-    public void setLab(Time t) {
-        labTime = t;
+    public void setLabTime(String labTime) {
+        this.labTime = labTime;
     }
 
     public void addWaitlist(String matricNo){
