@@ -1,18 +1,29 @@
 import java.time.DayOfWeek;
 
-enum Week
-{
+enum Week {
 	ODD, EVEN, BOTH;
 }
 
-public class Time
-{
+public class Time {
 	Week week;
-	DayOfWeek[] day;
-	// 1230 for 12:30 pm, store as [[1230, 1330], [1430, 1530]]
-	int[] time;
-}
-<<<<<<< HEAD
+	DayOfWeek day;
+	int starttime;
+    int endtime;
 
-=======
->>>>>>> 9b2049d5e31f9d2fc4f1f11dd2ec5c497e2b8fb1
+    public Time(Week wk, DayOfWeek dow, int st, int et) {
+        week = wk;
+        day = dow;
+        starttime = st;
+        endtime = et;
+    }
+
+    public boolean crash(Time other) {
+        if ((week == Week.ODD && other.week == Week.EVEN) ||
+            (week == Week.EVEN && other.week == Week.ODD) ||
+            (day != other.day))
+            return false;
+        return ((other.starttime < starttime && starttime < other.endtime) ||
+            (starttime < other.starttime && other.starttime < endtime));
+    }
+
+}

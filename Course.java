@@ -1,6 +1,8 @@
 import java.util.Map;
 import java.util.HashMap;
-import java.util.*;
+import java.util.Queue;
+import java.util.Set;
+import java.util.HashSet;
 
 enum School
 {
@@ -13,7 +15,7 @@ public class Course
     private String courseId;
     private School school;
     private Map<Integer, Index> indexes;  // map indexNumber to Index object
-    private Time lectureTime;
+    private Time[] lectureTimes;
     private Time examTime;
     private int au;
 
@@ -24,6 +26,7 @@ public class Course
         this.courseName = courseName;
         this.school = school;
         this.au = au;
+        indexes = new HashMap<Integer, Index>();
     }
 
     public void setCourseName(String courseName){
@@ -36,7 +39,11 @@ public class Course
 
     public void setSchool(School school){
         this.school = school;
-    } 
+    }
+
+    public void setLecture(Time[] times) {
+        lectureTimes = times;
+    }
 
     // create a index and put it into indexes map
     public void createIndex(int indexNumber, int vacancy)
@@ -49,11 +56,7 @@ public class Course
         indexes.remove(indexNumber);
     }
 
-    public void lectureTime(Time lectureTime){
-        this.lectureTime = lectureTime;
-    }
-
-    public void examTime(Time examTime){
+    public void setExamTime(Time examTime){
         this.examTime = examTime;
     }
 
@@ -80,13 +83,13 @@ public class Course
 
     // given index, return vacancy for that index
     public int getVacancy(int indexNumber) 
-    { 
-        Index i = indexes.get(indexNumber);
-        return i.getVacancy();
+    {
+        return indexes.get(indexNumber).getVacancy();
     }
 
     // return all the index of this course in a set
-    public Set<Integer> getIndex(){
+    // why set?
+    public Set<Integer> getIndexes(){
         Set<Integer> indexArray = new HashSet<Integer>();
         for(Map.Entry<Integer, Index> entry : indexes.entrySet()){
             indexArray.add(entry.getKey());
@@ -94,8 +97,8 @@ public class Course
         return indexArray;
     }
 
-    public Time getLectureTime(){
-        return lectureTime;
+    public Time[] getLectureTimes(){
+        return lectureTimes;
     }
 
     public Time getExamTime(){
@@ -109,6 +112,9 @@ public class Course
     public boolean readInfo()
     {
         return true;    /////// yinan: what is this for?
+        // a course is not built from 'set' methods. Once we read in a file, 
+        // there should be a method that reads in all information from the file 
+        // and builds the object for us -hw
     }
 
     // print information of course, can put into view class if we use mvc
@@ -120,21 +126,15 @@ public class Course
     }
 
     // add a student to the wait list of given index
-    public void addWaitlist(String ntuAccount, int indexNumber) {
+    public void addWaitlist(String matricNo, int indexNumber) {
         Index i = indexes.get(indexNumber);
-        i.addWaitlist(ntuAccount);
+        i.addWaitlist(matricNo);
     }
 
     // add a student to studentList of given index, decrement vacancy
-    public void registerStudent(int indexNumber, String ntuAccount) {
+    public void registerStudent(int indexNumber, String matricNo) {
         Index i = indexes.get(indexNumber);
-        i.addStudentList(ntuAccount);
-    }
-
-    public int checkVacancy(String courseId, int indexNumber)
-    {
-        Index i = indexes.get(indexNumber);
-        return i.getVacancy();
+        i.addStudent(matricNo);
     }
 
     public Time getTutorialTime(int indexNumber){
@@ -146,12 +146,4 @@ public class Course
         Index i = indexes.get(indexNumber);
         return i.getLabTime();
     }
-
-    
-
-    /*
-    public Index getIndex(int idx)
-    {
-        return indexes.getOrDefault(idx, null);
-    }*/
 }
