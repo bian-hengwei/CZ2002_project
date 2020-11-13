@@ -20,6 +20,6 @@ public class IndexView{
 		System.out.println("Course id: " + courseId);
 		System.out.println("Index: " + indexNumber);
 		System.out.println("Vacancy: " + vacancy);
-		System.out.println("Length of Waitlist: " + waitlistLength);
+		System.out.println("Length of Wait list: " + waitlistLength);
 	}
 }

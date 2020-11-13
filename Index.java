@@ -5,10 +5,19 @@ import java.util.HashSet;
 
 public class Index{
     private String courseId;  // cz2002
+    private String courseName;
     private int indexNumber;  // 10203
     private int vacancy;
+    private int au;
+    private School school;
+    private String[] lectureTime;
+    private String[] lectureVenue;
+    private String examTime;
+    private String examVenue;
     private String tutorialTime;
+    private String tutorialVenue;
     private String labTime;
+    private String labVenue;
     private Queue<String> waitlist;
     private Set<String> studentList;
     
@@ -17,11 +26,14 @@ public class Index{
         studentList = new HashSet<String>();
     }
 
-    public Index(String courseId, int indexNumber, int vacancy){
+    public Index(Course c, int idx, int vac){
         this();
-        this.courseId = courseId;
-        this.indexNumber = indexNumber;
-        this.vacancy = vacancy;
+        courseId = c.getCourseId();
+        courseName = c.getCourseName();
+        au = c.getAu();
+        school = c.getSchool();
+        indexNumber = idx;
+        vacancy = vac;
     } 
 
     public String getCourseId(){

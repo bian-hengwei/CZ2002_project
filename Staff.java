@@ -1,13 +1,8 @@
 import java.io.*;
 
 public class Staff extends Account {
-    public Staff(String id, String name) {
-        super(id, name);
-    }
 
-    public void writeInfo() {
-
-    }
+    private String name;
 
     public void printStudentList(int indexNumber) throws IOException {
         FileReader fRead;

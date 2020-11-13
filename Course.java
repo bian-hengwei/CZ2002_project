@@ -1,5 +1,3 @@
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Queue;
 import java.util.Set;
 import java.util.HashSet;
@@ -11,14 +9,11 @@ enum School
 
 public class Course
 {
-    private String courseName;
     private String courseId;
+    private String courseName;
     private School school;
-    private Map<Integer, Index> indexes;  // map indexNumber to Index object
-    private Time[] lectureTimes;
-    private String lectureVenue;
-    private Time examTime;
     private int au;
+    private Set<Integer> indexes;  // map indexNumber to Index object
 
     // constructor
     public Course(String courseId, String courseName, School school, int au)
@@ -27,7 +22,7 @@ public class Course
         this.courseName = courseName;
         this.school = school;
         this.au = au;
-        indexes = new HashMap<Integer, Index>();
+        indexes = new HashSet<Integer>();
     }
 
     public void setCourseName(String courseName){
@@ -42,23 +37,15 @@ public class Course
         this.school = school;
     }
 
-    public void setLecture(Time[] times) {
-        lectureTimes = times;
-    }
-
     // create a index and put it into indexes map
     public void createIndex(int indexNumber, int vacancy)
     {
-        Index i = new Index(this.courseId, indexNumber, vacancy);
-        indexes.put(indexNumber, i);
+        Index i = new Index(this, indexNumber, vacancy);
+        indexes.add(indexNumber);
     }
 
     public void removeIndex(int indexNumber){
         indexes.remove(indexNumber);
-    }
-
-    public void setExamTime(Time examTime){
-        this.examTime = examTime;
     }
 
     public void setAu(int au){
@@ -82,49 +69,14 @@ public class Course
         return au; 
     }
 
-    // given index, return vacancy for that index
-    public int getVacancy(int indexNumber) 
-    {
-        return indexes.get(indexNumber).getVacancy();
-    }
+    // // given index, return vacancy for that index
+    // public int getVacancy(int indexNumber) 
+    // {
+    //     return indexes.get(indexNumber).getVacancy();
+    // }
 
     // return all the index of this course in a set
-    // why set? 
     public Set<Integer> getIndexes(){
-        Set<Integer> indexArray = new HashSet<Integer>();
-        for(Map.Entry<Integer, Index> entry : indexes.entrySet()){
-            indexArray.add(entry.getKey());
-        }
-        return indexArray;
+        return indexes;
     }
-
-    public Time[] getLectureTimes(){
-        return lectureTimes;
-    }
-
-    public Time getExamTime(){
-        return examTime;
-    }
-
-    /**
-     * reads the course information according to the course index
-     * @return if the course information is successfully read
-     */
-    public boolean readInfo()
-    {
-        return true;    /////// yinan: what is this for?
-        // a course is not built from 'set' methods. Once we read in a file, 
-        // there should be a method that reads in all information from the file 
-        // and builds the object for us -hw
-    }
-
-    // print information of course, can put into view class if we use mvc
-    public void printCourse()
-    {
-        System.out.println("Name of course: " + getCourseName());
-        System.out.println("School: " + getSchool());
-        System.out.println("Number of AU: " + getAu());
-    }
-
-    
 }

@@ -1,29 +1,27 @@
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.Queue;
+import java.util.LinkedList;
 
-public class Student 
+public class Student extends Account
 {
 
+    private String name;
+    private String nationality;
     private String matricNo;
-    private String ntuAccount;
     private String major;
     private int year;
     private Set<Course> takenCourses;
-    private Set<Course> currentCourses;
+    private Set<Index> currentIndexes;
     private int currentAU;
 
-    public Student(String ntuAcc)
-    {
-        ntuAccount = ntuAcc;
+    public Queue<String> readPasswords(String account) {
+        return super.readPasswords(account, "student_passwords.csv");
     }
 
     public String getMatricNo(){
         return matricNo;
-    }
-
-    public String getNtuAccount(){
-        return ntuAccount;
     }
 
     public String getMajor(){
@@ -38,8 +36,8 @@ public class Student
         return takenCourses;
     }
 
-    public Set<Course> getCurrentCourses(){
-        return currentCourses;
+    public Set<Index> getCurrentCourses(){
+        return currentIndexes;
     }
 
     public int getCurrentAu(){
@@ -48,10 +46,6 @@ public class Student
 
     public void setMatricNo(String matricNo){
         this.matricNo = matricNo;
-    }
-
-    public void setNtuAccount(String ntuAccount){
-        this.ntuAccount = ntuAccount;
     }
 
     public void setMajor(String major){
@@ -70,12 +64,8 @@ public class Student
         takenCourses.remove(course);
     }
 
-    public void addCurrentCourses(Course course){
-        currentCourses.add(course);
-    }
-
     public void removeCurrentCourses(Course course){
-        currentCourses.remove(course);
+        currentIndexes.remove(course);
     }
 
     public void setAu(int currentAu){

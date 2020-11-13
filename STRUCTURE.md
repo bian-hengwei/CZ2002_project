@@ -22,14 +22,14 @@ pattern in our design.
 ## Entity Properties
 - [Account (abstract)](Account.java):
   - Account
-  - Nationality
   
 - [Administrator](Admin.java):
   - Account
-  - Nationality
+  - Name
   
 - [User](Student.java):
   - Account
+  - Name
   - Nationality
   - Matric Number
   - Major
@@ -43,6 +43,7 @@ pattern in our design.
   - Course name
   - Indexes of courses
   - Number of AU
+  - School
   
 - [Index](Index.java):
   - Course id
@@ -50,6 +51,7 @@ pattern in our design.
   - Index number
   - Vacancy count
   - Number of AU
+  - School
   - Wait list queue
   - Registered students list
   - Lecture time
@@ -77,6 +79,7 @@ pattern in our design.
   - [ ] Login
     - Reject if:
       - Invalid password
+      - Wrong account
   - [ ] Load personal information
   - [ ] Print personal information
   - [ ] Add a new course
@@ -96,6 +99,7 @@ pattern in our design.
   - [ ] Login
     - Reject if:
       - Invalid password
+      - Wrong account
       - _Illegal access period (after loading information)_
   - [ ] Load personal information
   - [ ] Print personal information
