@@ -7,11 +7,29 @@ public class StudentController{
 	private Student model;
 	private StudentView view;
 
+
+/*  should constructor be sth like this??? the students and student view should have some parameters
+
+    private Index model;
+    private IndexView view;
+
+    public IndexController(Index model, IndexView view){
+        this.model = model;
+        this.view = view;
+    }
+*/
+/*
+    public StudentController(Student model, StudentView view){
+        this.model = model;
+        this.view = view;
+    }
+*/
     public StudentController() {
         model = new Student();
         view = new StudentView();
     }
 
+//  here the parameter could be String model.getMatricNo()???
     public void login(String account, String password) {
         String hashedPassword = hash(password);
         Queue<String> allPasswords = model.readPasswords(account);
@@ -39,6 +57,7 @@ public class StudentController{
         return pwd;
     }
 
+///////probably need to write the admin class first?
     // public boolean compareTime(/*start datetime, end datetime, current datetime*/){
     //     // return if student can access the system
     //     return true;
@@ -70,13 +89,20 @@ public class StudentController{
     //     }
     // }
 
-    // public void dropCourse(Course c) {}
+    public void dropCourse(Index index) {
+        model.removeCurrentIndex(index);
+    }
 
-    // public void printCoursesRegistered() {}
+    public void printCoursesRegistered() {
+        view.printCoursesRegistered(Set<Index> model.getCurrentIndexes());
+    }
 
+////// this is written in index class
     // public void checkVacancy(Course c) {}
 
-    // public void changeIndex(Course c, int idx) {}
+    // public void changeIndex(Course c, int idx) {
+    
+}
 
     // public void swapIndex(Course c, Student s) {}
 

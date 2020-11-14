@@ -14,6 +14,8 @@ public class Student extends Account
     private int year;
     private Set<Course> takenCourses;
     private Set<Index> currentIndexes;
+
+    // does this store total au taken or total au registered for this semester?
     private int currentAU;
 
     public Queue<String> readPasswords(String account) {
@@ -36,7 +38,7 @@ public class Student extends Account
         return takenCourses;
     }
 
-    public Set<Index> getCurrentCourses(){
+    public Set<Index> getCurrentIndexes(){
         return currentIndexes;
     }
 
@@ -64,8 +66,8 @@ public class Student extends Account
         takenCourses.remove(course);
     }
 
-    public void removeCurrentCourses(Course course){
-        currentIndexes.remove(course);
+    public void removeCurrentIndexes(Index index){
+        currentIndexes.remove(index);
     }
 
     public void setAu(int currentAu){
