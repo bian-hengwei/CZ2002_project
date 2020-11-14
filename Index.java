@@ -6,10 +6,10 @@ import java.util.HashSet;
 public class Index{
     private String courseId;  // cz2002
     private String courseName;
+    private School school;
+    private int au;
     private int indexNumber;  // 10203
     private int vacancy;
-    private int au;
-    private School school;
     private String[] lectureTime;
     private String[] lectureVenue;
     private String examTime;
@@ -32,12 +32,28 @@ public class Index{
         courseName = c.getCourseName();
         au = c.getAu();
         school = c.getSchool();
+        lectureTime = c.getLectureTime();
+        lectureVenue = c.getLectureVenue();
+        examTime = c.getExamTime();
+        examVenue = c.getExamVenue();
         indexNumber = idx;
         vacancy = vac;
     } 
 
     public String getCourseId(){
         return courseId;
+    }
+
+    public void setCourseId(String cid) {
+        courseId = cid;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String cName) {
+        courseName = cName;
     }
 
     public int getIndexNumber(){
@@ -68,16 +84,16 @@ public class Index{
         return waitlist.size();
     }
 
-    public void setCourseId(String courseId){
-        this.courseId = courseId;
-    }
-
     public void setIndexNumber(int indexNumber){
         this.indexNumber = indexNumber;
     }
 
     public void setVacancy(int vacancy){
         this.vacancy = vacancy;
+    }
+
+    public void setLectureTime(String[] lecture) {
+        lectureTime = lecture;
     }
 
     public void setTutorialTime(String tutorialTime) {
@@ -88,12 +104,24 @@ public class Index{
         this.labTime = labTime;
     }
 
+    public void setExamTime(String exam) {
+        examTime = exam;
+    }
+
+    public void setExamVenue(String venue) {
+        examVenue = venue;
+    }
+
     public void addWaitlist(String matricNo){
         waitlist.add(matricNo);
     }
 
     public String removeWaitList(){
         return waitlist.poll();
+    }
+
+    public int waitlistSize() {
+        return waitlist.size();
     }
 
     public void addStudent(String matricNo){

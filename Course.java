@@ -13,7 +13,11 @@ public class Course
     private String courseName;
     private School school;
     private int au;
-    private Set<Integer> indexes;  // map indexNumber to Index object
+    private String[] lectureTime;
+    private String[] lectureVenue;
+    private String examTime;
+    private String examVenue;
+    private Set<Integer> indexes;
 
     // constructor
     public Course(String courseId, String courseName, School school, int au)
@@ -37,6 +41,26 @@ public class Course
         this.school = school;
     }
 
+    public void setAu(int au){
+        this.au = au;
+    }
+
+    public void setLectureTime(String[] lecture) {
+        lectureTime = lecture;
+    }
+
+    public void setLectureVenue(String[] venue) {
+        lectureVenue = venue;
+    }
+
+    public void setExamTime(String exam) {
+        examTime = exam;
+    }
+
+    public void setExamVenue(String venue) {
+        examVenue = venue;
+    }
+
     // create a index and put it into indexes map
     public void createIndex(int indexNumber, int vacancy)
     {
@@ -46,10 +70,6 @@ public class Course
 
     public void removeIndex(int indexNumber){
         indexes.remove(indexNumber);
-    }
-
-    public void setAu(int au){
-        this.au = au;
     }
 
     public String getCourseName(){
@@ -69,13 +89,22 @@ public class Course
         return au; 
     }
 
-    // // given index, return vacancy for that index
-    // public int getVacancy(int indexNumber) 
-    // {
-    //     return indexes.get(indexNumber).getVacancy();
-    // }
+    public String[] getLectureTime() {
+        return lectureTime;
+    }
 
-    // return all the index of this course in a set
+    public String[] getLectureVenue() {
+        return lectureVenue;
+    }
+
+    public String getExamTime() {
+        return examTime;
+    }
+
+    public String getExamVenue() {
+        return examVenue;
+    }
+
     public Set<Integer> getIndexes(){
         return indexes;
     }
