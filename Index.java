@@ -6,7 +6,7 @@ import java.util.HashSet;
 public class Index{
     private String courseId;  // cz2002
     private String courseName;
-    private School school;
+    //private School school;
     private int au;
     private int indexNumber;  // 10203
     private int vacancy;
@@ -18,7 +18,7 @@ public class Index{
     private String tutorialVenue;
     private String labTime;
     private String labVenue;
-    private Queue<String> waitlist;
+    private Queue<String> waitlist; // should we change to queue of students?
     private Set<String> studentList;
     
     public Index() {
@@ -31,7 +31,7 @@ public class Index{
         courseId = c.getCourseId();
         courseName = c.getCourseName();
         au = c.getAu();
-        school = c.getSchool();
+        //school = c.getSchool();
         lectureTime = c.getLectureTime();
         lectureVenue = c.getLectureVenue();
         examTime = c.getExamTime();
@@ -116,8 +116,14 @@ public class Index{
         waitlist.add(matricNo);
     }
 
-    public String removeWaitList(){
+    public String removeWaitlist(){
         return waitlist.poll();
+    }
+
+    public void removeWaitlist(String matricNo){
+        LinkedList<String> ll = (LinkedList) waitlist;
+        ll.remove(matricNo);
+        waitlist = ll;
     }
 
     public int waitlistSize() {
@@ -126,11 +132,9 @@ public class Index{
 
     public void addStudent(String matricNo){
         studentList.add(matricNo);
-        vacancy -= 1;
     }
 
     public void removeStudent(String matricNo){
         studentList.remove(matricNo);
-        vacancy ++;
     }
 }

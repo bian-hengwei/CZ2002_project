@@ -1,11 +1,13 @@
 import java.util.Queue;
 import java.util.Set;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class StudentController{
 
 	private Student model;
 	private StudentView view;
+    Scanner scan = new Scanner(System.in);
 
 
 /*  should constructor be sth like this??? the students and student view should have some parameters
@@ -89,12 +91,61 @@ public class StudentController{
     //     }
     // }
 
-    public void dropCourse(Index index) {
-        model.removeCurrentIndex(index);
+    public void dropCourse() {
+        System.out.println("Please choose the index to drop from below: ");
+
+        // print the list of registered indexes
+        System.out.println("Registered Courses:");
+        printCoursesRegistered();
+
+        // print list of indexes on waitlist        
+        System.out.println("Courses on waitlist: ");
+        printOnWaitlist();
+
+        System.out.println("please choose type of course to drop:");
+        System.out.println("1. Registered Course");
+        System.out.println("2. Course on Waitlist");
+        int courseType = scan.nextInt();
+
+        System.out.printf("Index: ");
+        int dropIndex = scan.nextInt();
+
+        switch(dropIndex){
+            case 1:
+            // get the index object
+            Index i1 = model.getCurrentIndexes(dropIndex);
+            model.removeCurrentIndexes(i1);
+            // remove student from studentlist in index
+            i1.removeStudent(model.getMatricNo());
+
+            // if there are students on waitlist
+            if(i1.getWaitListLength() > 0){
+                String matricNo = i1.removeWaitlist();
+                i1.addStudent(matricNo);
+            }
+            else{
+                i1.setVacancy(i1.getVacancy() + 1);
+            }
+            break;
+
+            case 2:
+            // get the index object
+            Index i2 = model.getOnWaitlist(dropIndex);
+            // remove index from onwaitlist
+            model.removeOnWaitlist(i2);
+            // remove student from waitlist queue in index
+            i2.removeWaitlist(model.getMatricNo());
+
+        }
+        System.out.println(dropIndex + "is successfully dropped");
     }
 
     public void printCoursesRegistered() {
-        view.printCoursesRegistered(Set<Index> model.getCurrentIndexes());
+        view.printCoursesRegistered(model.getCurrentIndexes());
+    }
+
+    public void printOnWaitlist(){
+        view.printOnWaitlist(model.getOnWaitlist());
     }
 
 ////// this is written in index class
@@ -102,7 +153,6 @@ public class StudentController{
 
     // public void changeIndex(Course c, int idx) {
     
-}
 
     // public void swapIndex(Course c, Student s) {}
 

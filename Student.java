@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.Iterator;
 
 public class Student extends Account
 {
@@ -14,6 +15,7 @@ public class Student extends Account
     private int year;
     private Set<Course> takenCourses;
     private Set<Index> currentIndexes;
+    private Set<Index> onWaitlist;
 
     // does this store total au taken or total au registered for this semester?
     private int currentAU;
@@ -42,6 +44,29 @@ public class Student extends Account
         return currentIndexes;
     }
 
+    public Index getCurrentIndexes(int index){
+        Iterator<Index> iterate = currentIndexes.iterator();
+        while(iterate.hasNext()){
+            if(iterate.next().getIndexNumber() == index){
+                break;
+            }
+        }
+        return iterate.next();
+    }
+
+    public Set<Index> getOnWaitlist(){
+        return onWaitlist;
+    }
+
+    public Index getOnWaitlist(int index){
+        Iterator<Index> iterate = onWaitlist.iterator();
+        while(iterate.hasNext()){
+            if(iterate.next().getIndexNumber() == index){
+                break;            }
+        }
+        return iterate.next();
+    }
+
     public int getCurrentAu(){
         return currentAU;
     }
@@ -68,6 +93,10 @@ public class Student extends Account
 
     public void removeCurrentIndexes(Index index){
         currentIndexes.remove(index);
+    }
+
+    public void removeOnWaitlist(Index index){
+        onWaitlist.remove(index);
     }
 
     public void setAu(int currentAu){
