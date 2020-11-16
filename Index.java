@@ -120,6 +120,7 @@ public class Index{
         return waitlist.poll();
     }
 
+    @SuppressWarnings("unchecked")
     public void removeWaitlist(String matricNo){
         LinkedList<String> ll = (LinkedList) waitlist;
         ll.remove(matricNo);

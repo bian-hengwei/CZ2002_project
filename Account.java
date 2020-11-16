@@ -8,11 +8,10 @@ import java.util.LinkedList;
 
 public abstract class Account {
 
-    private String account;
     final private String ANSI_RESET = "\u001B[0m";
     final private String ANSI_RED   = "\u001B[31m";
 
-    public Queue<String> readPasswords(String account, String filename) {
+    public Queue<String> readPasswords(String filename) {
         Queue<String> passwordInfo = new LinkedList<String>();
         try {
             FileReader fRead = new FileReader(filename);
@@ -23,12 +22,36 @@ public abstract class Account {
             bRead.close();
             fRead.close();
         } catch(FileNotFoundException e) {
-            System.out.println(ANSI_RED + "Error: password file " + filename + " not found." + ANSI_RESET);
+            System.out.println("Error: password file " + filename + " not found.");
             System.exit(1);
         } catch (IOException e) {
-            System.out.println(ANSI_RED + "Error: failed to read " + filename + "." + ANSI_RESET);
+            System.out.println("Error: failed to read " + filename + ".");
             System.exit(1);
         }
         return passwordInfo;
+    }
+
+    public String[] readInfo(String account, String filename) {
+        String[] currentTuple = new String[9];
+        boolean found = false;
+        try {
+            FileReader fRead = new FileReader(filename);
+            BufferedReader bRead = new BufferedReader(fRead);
+            String newline;
+            while ((newline = bRead.readLine()) != null && !found) {
+                currentTuple = newline.split(",");
+                if (currentTuple[0].equals(account)) 
+                    found = true;
+            }
+            bRead.close();
+            fRead.close();
+        } catch(FileNotFoundException e) {
+            System.out.println("Error: info file " + filename + " not found.");
+            System.exit(1);
+        } catch (IOException e) {
+            System.out.println("Error: failed to read " + filename + ".");
+            System.exit(1);
+        }
+        return found ? currentTuple : null;
     }
 }

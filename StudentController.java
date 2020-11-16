@@ -2,6 +2,7 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Calendar;
 
 public class StudentController{
 
@@ -32,9 +33,9 @@ public class StudentController{
     }
 
 //  here the parameter could be String model.getMatricNo()???
-    public void login(String account, String password) {
+    public boolean login(String account, String password) {
         String hashedPassword = hash(password);
-        Queue<String> allPasswords = model.readPasswords(account);
+        Queue<String> allPasswords = model.readPasswords();
         String currentRecord;
         String[] currentTuple = new String[2];
         boolean success = false;
@@ -42,7 +43,7 @@ public class StudentController{
         while (currentRecord != null && !success) {
             currentTuple = currentRecord.split(",");
             if (currentTuple[0].equals(account) && currentTuple[1].equals(hashedPassword)) {
-                System.out.println("Login success.");
+                System.out.println("Logged in successfully.");
                 System.out.println("Current account: " + account);
                 success = true;
             }
@@ -51,102 +52,139 @@ public class StudentController{
         if (!success) {
             System.out.println("Login failed.");
             System.out.println("Check account and password and try again.");
-            return;
+            System.out.println("Or press enter to quit");
+            return success;
         }
+        success = readStudent(account);
+        if (!success) {
+            System.out.println("Student information not found");
+            System.out.println("Try another account or contact admin for help");
+            return success;
+        }
+        success = checkTime();
+        if (!success) {
+            System.out.println("Try access the system at your assigned access time");
+            return success;
+        }
+        return success;
     }
+
+    public boolean readStudent(String account) {
+        String[] modelInfo = model.readInfo(account);
+        if (modelInfo == null)
+            return false;
+        model.setName(modelInfo[1]);
+        model.setNationality(modelInfo[2]);
+        model.setMatricNo(modelInfo[3]);
+        model.setMajor(modelInfo[4]);
+        model.setYear(modelInfo[5]);
+        // TODO: course and index initialize
+        return true;
+    }
+
+    public boolean checkTime() {
+        String index = model.getMajor() + model.getYear();
+        String[] accessTime = model.readTime(index);
+        if (accessTime == null) {
+            System.out.println("Your group is not assigned access time yet");
+        }
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH) + 1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int date = year * 10000 + month * 100 + day;
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        int minute = cal.get(Calendar.MINUTE);
+        int time = hour * 100 + minute;
+        boolean success = (
+            Integer.parseInt(accessTime[1]) < date && 
+            Integer.parseInt(accessTime[2]) > date && 
+            Integer.parseInt(accessTime[3]) < time && 
+            Integer.parseInt(accessTime[4]) > time
+            );
+        if (!success) {
+            System.out.println("Your assigned time is: ");
+            System.out.printf("%s:%s - %s:%s from %s/%s/%s to %s/%s/%s\n", 
+                accessTime[3].substring(0, 2), 
+                accessTime[3].substring(2, 4),
+                accessTime[4].substring(0, 2),
+                accessTime[4].substring(2, 4),
+                accessTime[1].substring(6, 8),
+                accessTime[1].substring(4, 6),
+                accessTime[1].substring(0, 4),
+                accessTime[2].substring(6, 8),
+                accessTime[2].substring(4, 6),
+                accessTime[2].substring(0, 4)
+                );
+        }
+        return success;
+    }
+
 
     private String hash(String pwd) {
         return pwd;
     }
 
-///////probably need to write the admin class first?
-    // public boolean compareTime(/*start datetime, end datetime, current datetime*/){
-    //     // return if student can access the system
-    //     return true;
-    // }
-
     public void readInfo(){
         return;
     }
 
-    // private String hash(String pwd) { return ""; }
+    public void dropCourse() {}
+    //     System.out.println("Please choose the index to drop from below: ");
 
-    // public void addCourse(Course c, int index){
-    //     Index idx = c.getIndex(index);
-    //     int courseAU = c.getAU();
-    //     if (currentCourses.contains(c)){
-    //         System.out.println("Current course already registered.");
+    //     // print the list of registered indexes
+    //     System.out.println("Registered Courses:");
+    //     printCoursesRegistered();
+
+    //     // print list of indexes on WaitList        
+    //     System.out.println("Courses on WaitList: ");
+    //     printOnWaitList();
+
+    //     System.out.println("please choose type of course to drop:");
+    //     System.out.println("1. Registered Course");
+    //     System.out.println("2. Course on WaitList");
+    //     int courseType = scan.nextInt();
+
+    //     System.out.printf("Index: ");
+    //     int dropIndex = scan.nextInt();
+
+    //     switch(dropIndex){
+    //         case 1:
+    //         // get the index object
+    //         Index i1 = model.getCurrentIndexes(dropIndex);
+    //         model.removeCurrentIndexes(i1);
+    //         // remove student from studentlist in index
+    //         i1.removeStudent(model.getMatricNo());
+
+    //         // if there are students on WaitList
+    //         if(i1.getWaitListLength() > 0){
+    //             String matricNo = i1.removeWaitlist();
+    //             i1.addStudent(matricNo);
+    //         }
+    //         else{
+    //             i1.setVacancy(i1.getVacancy() + 1);
+    //         }
+    //         break;
+
+    //         case 2:
+    //         // get the index object
+    //         Index i2 = model.getonWaitList(dropIndex);
+    //         // remove index from onWaitList
+    //         model.removeOnWaitList(i2);
+    //         // remove student from WaitList queue in index
+    //         i2.removeWaitList(model.getMatricNo());
+
     //     }
-    //     else if (courseAU + currentAU > 21){
-    //         System.out.println("Exceeding maximum workload! This course cannot be added.");
-    //     }
-    //     else if (c.getVacancy(index) > 0){
-    //         c.registerStudent(index);
-    //         System.out.println("Successfully registered to course " + c.getId());
-    //         currentCourses.add(c);
-    //     }
-    //     else{
-    //         c.waitlist(matricNo, index);
-    //         System.out.println("Current index full. Putting on wait list...");
-    //     }
+    //     System.out.println(dropIndex + "is successfully dropped");
     // }
 
-    public void dropCourse() {
-        System.out.println("Please choose the index to drop from below: ");
+    // public void printCoursesRegistered() {
+    //     view.printCoursesRegistered(model.getCurrentIndexes());
+    // }
 
-        // print the list of registered indexes
-        System.out.println("Registered Courses:");
-        printCoursesRegistered();
-
-        // print list of indexes on waitlist        
-        System.out.println("Courses on waitlist: ");
-        printOnWaitlist();
-
-        System.out.println("please choose type of course to drop:");
-        System.out.println("1. Registered Course");
-        System.out.println("2. Course on Waitlist");
-        int courseType = scan.nextInt();
-
-        System.out.printf("Index: ");
-        int dropIndex = scan.nextInt();
-
-        switch(dropIndex){
-            case 1:
-            // get the index object
-            Index i1 = model.getCurrentIndexes(dropIndex);
-            model.removeCurrentIndexes(i1);
-            // remove student from studentlist in index
-            i1.removeStudent(model.getMatricNo());
-
-            // if there are students on waitlist
-            if(i1.getWaitListLength() > 0){
-                String matricNo = i1.removeWaitlist();
-                i1.addStudent(matricNo);
-            }
-            else{
-                i1.setVacancy(i1.getVacancy() + 1);
-            }
-            break;
-
-            case 2:
-            // get the index object
-            Index i2 = model.getOnWaitlist(dropIndex);
-            // remove index from onwaitlist
-            model.removeOnWaitlist(i2);
-            // remove student from waitlist queue in index
-            i2.removeWaitlist(model.getMatricNo());
-
-        }
-        System.out.println(dropIndex + "is successfully dropped");
-    }
-
-    public void printCoursesRegistered() {
-        view.printCoursesRegistered(model.getCurrentIndexes());
-    }
-
-    public void printOnWaitlist(){
-        view.printOnWaitlist(model.getOnWaitlist());
-    }
+    // public void printOnWaitList(){
+    //     view.printOnWaitList(model.getOnWaitList());
+    // }
 
 ////// this is written in index class
     // public void checkVacancy(Course c) {}
