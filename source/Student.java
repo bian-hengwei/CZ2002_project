@@ -32,15 +32,15 @@ public class Student extends Account
     }
 
     public Queue<String> readPasswords() {
-        return super.readPasswords("student_passwords.csv");
+        return super.readPasswords("..\\data\\student_passwords.csv");
     }
 
     public String[] readInfo(String account) {
-        return super.readInfo(account, "student_information.csv");
+        return super.readInfo(account, "..\\data\\student_information.csv");
     }
 
     public String[] readTime(String index) {
-        String filename = "student_time.csv";
+        String filename = "..\\data\\student_time.csv";
         String[] currentTuple = new String[5];
         boolean found = false;
         try {
