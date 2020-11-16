@@ -19,16 +19,14 @@ We plan to use
 [*MVC*](https://en.wikipedia.org/wiki/Model-view-controller) 
 pattern in our design.
   
-## Entity Properties
+## Model Properties
 - [Account (abstract)](Account.java):
-  - Account
   
 - [Administrator](Admin.java):
-  - Account
   - Name
+  - Nationality
   
 - [User](Student.java):
-  - Account
   - Name
   - Nationality
   - Matric Number
@@ -36,14 +34,11 @@ pattern in our design.
   - Year
   - Courses taken
   - Indexes taking
+  - _Waitlists_
   - Current AU
   
 - [Course](Course.java):
-  - Course id
-  - Course name
-  - Indexes of courses
-  - Number of AU
-  - School
+  - Indexes
   
 - [Index](Index.java):
   - Course id
@@ -70,10 +65,9 @@ pattern in our design.
   - Current account
   
 ## Main functions
-- [ ] Account (abstract):
-  - [ ] Login
-  - [ ] Load personal information (abstract)
-  - [ ] Print personal information (abstract)
+- [x] Account (abstract):
+  - [x] Read passwords
+  - [x] Read personal information
   
 - [ ] Administrator:
   - [ ] Login
@@ -96,12 +90,12 @@ pattern in our design.
   - [ ] Check vacancies
   
 - User:
-  - [ ] Login
+  - [x] Login
     - Reject if:
       - Invalid password
       - Wrong account
       - _Illegal access period (after loading information)_
-  - [ ] Load personal information
+  - [x] Load personal information
   - [ ] Print personal information
   - [ ] Add course
     - Reject if:
