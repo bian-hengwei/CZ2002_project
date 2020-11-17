@@ -120,6 +120,14 @@ public class Student extends Account
         currentIndexes.remove(index);
     }
 
+    public void addCurrentIndexes(Index index){
+        currentIndexes.add(index);
+    }
+
+    public void addOnWaitlist(Index index){
+        onWaitlist.add(index);
+    }
+
     public void removeOnWaitlist(Index index){
         onWaitlist.remove(index);
     }

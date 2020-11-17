@@ -10,6 +10,7 @@ public class Main {
 
     private static StudentController studentController;
     private static AdminController adminController;
+    // need to read in
     private static Set<Index> indexes;
     private static Set<Course> courses;
 
@@ -112,20 +113,21 @@ public class Main {
             System.out.println("1. Add Course");
             System.out.println("2. Drop Course");
             System.out.println("3. Check/Print Courses Registered and on Wait list");
-            System.out.println("4. Change Index Number of Course");
-            System.out.println("5. Swap Index Number with Another Student");
-            System.out.println("6. Check Vacancies Available");
-            System.out.println("7. Exit");
+            System.out.println("4. Check Vacancies Available");
+            System.out.println("5. Change Index Number of Course");
+            System.out.println("6. Swap Index Number with Another Student");
+            System.out.println("7. Re-Classify GERPE Course Type");
+            System.out.println("8. Exit");
             choice = scan.nextInt();
 
             switch(choice){
 
                 default:
-                    System.out.println("TBD");
+                    System.out.println("Please choose an option.");
                     break;
-/*
+
                 case 1:
-                    studentController.addCourse();
+                    studentController.addCourse(indexes);
                     break;
 
                 case 2:
@@ -138,16 +140,20 @@ public class Main {
                     break;
 
                 case 4:
-                    studentController.changeIndex();
+                    studentController.checkVacancy(indexes);
                     break;
 
-                case 5:
-                    studentController.swapIndex();
-                    break;
+                //case 5:
+                    //studentController.changeIndex();
+                    //break;
 
-                case 6:
-                    studentController.reclassify();
-                    break;*/
+                //case 6:
+                    //studentController.swapIndex();
+                    //break;
+
+                //case 7:
+                    //studentController.reclassify();
+                    //break;
             }
         }
     }

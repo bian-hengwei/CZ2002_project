@@ -131,6 +131,37 @@ public class StudentController{
         return;
     }
 
+// 1
+    public void addCourse(Set<Index> indexes){
+        System.out.println("Please enter the index you want to add: ");
+        int i = scan.nextInt();
+        Index index;
+        for (Index idx : indexes){
+            if(idx.getIndexNumber() == i){
+                index = idx;
+                if(index.getVacancy() != 0){
+                    // modify index
+                    index.addStudent(model.getMatricNo());
+                    index.setVacancy(index.getVacancy() - 1);
+                    // modify student
+                    model.addCurrentIndexes(index);
+                    System.out.println("You have successfully added index " + i);
+
+                }
+
+                else{
+                    // put into waitlist of index
+                    index.addWaitlist(model.getMatricNo());
+                    // put index on student onWaitlist
+                    model.addOnWaitlist(index);
+                    System.out.println("You have been successfully added onto waitlist of index " + i);
+                }
+                break;
+            }
+        }
+    }
+
+// 2
     public void dropCourse() {
         System.out.println("Please choose the index to drop from below: ");
 
@@ -140,7 +171,7 @@ public class StudentController{
 
         // print list of indexes on WaitList        
         System.out.println("Courses on WaitList: ");
-        printOnWaitList();
+        printOnWaitlist();
 
         System.out.println("please choose type of course to drop:");
         System.out.println("1. Registered Course");
@@ -162,6 +193,7 @@ public class StudentController{
             if(i1.getWaitListLength() > 0){
                 String matricNo = i1.removeWaitlist();
                 i1.addStudent(matricNo);
+                //// add email here/////
             }
             else{
                 i1.setVacancy(i1.getVacancy() + 1);
@@ -180,35 +212,146 @@ public class StudentController{
         System.out.println(dropIndex + "is successfully dropped");
     }
 
+// 3
     public void printCoursesRegistered() {
         view.printCoursesRegistered(model.getCurrentIndexes());
     }
 
-    public void printOnWaitList(){
+    public void printOnWaitlist(){
         view.printOnWaitlist(model.getOnWaitlist());
     }
 
+// 4
     // this is written in index class
     public void checkVacancy(Set<Index> indexes) {
-        System.out.println("please enter the index you want to check: ");
-        int i = scan.nextInt();
+        String check = "y";
+        int i;
         Index index;
-        Iterator<Index> iterate = indexes.iterator();
-        while(iterate.hasNext()){
-            if(iterate.next().getIndexNumber() == i){
-                index = iterate.next();
-                IndexView view = new IndexView();
-                IndexController indexController = new IndexController(index, view);
-                indexController.printVacancy();
-                break;
+        while(check == "y"){
+            System.out.println("please enter the index you want to check: ");
+            i = scan.nextInt();
+            Iterator<Index> iterate = indexes.iterator();
+            for (Index idx : indexes){
+                if(idx.getIndexNumber() == i){
+                    index = idx;
+                    IndexView view = new IndexView();
+                    IndexController indexController = new IndexController(index, view);
+                    indexController.printVacancy();
+                    break;
+                }
             }
+            System.out.println("Would you like to check vacancy for another index? (please enter y/n)");
+            check = scan.next();
         }
     }
 
-    public void changeIndex(Course c, int idx) {}
+    public void changeIndex(Set<Index> indexes) {
+        /*logic:
+          1. input current index and new index
+          2. check if they are the same course using getCourseId if yes:
+          3. check new course vacancy if yes:
+          4. drop current, add new
+          5. if no: invalid, loop again*/
+
+        int curIndex;
+        int nIndex;
+        Index currentIndex = new Index();
+        Index newIndex = new Index();
+        Boolean curFound = false;
+        Boolean nFound = false;
+
+        System.out.println("---------- Change Index -----------");
+        System.out.println("Please enter current index: ");
+        curIndex = scan.nextInt();
+        System.out.println("Please enter new index: ");
+        nIndex = scan.nextInt();
+        for(Index idx1 : model.getCurrentIndexes()){
+            if(idx1.getIndexNumber() == curIndex){
+                currentIndex = idx1;
+                curFound = true;
+                break;
+            }
+        }
+
+        for(Index idx2 : indexes){
+            if(idx2.getIndexNumber() == nIndex){
+                newIndex = idx2;
+                nFound = true;
+                break;
+            }
+        }
+
+        if(!curFound){
+            System.out.println("You have not registered the current index you entered.");
+        }
+        else if(!nFound){
+            System.out.println("The new index you entered is not valid.");
+        }
+        else if(currentIndex.getCourseId() != newIndex.getCourseId()){
+            System.out.println("The indexes you entered are not from the same course.");
+        }
+        else{
+            if(newIndex.getVacancy() > 0){
+                // confirm to change
+                IndexView indexView = new IndexView();
+                IndexController currentIndexController = new IndexController(currentIndex, indexView);
+                IndexController newIndexController = new IndexController(newIndex, indexView);
+                System.out.println("Current Index Information: ");
+                currentIndexController.printIndexDetail();
+                System.out.println();
+                System.out.println("New Index Information");
+                newIndexController.printIndexDetail();
+                System.out.println();
+                System.out.println("Please enter y to confirm the change, enter n to cancel.");
+                String confirm = scan.next();
+
+                if(confirm == "y"){
+                    // drop currentIndex
+                    model.removeCurrentIndexes(currentIndex);
+                    // remove student from studentlist in index
+                    currentIndex.removeStudent(model.getMatricNo());
+                    // if there are students on waitlist for currentIndex, register the student at head of queue
+                    if(currentIndex.getWaitListLength() > 0){
+                        String matricNo = currentIndex.removeWaitlist();
+                        currentIndex.addStudent(matricNo);
+                    }
+                    // else, vacancy of currentCourse + 1
+                    else{
+                        currentIndex.setVacancy(currentIndex.getVacancy() + 1);
+                    }
+
+                    // add newIndex
+                    newIndex.addStudent(model.getMatricNo());
+                    newIndex.setVacancy(newIndex.getVacancy() - 1);
+                    // modify student
+                    model.addCurrentIndexes(newIndex);
+                    System.out.println("You have successfully changed from index " + currentIndex + " to index " + newIndex);
+                }
+                else{
+                    System.out.println("Changing of indexes cancelled.");
+                }
+            }
+            else{
+                System.out.println("The new Index do not have vacancy.");
+            }
+        }
+    }
     
 
     public void swapIndex(Course c, Student s) {}
 
     public void reclassify(Course c, String newType) {}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
