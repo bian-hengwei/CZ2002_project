@@ -1,3 +1,3 @@
-courseId, courseName, au, indexNumber, vacancy, lectureTime, lectureVenue, examTime, tutorialTime, labTime, labVenue, waitlist, studentList
-CZ2002,OODP,3,10001,0,,,,,,,U346,U123&U234&U345
-CZ2002,OODP,3,10002,2,,,,,,,,U347
+id,name,school,au,index,vacancy,lectureTime,lectureVenue,examTime,examVenue,tutorialTime,tutorialVenue,labTime,labVenue,waitlist,studentList
+CZ2002,OODP,,3,10001,0,,,,,,,,,U346,U345&U234&U123
+CZ2002,OODP,,3,10002,2,,,,,,,,,,U347
