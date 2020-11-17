@@ -1,14 +1,15 @@
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
-import java.util.LinkedList;
-import java.util.HashSet;
 
-public class Index{
-    private String courseId;  // cz2002
+public class Index {
+
+    private String courseId;
     private String courseName;
-    //private School school;
+    private String school;
     private int au;
-    private int indexNumber;  // 10203
+    private int indexNumber;
     private int vacancy;
     private String[] lectureTime;
     private String[] lectureVenue;
@@ -18,7 +19,7 @@ public class Index{
     private String tutorialVenue;
     private String labTime;
     private String labVenue;
-    private Queue<String> waitlist; // should we change to queue of students?
+    private Queue<String> waitlist;
     private Set<String> studentList;
     
     public Index() {
@@ -26,82 +27,104 @@ public class Index{
         studentList = new HashSet<String>();
     }
 
-    public Index(Course c, int idx, int vac){
-        this();
-        courseId = c.getCourseId();
-        courseName = c.getCourseName();
-        au = c.getAu();
-        //school = c.getSchool();
-        lectureTime = c.getLectureTime();
-        lectureVenue = c.getLectureVenue();
-        examTime = c.getExamTime();
-        examVenue = c.getExamVenue();
-        indexNumber = idx;
-        vacancy = vac;
-    } 
+    // getters
 
-    public String getCourseId(){
+    public String getCourseId() {
         return courseId;
-    }
-
-    public void setCourseId(String cid) {
-        courseId = cid;
     }
 
     public String getCourseName() {
         return courseName;
     }
 
+    public String getSchool() {
+        return school;
+    }
+
+    public int getAu() {
+        return au;
+    }
+
+    public int getIndexNumber() {
+        return indexNumber;
+    }
+
+    public int getVacancy() {
+        return vacancy;
+    }
+
+    public String[] getLectureTime() {
+        return lectureTime;
+    }
+
+    public String[] getLectureVenue() {
+        return lectureVenue;
+    }
+
+    public String getExamTime() {
+        return examTime;
+    }
+
+    public String getExamVenue() {
+        return examVenue;
+    }
+
+    public String getTutorialTime() {
+        return tutorialTime;
+    }
+
+    public String getTutorialVenue() {
+        return tutorialVenue;
+    }
+
+    public String getLabTime() {
+        return labTime;
+    }
+
+    public String getLabVenue() {
+        return labVenue;
+    }
+
+    public Queue<String> getWaitList() {
+        return waitlist;
+    }
+
+    public Set<String> getStudentList() {
+        return studentList;
+    }
+
+    // setters
+
+    public void setCourseId(String cid) {
+        courseId = cid;
+    }
+
     public void setCourseName(String cName) {
         courseName = cName;
     }
 
-    public int getIndexNumber(){
-        return indexNumber;
+    public void setSchool(String s) {
+        school = s;
     }
 
-    public int getVacancy(){
-        return vacancy;
+    public void setAu(int a) {
+        au = a; 
     }
 
-    public String getTutorialTime(){
-        return tutorialTime;
+    public void setIndexNumber(int idxNo){
+        indexNumber = idxNo;
     }
 
-    public String getLabTime(){
-        return labTime;
+    public void setVacancy(int vac){
+        vacancy = vac;
     }
 
-    public Queue<String> getWaitList(){
-        return waitlist;
+    public void setLectureTime(String lecture) {
+        lectureTime = lecture.split("&");
     }
 
-    public Set<String> getStudentList(){
-        return studentList;
-    }
-
-    public int getWaitListLength(){
-        return waitlist.size();
-    }
-
-    public void setIndexNumber(int indexNumber){
-        this.indexNumber = indexNumber;
-    }
-
-    public void setVacancy(int vacancy){
-        this.vacancy = vacancy;
-    }
-
-    public void setLectureTime(String[] lecture) {
-        lectureTime = lecture;
-    }
-
-    public void setTutorialTime(String tutorialTime) {
-        this.tutorialTime = tutorialTime;
-    }
-
-    public void setLabTime(String labTime) {
-        this.labTime = labTime;
+    public void setLectureVenue(String venue) {
+        lectureVenue = venue.split("&");
     }
 
     public void setExamTime(String exam) {
@@ -112,30 +135,75 @@ public class Index{
         examVenue = venue;
     }
 
-    public void addWaitlist(String matricNo){
-        waitlist.add(matricNo);
+    public void setTutorialTime(String tutorial) {
+        tutorialTime = tutorial;
     }
 
-    public String removeWaitlist(){
+    public void setTutorialVenue(String venue) {
+        tutorialVenue = venue;
+    }
+
+    public void setLabTime(String lab) {
+        labTime = lab;
+    }
+
+    public void setLabVenue(String venue) {
+        labVenue = venue;
+    }
+
+    public void setWaitlist(String wl) {
+        if (wl.equals(""))
+            return;
+        String[] matricNoArray = wl.split("&");
+        for (String matricNo: matricNoArray) {
+            addWaitlist(matricNo);
+        }
+    }
+
+    public void setStudentList(String sl) {        
+        if (sl.equals(""))
+            return;
+        String[] matricNoArray = sl.split("&");
+        for (String matricNo: matricNoArray) {
+            addStudent(matricNo);
+        }
+    }
+
+    // lists operations
+
+    public String removeWaitlist() {
         return waitlist.poll();
     }
 
     @SuppressWarnings("unchecked")
-    public void removeWaitlist(String matricNo){
+    public void removeWaitlist(String matricNo) {
         LinkedList<String> ll = (LinkedList) waitlist;
         ll.remove(matricNo);
         waitlist = ll;
     }
 
-    public int waitlistSize() {
+    public int getWaitListLength() {
         return waitlist.size();
     }
 
-    public void addStudent(String matricNo){
+    public void addWaitlist(String matricNo) {
+        waitlist.add(matricNo);
+    }
+
+    public boolean waitlistContains(String matricNo) {
+        return waitlist.contains(matricNo);
+    }
+
+    public void removeStudent(String matricNo) {
+        studentList.remove(matricNo);
+    }
+
+    public void addStudent(String matricNo) {
         studentList.add(matricNo);
     }
 
-    public void removeStudent(String matricNo){
-        studentList.remove(matricNo);
+    public boolean containsStudent(String matricNo) {
+        return studentList.contains(matricNo);
     }
+
 }
