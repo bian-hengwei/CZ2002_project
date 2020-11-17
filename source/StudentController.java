@@ -1,14 +1,12 @@
 import java.util.Queue;
 import java.util.Set;
 import java.util.LinkedList;
-import java.util.Scanner;
 import java.util.Calendar;
 
 public class StudentController{
 
 	private Student model;
 	private StudentView view;
-    Scanner scan = new Scanner(System.in);
 
 
 /*  should constructor be sth like this??? the students and student view should have some parameters

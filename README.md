@@ -15,6 +15,9 @@ The assignment for your group will be to design and develop a Console-based appl
 ## Functions:
 - [STRUCTURE.md](STRUCTURE.md)
 
+## TODO:
+- [PLAN.md](PLAN.md)
+
 ## Report & Demonstration:
 1. A detailed UML Class Diagram for the application (exported as an image)
 2. A detailed UML Sequence Diagram (exported as an image)

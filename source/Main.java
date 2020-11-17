@@ -9,6 +9,7 @@ import java.util.Set;
 public class Main {
 
     private static StudentController studentController;
+    private static AdminController adminController;
 
     public static void main(String[] args) {
 
@@ -28,7 +29,7 @@ public class Main {
             scan.nextLine();
             switch(login){
                 case 1:
-                    adminMain();
+                    adminLogin(scan);
                     break;
                 case 2:
                     studentLogin(scan);
@@ -46,7 +47,20 @@ public class Main {
     }
 
     public static void adminLogin(Scanner scan) {
-
+        boolean success = false;
+        while(!success) {
+            System.out.println("Logging in as administrator...");
+            System.out.printf("Account: ");
+            String account = scan.nextLine();
+            if (account.equals(""))
+                return;
+            System.out.printf("Password: ");
+            String password = scan.nextLine();
+            System.out.println("Checking password...");
+            adminController = new AdminController();
+            success = adminController.login(account, password);
+        }
+        adminMain(scan);
     }
 
     public static void studentLogin(Scanner scan) {
@@ -66,8 +80,26 @@ public class Main {
         studentMain(scan);
     }
 
-    public static void adminMain(){
+    public static void adminMain(Scanner scan){
+        int choice = 0;
 
+        while(choice != 7){
+            System.out.println("Please select one of the functions: ");
+            System.out.println("1. Add Course");
+            System.out.println("2. Add Student");
+            System.out.println("3. Update A Course");
+            System.out.println("4. Print Student List By Index Number");
+            System.out.println("5. Print Student List By Course");
+            System.out.println("6. Check Vacancies Available");
+            System.out.println("7. Exit");
+            choice = scan.nextInt();
+
+            switch(choice){
+                default:
+                    System.out.println("TBD");
+                    break;
+            }
+        }
     }
 
     public static void studentMain(Scanner scan){

@@ -70,11 +70,11 @@ pattern in our design.
   - [x] Read personal information
   
 - [ ] Administrator:
-  - [ ] Login
+  - [x] Login
     - Reject if:
       - Invalid password
       - Wrong account
-  - [ ] Load personal information
+  - [x] Load personal information
   - [ ] Print personal information
   - [ ] Add a new course
     - Reject if:
