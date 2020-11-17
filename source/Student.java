@@ -21,6 +21,7 @@ public class Student extends Account
     private Set<Course> takenCourses;
     private Set<Index> currentIndexes;
     private Set<Index> onWaitlist;
+    private final String SEP = System.getProperty("file.separator");
 
     // does this store total au taken or total au registered for this semester?
     private int currentAU;
@@ -32,15 +33,15 @@ public class Student extends Account
     }
 
     public Queue<String> readPasswords() {
-        return super.readPasswords("..\\data\\student_passwords.csv");
+        return super.readPasswords(".." + SEP + "data" + SEP + "student_passwords.csv");
     }
 
     public String[] readInfo(String account) {
-        return super.readInfo(account, "..\\data\\student_information.csv");
+        return super.readInfo(account, ".." + SEP + "data" + SEP + "student_information.csv");
     }
 
     public String[] readTime(String index) {
-        String filename = "..\\data\\student_time.csv";
+        String filename = ".." + SEP + "data" + SEP + "student_time.csv";
         String[] currentTuple = new String[5];
         boolean found = false;
         try {
