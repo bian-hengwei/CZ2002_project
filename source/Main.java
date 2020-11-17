@@ -10,6 +10,8 @@ public class Main {
 
     private static StudentController studentController;
     private static AdminController adminController;
+    private static Set<Index> indexes;
+    private static Set<Course> courses;
 
     public static void main(String[] args) {
 
