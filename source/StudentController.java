@@ -1,3 +1,6 @@
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Queue;
 import java.util.Set;
 import java.util.LinkedList;
@@ -36,14 +39,15 @@ public class StudentController{
 
 //  here the parameter could be String model.getMatricNo()???
     public boolean login(String account, String password, Set<Index> indexes) {
-        String hashedPassword = hash(password);
         Queue<String> allPasswords = model.readPasswords();
         String currentRecord;
-        String[] currentTuple = new String[2];
         boolean success = false;
         currentRecord = allPasswords.poll();
         while (currentRecord != null && !success) {
-            currentTuple = currentRecord.split(",");
+            String[] currentTuple = currentRecord.split(",");
+            //byte[] salt = currentTuple[3].getBytes();
+            //byte[] salt = getSalt();
+            String hashedPassword = hash(password);
             if (currentTuple[0].equals(account) && currentTuple[1].equals(hashedPassword)) {
                 System.out.println("Logged in successfully.");
                 System.out.println("Current account: " + account);
@@ -145,12 +149,42 @@ public class StudentController{
     }
 
 
+    private String hash(String password, byte[] salt) {
+        String generatedPassword = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            md.update(salt);
+            byte[] bytes = md.digest(password.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedPassword = sb.toString();
+        } catch(NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        System.out.println("generated password: " + generatedPassword);
+        return generatedPassword;
+    }
+
     private String hash(String pwd) {
         return pwd;
     }
 
-    public void readInfo(){
-        return;
+    private byte[] getSalt() {
+        System.out.println("Getting salt...");
+        try {
+            SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+            byte[] salt = new byte[16];
+            sr.nextBytes(salt);
+            System.out.println("Byte array: " + new String(salt));
+            return salt;
+        } catch(NoSuchAlgorithmException e) {
+            System.out.println("NoSuchAlgorithmException");
+            e.printStackTrace();
+        }
+        return null;
     }
 
 // 1

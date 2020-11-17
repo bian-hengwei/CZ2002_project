@@ -28,7 +28,7 @@ public class FileHandler {
         } catch(FileNotFoundException e) {
             System.out.printf("%sError: file %s not found.\n%s", ANSI_RED, path, ANSI_RESET);
             System.exit(1);
-        } catch (IOException e) {
+        } catch(IOException e) {
             System.out.printf("%sError: failed to read %s.\n%s", ANSI_RED, path, ANSI_RESET);
             System.exit(1);
         }
@@ -53,7 +53,7 @@ public class FileHandler {
         } catch(FileNotFoundException e) {
             System.out.printf("%sError: file %s not found.\n%s", ANSI_RED, path, ANSI_RESET);
             System.exit(1);
-        } catch (IOException e) {
+        } catch(IOException e) {
             System.out.printf("%sError: failed to read %s.\n%s", ANSI_RED, path, ANSI_RESET);
             System.exit(1);
         }
@@ -66,7 +66,7 @@ public class FileHandler {
             FileWriter fWrite = new FileWriter(path);
             fWrite.write(content);
             fWrite.close();
-        } catch (IOException e) {
+        } catch(IOException e) {
             System.out.printf("%sError: failed to write to %s.\n%s", ANSI_RED, path, ANSI_RESET);
             System.exit(1);
         }

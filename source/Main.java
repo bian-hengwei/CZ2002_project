@@ -1,3 +1,5 @@
+import java.io.Console;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -97,8 +99,8 @@ public class Main {
             String account = scan.nextLine();
             if (account.equals(""))
                 return;
-            System.out.printf("Password: ");
-            String password = scan.nextLine();
+            Console console = System.console();
+            String password = new String(console.readPassword("Password: "));
             System.out.println("Checking password...");
             adminController = new AdminController();
             success = adminController.login(account, password);
@@ -114,8 +116,8 @@ public class Main {
             String account = scan.nextLine();
             if (account.equals(""))
                 return;
-            System.out.printf("Password: ");
-            String password = scan.nextLine();
+            Console console = System.console();
+            String password = new String(console.readPassword("Password: "));
             System.out.println("Checking password...");
             studentController = new StudentController();
             success = studentController.login(account, password, indexes);
@@ -204,13 +206,13 @@ public class Main {
     public static void saveIndexes() {
         StringBuilder sb = new StringBuilder();
         sb.append("id,name,school,au,index,vacancy,lectureTime,lectureVenue,examTime,");
-        sb.append("examVenue,tutorialTime,tutorialVenue,labTime,labVenue,waitlist,studentList\n");
+        sb.append("examVenue,tutorialTime,tutorialVenue,labTime,labVenue,waitlist,studentList,;\n");
         for (Index idx: indexes) {
             String lectureTime = String.join("&", idx.getLectureTime());
             String lectureVenue = String.join("&", idx.getLectureVenue());
             String waitlist = String.join("&", idx.getWaitList());
             String studentList = String.join("&", idx.getStudentList());
-            sb.append(String.format("%s,%s,%s,%d,%d,%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", 
+            sb.append(String.format("%s,%s,%s,%d,%d,%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,;\n", 
                 idx.getCourseId(), idx.getCourseName(), idx.getSchool(), 
                 idx.getAu(), idx.getIndexNumber(), idx.getVacancy(), 
                 lectureTime, lectureVenue, idx.getExamTime(), 
