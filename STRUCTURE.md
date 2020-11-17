@@ -20,13 +20,13 @@ We plan to use
 pattern in our design.
   
 ## Model Properties
-- [Account (abstract)](Account.java):
+- [Account (abstract)](source/Account.java):
   
-- [Administrator](Admin.java):
+- [Administrator](source/Admin.java):
   - Name
   - Nationality
   
-- [User](Student.java):
+- [User](source/Student.java):
   - Name
   - Nationality
   - Matric Number
@@ -37,18 +37,16 @@ pattern in our design.
   - _Waitlists_
   - Current AU
   
-- [Course](Course.java):
+- [Course](source/Course.java):
   - Indexes
   
-- [Index](Index.java):
+- [Index](source/Index.java):
   - Course id
   - Course name
+  - School
+  - Number of AU
   - Index number
   - Vacancy count
-  - Number of AU
-  - School
-  - Wait list queue
-  - Registered students list
   - Lecture time
   - Lecture venue
   - (Optional) Exam time
@@ -57,9 +55,10 @@ pattern in our design.
   - (Optional) Tutorial venue
   - (Optional) Lab time
   - (Optional) Lab venue
+  - Wait list queue
+  - Registered students list
 
-- [Main](Main.java):
-  - Login periods
+- [Main](source/Main.java):
   - Courses
   - Indexes
   - Current account
@@ -120,9 +119,10 @@ pattern in our design.
       - Index full
     - Else accept and display
   
-- [ ] Course:
-  - [ ] _Seems like no special method needed_
+- [x] Course
   
-- [ ] Index:
+- [x] Index
+  
+- [ ] IndexController:
   - [ ] Methods used by above classes
   - [ ] Display methods

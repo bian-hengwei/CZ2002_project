@@ -1,12 +1,19 @@
 ## PLAN
 
-1. [ ] File input for indexes and courses
-2. [ ] Admin functions
-3. [ ] Student functions
-4. [ ] Admin and student inheritance
-5. [ ] Separate I/O class and finish file output
-6. [ ] Class diagram
-7. [ ] Sequence diagram
-8. [ ] Java doc
-9. [ ] Report
-10. [ ] Demo
+[x] File input for indexes and courses
+[ ] Admin functions
+[ ] Student functions
+[ ] Admin and student inheritance
+[ ] Separate I/O class and finish file output
+[ ] Class diagram
+[ ] Sequence diagram
+[ ] Java doc
+[ ] Report
+[ ] Demo
+
+## SMALL TARGETS
+[ ] Move all file operations inside [FileHandler.java](source/FileHandler.java)
+[ ] Save after log out from student / admin accounts
+[ ] Viewer classes _(especially for debug)_
+[ ] Fix structure of [Index.java](source/Index.java) and 
+[IndexController.java](source/IndexController.java)

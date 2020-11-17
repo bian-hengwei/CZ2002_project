@@ -54,7 +54,6 @@ public class Main {
         Set<String> indexesString = FileHandler.readToSet("index_information");
         for (String line: indexesString) {
             String[] indexInfoArray = line.split(",");
-            System.out.println(line);
             Index idx = new Index();
             idx.setCourseId(indexInfoArray[0]);
             idx.setCourseName(indexInfoArray[1]);
@@ -119,7 +118,7 @@ public class Main {
             String password = scan.nextLine();
             System.out.println("Checking password...");
             studentController = new StudentController();
-            success = studentController.login(account, password);
+            success = studentController.login(account, password, indexes);
         }
         studentMain(scan);
     }
@@ -167,11 +166,11 @@ public class Main {
             switch(choice){
 
                 default:
-                    System.out.println("TBD");
+                    System.out.println("Please choose an option.");
                     break;
-/*
+
                 case 1:
-                    studentController.addCourse();
+                    studentController.addCourse(indexes);
                     break;
 
                 case 2:
@@ -184,16 +183,20 @@ public class Main {
                     break;
 
                 case 4:
-                    studentController.changeIndex();
+                    studentController.checkVacancy(indexes);
                     break;
 
                 case 5:
-                    studentController.swapIndex();
+                    studentController.changeIndex(indexes);
                     break;
 
-                case 6:
-                    studentController.reclassify();
-                    break;*/
+                //case 6:
+                    //studentController.swapIndex();
+                    //break;
+
+                //case 7:
+                    //studentController.reclassify();
+                    //break;
             }
         }
     }

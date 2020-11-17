@@ -18,7 +18,7 @@ public class Student extends Account
     private String matricNo;
     private String major;
     private String year;
-    private Set<Course> takenCourses;
+    private Set<String> takenCourses;
     private Set<Index> currentIndexes;
     private Set<Index> onWaitlist;
     private final String SEP = System.getProperty("file.separator");
@@ -27,7 +27,7 @@ public class Student extends Account
     private int currentAU;
 
     public Student() {
-        takenCourses = new HashSet<Course>();
+        takenCourses = new HashSet<String>();
         currentIndexes = new HashSet<Index>();
         onWaitlist = new HashSet<Index>();
     }
@@ -75,7 +75,7 @@ public class Student extends Account
 
     public String getYear(){ return year; }
 
-    public Set<Course> getTakenCourses(){ return takenCourses; }
+    public Set<String> getTakenCourses(){ return takenCourses; }
 
     public Set<Index> getCurrentIndexes(){ return currentIndexes; }
 
@@ -108,16 +108,24 @@ public class Student extends Account
 
     public void setYear(String year){ this.year = year; }
 
-    public void addTakenCourses(Course course){
+    public void addTakenCourses(String course){
         takenCourses.add(course);
     }
 
-    public void removeTakenCourses(Course course){
+    public void removeTakenCourses(String course){
         takenCourses.remove(course);
     }
 
     public void removeCurrentIndexes(Index index){
         currentIndexes.remove(index);
+    }
+
+    public void addCurrentIndexes(Index index){
+        currentIndexes.add(index);
+    }
+
+    public void addOnWaitlist(Index index){
+        onWaitlist.add(index);
     }
 
     public void removeOnWaitlist(Index index){
