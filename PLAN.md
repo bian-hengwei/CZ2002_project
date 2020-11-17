@@ -1,19 +1,22 @@
 ## PLAN
-
-- [x] File input for indexes and courses
-- [ ] Admin functions
-- [ ] Student functions
-- [ ] Admin and student inheritance
-- [ ] Separate I/O class and finish file output
+- [ ] Coding
 - [ ] Class diagram
 - [ ] Sequence diagram
 - [ ] Java doc
 - [ ] Report
 - [ ] Demo
 
-## SMALL TARGETS
+## TODO
+- [x] File input for indexes and courses
+- [ ] Admin class functions
 - [ ] Move all file operations inside [FileHandler.java](source/FileHandler.java)
-- [ ] Save after log out from student / admin accounts
+- [ ] Fix inheritance of [Admin.java](source/Admin.java) and [Student.java](source/Student.java)
+- [ ] Fix inheritance of [AdminController.java](source/AdminController.java) and 
+[StudentController.java](source/StudentController.java)
 - [ ] Viewer classes _(especially for debug)_
+- [ ] Save after log out from accounts in _View_ class
 - [ ] Fix structure of [Index.java](source/Index.java) and 
 [IndexController.java](source/IndexController.java)
+- [ ] Add hash function to password
+- [ ] Student course clash
+  
