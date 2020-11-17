@@ -143,9 +143,9 @@ public class Main {
                     studentController.checkVacancy(indexes);
                     break;
 
-                //case 5:
-                    //studentController.changeIndex();
-                    //break;
+                case 5:
+                    studentController.changeIndex(indexes);
+                    break;
 
                 //case 6:
                     //studentController.swapIndex();
