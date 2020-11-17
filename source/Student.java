@@ -89,9 +89,9 @@ public class Student extends Account
         return iterate.next();
     }
 
-    public Set<Index> getonWaitlist(){ return onWaitlist; }
+    public Set<Index> getOnWaitlist(){ return onWaitlist; }
 
-    public Index getonWaitlist(int index){
+    public Index getOnWaitlist(int index){
         Iterator<Index> iterate = onWaitlist.iterator();
         while(iterate.hasNext()){
             if(iterate.next().getIndexNumber() == index){
@@ -120,7 +120,7 @@ public class Student extends Account
         currentIndexes.remove(index);
     }
 
-    public void removeonWaitlist(Index index){
+    public void removeOnWaitlist(Index index){
         onWaitlist.remove(index);
     }
 

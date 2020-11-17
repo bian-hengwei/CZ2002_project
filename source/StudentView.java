@@ -2,6 +2,7 @@ import java.util.Set;
 import java.util.Iterator;
 
 public class StudentView {
+
     public void printStudentInfo(String studentName, String nationality, String matricNo, String major, int year, int currentAu){
     	System.out.println("Student Name: " + studentName);
     	System.out.println("Nationality: " + nationality);

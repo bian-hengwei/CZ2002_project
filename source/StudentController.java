@@ -2,11 +2,15 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.LinkedList;
 import java.util.Calendar;
+import java.util.Scanner;
+import java.util.Iterator;
 
 public class StudentController{
 
 	private Student model;
 	private StudentView view;
+
+    Scanner scan = new Scanner(System.in);
 
 
 /*  should constructor be sth like this??? the students and student view should have some parameters
@@ -127,70 +131,84 @@ public class StudentController{
         return;
     }
 
-    public void dropCourse() {}
-    //     System.out.println("Please choose the index to drop from below: ");
+    public void dropCourse() {
+        System.out.println("Please choose the index to drop from below: ");
 
-    //     // print the list of registered indexes
-    //     System.out.println("Registered Courses:");
-    //     printCoursesRegistered();
+        // print the list of registered indexes
+        System.out.println("Registered Courses:");
+        printCoursesRegistered();
 
-    //     // print list of indexes on WaitList        
-    //     System.out.println("Courses on WaitList: ");
-    //     printOnWaitList();
+        // print list of indexes on WaitList        
+        System.out.println("Courses on WaitList: ");
+        printOnWaitList();
 
-    //     System.out.println("please choose type of course to drop:");
-    //     System.out.println("1. Registered Course");
-    //     System.out.println("2. Course on WaitList");
-    //     int courseType = scan.nextInt();
+        System.out.println("please choose type of course to drop:");
+        System.out.println("1. Registered Course");
+        System.out.println("2. Course on WaitList");
+        int courseType = scan.nextInt();
 
-    //     System.out.printf("Index: ");
-    //     int dropIndex = scan.nextInt();
+        System.out.printf("Index: ");
+        int dropIndex = scan.nextInt();
 
-    //     switch(dropIndex){
-    //         case 1:
-    //         // get the index object
-    //         Index i1 = model.getCurrentIndexes(dropIndex);
-    //         model.removeCurrentIndexes(i1);
-    //         // remove student from studentlist in index
-    //         i1.removeStudent(model.getMatricNo());
+        switch(dropIndex){
+            case 1:
+            // get the index object
+            Index i1 = model.getCurrentIndexes(dropIndex);
+            model.removeCurrentIndexes(i1);
+            // remove student from studentlist in index
+            i1.removeStudent(model.getMatricNo());
 
-    //         // if there are students on WaitList
-    //         if(i1.getWaitListLength() > 0){
-    //             String matricNo = i1.removeWaitlist();
-    //             i1.addStudent(matricNo);
-    //         }
-    //         else{
-    //             i1.setVacancy(i1.getVacancy() + 1);
-    //         }
-    //         break;
+            // if there are students on WaitList
+            if(i1.getWaitListLength() > 0){
+                String matricNo = i1.removeWaitlist();
+                i1.addStudent(matricNo);
+            }
+            else{
+                i1.setVacancy(i1.getVacancy() + 1);
+            }
+            break;
 
-    //         case 2:
-    //         // get the index object
-    //         Index i2 = model.getonWaitList(dropIndex);
-    //         // remove index from onWaitList
-    //         model.removeOnWaitList(i2);
-    //         // remove student from WaitList queue in index
-    //         i2.removeWaitList(model.getMatricNo());
+            case 2:
+            // get the index object
+            Index i2 = model.getOnWaitlist(dropIndex);
+            // remove index from onWaitList
+            model.removeOnWaitlist(i2);
+            // remove student from WaitList queue in index
+            i2.removeWaitlist(model.getMatricNo());
 
-    //     }
-    //     System.out.println(dropIndex + "is successfully dropped");
-    // }
+        }
+        System.out.println(dropIndex + "is successfully dropped");
+    }
 
-    // public void printCoursesRegistered() {
-    //     view.printCoursesRegistered(model.getCurrentIndexes());
-    // }
+    public void printCoursesRegistered() {
+        view.printCoursesRegistered(model.getCurrentIndexes());
+    }
 
-    // public void printOnWaitList(){
-    //     view.printOnWaitList(model.getOnWaitList());
-    // }
+    public void printOnWaitList(){
+        view.printOnWaitlist(model.getOnWaitlist());
+    }
 
-////// this is written in index class
-    // public void checkVacancy(Course c) {}
+    // this is written in index class
+    public void checkVacancy(Set<Index> indexes) {
+        System.out.println("please enter the index you want to check: ");
+        int i = scan.nextInt();
+        Index index;
+        Iterator<Index> iterate = indexes.iterator();
+        while(iterate.hasNext()){
+            if(iterate.next().getIndexNumber() == i){
+                index = iterate.next();
+                IndexView view = new IndexView();
+                IndexController indexController = new IndexController(index, view);
+                indexController.printVacancy();
+                break;
+            }
+        }
+    }
 
-    // public void changeIndex(Course c, int idx) {
+    public void changeIndex(Course c, int idx) {}
     
 
-    // public void swapIndex(Course c, Student s) {}
+    public void swapIndex(Course c, Student s) {}
 
-    // public void reclassify(Course c, String newType) {}
+    public void reclassify(Course c, String newType) {}
 }
