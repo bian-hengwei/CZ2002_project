@@ -92,40 +92,6 @@ public class Main {
         }
     }
 
-    // public static void adminLogin() {
-    //     boolean success = false;
-    //     while(!success) {
-    //         System.out.println("Logging in as administrator...");
-    //         System.out.printf("Account: ");
-    //         String account = scan.nextLine();
-    //         if (account.equals(""))
-    //             return;
-    //         Console console = System.console();
-    //         String password = new String(console.readPassword("Password: "));
-    //         System.out.println("Checking password...");
-    //         adminController = new AdminController();
-    //         success = adminController.init(account, password);
-    //     }
-    //     adminMain(scan);
-    // }
-
-    // public static void studentLogin() {
-    //     boolean success = false;
-    //     while(!success) {
-    //         System.out.println("Logging in as student...");
-    //         System.out.printf("Account: ");
-    //         String account = scan.nextLine();
-    //         if (account.equals(""))
-    //             return;
-    //         Console console = System.console();
-    //         String password = new String(console.readPassword("Password: "));
-    //         System.out.println("Checking password...");
-    //         studentController = new StudentController();
-    //         success = studentController.init(account, password, indexes);
-    //     }
-    //     studentMain(scan);
-    // }
-
     public static void studentLogin() {
         boolean success = false;
         studentController = new StudentController();
