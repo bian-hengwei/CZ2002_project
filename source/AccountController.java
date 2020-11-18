@@ -12,7 +12,7 @@ public class AccountController {
 
     // getters
 
-    public void getPrefix() {
+    public String getPrefix() {
         return prefix;
     }
 

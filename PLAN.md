@@ -1,3 +1,7 @@
+# CE/CZ2002: Object-Oriented Design & Programming
+  
+Back to [README.md](README.md)
+
 ## PLAN
 - [ ] Coding
 - [ ] Class diagram
@@ -13,6 +17,7 @@
 - [x] Fix inheritance of [Admin.java](source/Admin.java) and [Student.java](source/Student.java)
 - [x] Fix inheritance of [AdminController.java](source/AdminController.java) and 
 [StudentController.java](source/StudentController.java)
+- [ ] Move I/O of password and information to account controller
 - [ ] Admin class functions
 - [ ] Viewer classes _(especially for debug)_
 - [ ] Save after log out from accounts in _View_ class
