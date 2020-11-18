@@ -9,11 +9,11 @@
 ## TODO
 - [x] File input for indexes and courses
 - [x] Add hash function to password
-- [ ] Admin class functions
-- [ ] Move all file operations inside [FileHandler.java](source/FileHandler.java)
-- [ ] Fix inheritance of [Admin.java](source/Admin.java) and [Student.java](source/Student.java)
-- [ ] Fix inheritance of [AdminController.java](source/AdminController.java) and 
+- [x] Move all file operations inside [FileHandler.java](source/FileHandler.java)
+- [x] Fix inheritance of [Admin.java](source/Admin.java) and [Student.java](source/Student.java)
+- [x] Fix inheritance of [AdminController.java](source/AdminController.java) and 
 [StudentController.java](source/StudentController.java)
+- [ ] Admin class functions
 - [ ] Viewer classes _(especially for debug)_
 - [ ] Save after log out from accounts in _View_ class
 - [ ] Fix structure of [Index.java](source/Index.java) and 

@@ -1,6 +1,7 @@
 import java.util.Queue;
+import java.util.Set;
 
-public class AdminController{
+public class AdminController extends AccountController {
 
     private Admin model;
     private AdminView view;
@@ -8,31 +9,19 @@ public class AdminController{
     public AdminController() {
         model = new Admin();
         view = new AdminView();
+        super.setPrefix("administrator");
     }
 
-    public boolean login(String account, String password) {
-        String hashedPassword = hash(password);
-        Queue<String> allPasswords = model.readPasswords();
-        String currentRecord;
-        String[] currentTuple = new String[2];
-        boolean success = false;
-        currentRecord = allPasswords.poll();
-        while (currentRecord != null && !success) {
-            currentTuple = currentRecord.split(",");
-            if (currentTuple[0].equals(account) && currentTuple[1].equals(hashedPassword)) {
-                System.out.println("Logged in successfully.");
-                System.out.println("Current account: " + account);
-                success = true;
-            }
-            currentRecord = allPasswords.poll();
-        }
+    // initialize methods
+
+    public boolean init() {
+        Set<String> allPasswords = model.readPasswords();
+        System.out.println("Checking password...");
+        boolean success = login(allPasswords);
         if (!success) {
-            System.out.println("Login failed.");
-            System.out.println("Check account and password and try again.");
-            System.out.println("Or press enter to quit");
             return success;
         }
-        success = readAdmin(account);
+        success = readAdmin(getAccount());
         if (!success) {
             System.out.println("Admin information not found");
             System.out.println("Try another account");
@@ -50,7 +39,4 @@ public class AdminController{
         return true;
     }
 
-    private String hash(String pwd) {
-        return pwd;
-    }
 }
