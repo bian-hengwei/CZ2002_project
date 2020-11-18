@@ -1,6 +1,6 @@
-account,name,nationality,matricNo,major,year,taken,current,"waitlist(enter a space if empty, or error will occur)"
-student1,name1,sg,U123,SCSE,Y1,CZ1003,10002, 
-student2,name2,sg,U234,SCSE,Y2,CZ1003,,10001
-student3,name3,sg,U345,SCSE,Y2,CZ1003,10002, 
-student4,name4,sg,U456,SCSE,Y2,,10002, 
-student5,name5,sg,U567,SCSE,Y2,,10002, 
+account,name,nationality,matricNo,major,year,taken,current,waitlist,;
+student1,name1,sg,U123,SCSE,Y1,CZ1003,10002,,;
+student2,name2,sg,U234,SCSE,Y2,CZ1003,,10001,;
+student3,name3,sg,U345,SCSE,Y2,CZ1003,10002,,;
+student4,name4,sg,U456,SCSE,Y2,,10002,,;
+student5,name5,sg,U567,SCSE,Y2,,10002,,;
