@@ -21,10 +21,8 @@ public class Student extends Account
     private Set<String> takenCourses;
     private Set<Index> currentIndexes;
     private Set<Index> onWaitlist;
-    private final String SEP = System.getProperty("file.separator");
-
-    // does this store total au taken or total au registered for this semester?
     private int currentAU;
+    private final String SEP = System.getProperty("file.separator");
 
     public Student() {
         takenCourses = new HashSet<String>();
@@ -32,8 +30,8 @@ public class Student extends Account
         onWaitlist = new HashSet<Index>();
     }
 
-    public Queue<String> readPasswords() {
-        return super.readPasswords(".." + SEP + "data" + SEP + "student_passwords.csv");
+    public Set<String> readPasswords() {
+        return FileHandler.readToSet("student_passwords");
     }
 
     public String[] readInfo(String account) {

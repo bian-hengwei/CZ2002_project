@@ -1,12 +1,12 @@
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
-import java.util.LinkedList;
-import java.util.Calendar;
 import java.util.Scanner;
-import java.util.Iterator;
 
 public class StudentController{
 
@@ -15,45 +15,24 @@ public class StudentController{
 
     Scanner scan = new Scanner(System.in);
 
-
-/*  should constructor be sth like this??? the students and student view should have some parameters
-
-    private Index model;
-    private IndexView view;
-
-    public IndexController(Index model, IndexView view){
-        this.model = model;
-        this.view = view;
-    }
-*/
-/*
-    public StudentController(Student model, StudentView view){
-        this.model = model;
-        this.view = view;
-    }
-*/
     public StudentController() {
         model = new Student();
         view = new StudentView();
     }
 
-//  here the parameter could be String model.getMatricNo()???
     public boolean login(String account, String password, Set<Index> indexes) {
-        Queue<String> allPasswords = model.readPasswords();
-        String currentRecord;
+        Set<String> allPasswords = model.readPasswords();
         boolean success = false;
-        currentRecord = allPasswords.poll();
-        while (currentRecord != null && !success) {
+        for (String currentRecord: allPasswords) {
             String[] currentTuple = currentRecord.split(",");
-            //byte[] salt = currentTuple[3].getBytes();
-            //byte[] salt = getSalt();
-            String hashedPassword = hash(password);
-            if (currentTuple[0].equals(account) && currentTuple[1].equals(hashedPassword)) {
+            byte[] salt = hexStrToByteArr(currentTuple[1]);
+            String hashedPassword = hash(password, salt);
+            if (currentTuple[0].equals(account) && currentTuple[2].equals(hashedPassword)) {
                 System.out.println("Logged in successfully.");
                 System.out.println("Current account: " + account);
                 success = true;
+                break;
             }
-            currentRecord = allPasswords.poll();
         }
         if (!success) {
             System.out.println("Login failed.");
@@ -86,11 +65,9 @@ public class StudentController{
         model.setYear(modelInfo[5]);
         // TODO: course and index initialize
         for (String taken: modelInfo[6].split("&")) {
-            System.out.println(taken);
             model.addTakenCourses(taken);
         }
         for (String taking: modelInfo[7].split("&")) {
-            System.out.println(taking);
             if (taking.trim().equals(""))
                 break;
             for (Index idx: indexes) {
@@ -99,7 +76,6 @@ public class StudentController{
             }
         }
         for (String wl: modelInfo[8].split("&")) {
-            System.out.println(wl);
             if (wl.trim().equals(""))
                 break;
             for (Index idx: indexes) {
@@ -148,37 +124,45 @@ public class StudentController{
         return success;
     }
 
-
+    // https://howtodoinjava.com/java/java-security/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/#:~:text=PBKDF2%2C%20BCrypt%2C%20SCrypt-,Java%20Secure%20Hashing%20%E2%80%93%20MD5%2C%20SHA256%2C%20SHA512%2C%20PBKDF2%2C,weak%20and%20easy%20to%20guess.
     private String hash(String password, byte[] salt) {
         String generatedPassword = null;
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
             md.update(salt);
             byte[] bytes = md.digest(password.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for(int i=0; i< bytes.length ;i++)
-            {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            generatedPassword = sb.toString();
+            generatedPassword = byteArrToHexStr(bytes);
         } catch(NoSuchAlgorithmException e) {
+            System.out.println("NoSuchAlgorithmException");
             e.printStackTrace();
         }
-        System.out.println("generated password: " + generatedPassword);
         return generatedPassword;
     }
 
-    private String hash(String pwd) {
-        return pwd;
+    // https://www.tutorialspoint.com/convert-hex-string-to-byte-array-in-java#:~:text=To%20convert%20hex%20string%20to%20byte%20array%2C%20you%20need%20to,length%20of%20the%20byte%20array.
+    private String byteArrToHexStr(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < bytes.length; i++) {
+            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        return sb.toString();
+    }
+
+    private byte[] hexStrToByteArr(String hex) {
+        byte[] bytes = new byte[hex.length() / 2];
+        for (int i = 0; i < bytes.length; i++) {
+            int index = i * 2;
+            int j = Integer.parseInt(hex.substring(index, index + 2), 16);
+            bytes[i] = (byte) j;
+        }
+        return bytes;
     }
 
     private byte[] getSalt() {
-        System.out.println("Getting salt...");
         try {
             SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
             byte[] salt = new byte[16];
             sr.nextBytes(salt);
-            System.out.println("Byte array: " + new String(salt));
             return salt;
         } catch(NoSuchAlgorithmException e) {
             System.out.println("NoSuchAlgorithmException");
