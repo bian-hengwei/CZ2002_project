@@ -183,30 +183,61 @@ public class StudentController{
     public void addCourse(Set<Index> indexes){
         System.out.println("Please enter the index you want to add: ");
         int i = scan.nextInt();
-        Index index;
+        Index index = new Index();
+
+        boolean indexFound = false;
+        boolean courseTaken = false;
+        boolean currentlyRegistered = false;
         for (Index idx : indexes){
             if(idx.getIndexNumber() == i){
                 index = idx;
-                if(index.getVacancy() != 0){
-                    // modify index
-                    index.addStudent(model.getMatricNo());
-                    index.setVacancy(index.getVacancy() - 1);
-                    // modify student
-                    model.addCurrentIndexes(index);
-                    System.out.println("You have successfully added index " + i);
-
-                }
-
-                else{
-                    // put into waitlist of index
-                    index.addWaitlist(model.getMatricNo());
-                    // put index on student onWaitlist
-                    model.addOnWaitlist(index);
-                    System.out.println("You have been successfully added onto waitlist of index " + i);
-                }
+                indexFound = true;
                 break;
             }
         }
+
+        for(String idx : model.getTakenCourses()){
+            if(idx.equals(index.getCourseId())){
+                courseTaken = true;
+            }
+        }
+
+        for(Index idx : model.getCurrentIndexes()){
+            if(idx.getCourseId().equals(index.getCourseId())){
+                currentlyRegistered = true;
+            }
+        }
+
+        if(!indexFound){
+            System.out.println("Index entered is invalid.");
+        }
+        else if(model.getCurrentAu() + index.getAu() >= 21){
+            System.out.println("Taking this course will result in you exceeding maximum AU of 22");
+        }
+        else if(courseTaken){
+            System.out.println("You have taken this course before.");
+        }
+        // if this course is already registered
+        else if(currentlyRegistered){
+            System.out.println("This course is already registered");
+        }
+        else if(index.getVacancy() != 0){
+            // modify index
+            index.addStudent(model.getMatricNo());
+            index.setVacancy(index.getVacancy() - 1);
+            // modify student
+            model.addCurrentIndexes(index);
+            System.out.println("You have successfully added index " + i);
+        }
+        else{
+            // put into waitlist of index
+            index.addWaitlist(model.getMatricNo());
+            // put index on student onWaitlist
+            model.addOnWaitlist(index);
+            System.out.println("You have been successfully added onto waitlist of index " + i);
+        }
+
+
     }
 
 // 2
@@ -450,8 +481,32 @@ public class StudentController{
             }
         }
     }
+    
 }
 
+
+/*
+1. add course
+- check time clash no
+- check exceed 22 au y
+- check taken y 
+- currently taking y
+- email
+
+2. drop course
+- email
+
+3. print courses registered
+
+4. check vacancy
+
+5. change index
+- check clash
+- send email
+
+6. swap index
+- email
+- clash */
 
 
 
