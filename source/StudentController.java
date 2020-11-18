@@ -20,6 +20,14 @@ public class StudentController{
         view = new StudentView();
     }
 
+    public Student getModel(){
+        return model;
+    }
+
+    public StudentView getView(){
+        return view;
+    }
+
     public boolean login(String account, String password, Set<Index> indexes) {
         Set<String> allPasswords = model.readPasswords();
         boolean success = false;
@@ -378,7 +386,65 @@ public class StudentController{
     }
     
 
-    public void swapIndex(Course c, Student s) {}
+    public void swapIndex(Set<Index> indexes) {
+        boolean success = false;
+        int counter = 0;
+        int peerIndex = -1;
+        StudentController peer = new StudentController();
+        System.out.println("Your index number: ");
+        int myIndex = scan.nextInt();
+        while(!success && counter < 3){
+            System.out.println("Peer's username: ");
+            String peerUsername = scan.next();
+            System.out.println("Peer's password: ");
+            String peerPassword = scan.next();
+            System.out.println("Peer's index number: ");
+            peerIndex = scan.nextInt();
+            System.out.println("Trying peer's login...");
+            success = peer.login(peerUsername, peerPassword, indexes);
+            counter ++;
+        }
+        if(counter == 3 && !success){
+            System.out.println("You have exceeded 3 tries.");
+        }
+        else{
+            /* 1. check if 2 indexes are under same course
+               2. check if they are really registered
+               3. check time table clash (not yet)
+               4. swap
+            */
+
+            Boolean valid = true;
+
+            Index selfIndex = model.getCurrentIndexes(myIndex);
+            Index otherIndex = peer.getModel().getCurrentIndexes(peerIndex);
+
+            if(selfIndex == null){
+                System.out.println("You are not registered for " + myIndex);
+            }
+            else if(otherIndex == null){
+                System.out.println("Peer is not registered for " + peerIndex);
+            }
+            else if(selfIndex.getCourseId() != otherIndex.getCourseId()){
+                System.out.println("The two indexes entered are not from the same course.");
+            }
+            else{
+                // student
+                model.removeCurrentIndexes(selfIndex);
+                peer.getModel().removeCurrentIndexes(otherIndex);
+
+                model.addCurrentIndexes(otherIndex);
+                peer.getModel().addCurrentIndexes(selfIndex);
+
+                // index
+                selfIndex.removeStudent(model.getMatricNo());
+                otherIndex.removeStudent(peer.getModel().getMatricNo());
+
+                selfIndex.addStudent(peer.getModel().getMatricNo());
+                otherIndex.addStudent(model.getMatricNo());
+            }
+        }
+    }
 
     public void reclassify(Course c, String newType) {}
 }
