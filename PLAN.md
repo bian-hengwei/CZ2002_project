@@ -8,6 +8,7 @@
 
 ## TODO
 - [x] File input for indexes and courses
+- [x] Add hash function to password
 - [ ] Admin class functions
 - [ ] Move all file operations inside [FileHandler.java](source/FileHandler.java)
 - [ ] Fix inheritance of [Admin.java](source/Admin.java) and [Student.java](source/Student.java)
@@ -17,6 +18,5 @@
 - [ ] Save after log out from accounts in _View_ class
 - [ ] Fix structure of [Index.java](source/Index.java) and 
 [IndexController.java](source/IndexController.java)
-- [ ] Add hash function to password
 - [ ] Student course clash
   
