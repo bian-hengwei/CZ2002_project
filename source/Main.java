@@ -12,6 +12,7 @@ public class Main {
     private static AdminController adminController;
     private static Set<Index> indexes;
     private static Set<Course> courses;
+    private static Scanner scan;
 
     public static void main(String[] args) {
 
@@ -19,7 +20,7 @@ public class Main {
         courses = new HashSet<Course>();
         readIndexes();
 
-        Scanner scan = new Scanner(System.in);
+        scan = new Scanner(System.in);
 
         boolean quit = false;
         while(!quit) {
@@ -34,12 +35,12 @@ public class Main {
             System.out.print("Your choice: ");
             int login = scan.nextInt();
             scan.nextLine();
-            switch(login){
+            switch(login) {
                 case 1:
-                    adminLogin(scan);
+                    adminLogin();
                     break;
                 case 2:
-                    studentLogin(scan);
+                    studentLogin();
                     break;
                 case 3:
                     quit = true;
@@ -91,44 +92,64 @@ public class Main {
         }
     }
 
-    public static void adminLogin(Scanner scan) {
+    // public static void adminLogin() {
+    //     boolean success = false;
+    //     while(!success) {
+    //         System.out.println("Logging in as administrator...");
+    //         System.out.printf("Account: ");
+    //         String account = scan.nextLine();
+    //         if (account.equals(""))
+    //             return;
+    //         Console console = System.console();
+    //         String password = new String(console.readPassword("Password: "));
+    //         System.out.println("Checking password...");
+    //         adminController = new AdminController();
+    //         success = adminController.init(account, password);
+    //     }
+    //     adminMain(scan);
+    // }
+
+    // public static void studentLogin() {
+    //     boolean success = false;
+    //     while(!success) {
+    //         System.out.println("Logging in as student...");
+    //         System.out.printf("Account: ");
+    //         String account = scan.nextLine();
+    //         if (account.equals(""))
+    //             return;
+    //         Console console = System.console();
+    //         String password = new String(console.readPassword("Password: "));
+    //         System.out.println("Checking password...");
+    //         studentController = new StudentController();
+    //         success = studentController.init(account, password, indexes);
+    //     }
+    //     studentMain(scan);
+    // }
+
+    public static void studentLogin() {
         boolean success = false;
-        while(!success) {
-            System.out.println("Logging in as administrator...");
-            System.out.printf("Account: ");
-            String account = scan.nextLine();
-            if (account.equals(""))
-                return;
-            Console console = System.console();
-            String password = new String(console.readPassword("Password: "));
-            System.out.println("Checking password...");
-            adminController = new AdminController();
-            success = adminController.login(account, password);
+        studentController = new StudentController();
+        success = studentController.init(indexes);
+        if (!success) {
+            return;
         }
-        adminMain(scan);
+        studentMain();
     }
 
-    public static void studentLogin(Scanner scan) {
+    public static void adminLogin() {
         boolean success = false;
-        while(!success) {
-            System.out.println("Logging in as student...");
-            System.out.printf("Account: ");
-            String account = scan.nextLine();
-            if (account.equals(""))
-                return;
-            Console console = System.console();
-            String password = new String(console.readPassword("Password: "));
-            System.out.println("Checking password...");
-            studentController = new StudentController();
-            success = studentController.login(account, password, indexes);
+        adminController = new AdminController();
+        success = adminController.init();
+        if (!success) {
+            return;
         }
-        studentMain(scan);
+        adminMain();
     }
 
-    public static void adminMain(Scanner scan) {
+    public static void adminMain() {
         int choice = 0;
 
-        while(choice != 7){
+        while(choice != 7) {
             System.out.println("Please select one of the functions: ");
             System.out.println("1. Add Course");
             System.out.println("2. Add Student");
@@ -141,7 +162,7 @@ public class Main {
             choice = scan.nextInt();
             scan.nextLine();
 
-            switch(choice){
+            switch(choice) {
                 default:
                     System.out.println("TBD");
                     break;
@@ -149,10 +170,10 @@ public class Main {
         }
     }
 
-    public static void studentMain(Scanner scan) {
+    public static void studentMain() {
         int choice = 0;
 
-        while(choice != 7){
+        while(choice != 7) {
             System.out.println("Please select one of the functions: ");
             System.out.println("1. Add Course");
             System.out.println("2. Drop Course");
@@ -165,7 +186,7 @@ public class Main {
             choice = scan.nextInt();
             scan.nextLine();
 
-            switch(choice){
+            switch(choice) {
 
                 default:
                     System.out.println("Please choose an option.");

@@ -8,17 +8,19 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.Scanner;
 
-public class StudentController{
+public class StudentController extends AccountController {
 
 	private Student model;
 	private StudentView view;
-
-    Scanner scan = new Scanner(System.in);
+    private Scanner scan = new Scanner(System.in);
 
     public StudentController() {
         model = new Student();
         view = new StudentView();
+        super.setPrefix("student");
     }
+
+    // getters
 
     public Student getModel(){
         return model;
@@ -28,27 +30,16 @@ public class StudentController{
         return view;
     }
 
-    public boolean login(String account, String password, Set<Index> indexes) {
+    // initialize methods
+
+    public boolean init(Set<Index> indexes) {
         Set<String> allPasswords = model.readPasswords();
-        boolean success = false;
-        for (String currentRecord: allPasswords) {
-            String[] currentTuple = currentRecord.split(",");
-            byte[] salt = hexStrToByteArr(currentTuple[1]);
-            String hashedPassword = hash(password, salt);
-            if (currentTuple[0].equals(account) && currentTuple[2].equals(hashedPassword)) {
-                System.out.println("Logged in successfully.");
-                System.out.println("Current account: " + account);
-                success = true;
-                break;
-            }
-        }
+        System.out.println("Checking password...");
+        boolean success = login(allPasswords);
         if (!success) {
-            System.out.println("Login failed.");
-            System.out.println("Check account and password and try again.");
-            System.out.println("Or press enter to quit");
             return success;
         }
-        success = readStudent(account, indexes);
+        success = readStudent(getAccount(), indexes);
         if (!success) {
             System.out.println("Student information not found");
             System.out.println("Try another account or contact admin for help");
@@ -71,7 +62,6 @@ public class StudentController{
         model.setMatricNo(modelInfo[3]);
         model.setMajor(modelInfo[4]);
         model.setYear(modelInfo[5]);
-        // TODO: course and index initialize
         for (String taken: modelInfo[6].split("&")) {
             model.addTakenCourses(taken);
         }
@@ -132,52 +122,7 @@ public class StudentController{
         return success;
     }
 
-    // https://howtodoinjava.com/java/java-security/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/#:~:text=PBKDF2%2C%20BCrypt%2C%20SCrypt-,Java%20Secure%20Hashing%20%E2%80%93%20MD5%2C%20SHA256%2C%20SHA512%2C%20PBKDF2%2C,weak%20and%20easy%20to%20guess.
-    private String hash(String password, byte[] salt) {
-        String generatedPassword = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(salt);
-            byte[] bytes = md.digest(password.getBytes());
-            generatedPassword = byteArrToHexStr(bytes);
-        } catch(NoSuchAlgorithmException e) {
-            System.out.println("NoSuchAlgorithmException");
-            e.printStackTrace();
-        }
-        return generatedPassword;
-    }
-
-    // https://www.tutorialspoint.com/convert-hex-string-to-byte-array-in-java#:~:text=To%20convert%20hex%20string%20to%20byte%20array%2C%20you%20need%20to,length%20of%20the%20byte%20array.
-    private String byteArrToHexStr(byte[] bytes) {
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < bytes.length; i++) {
-            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-        }
-        return sb.toString();
-    }
-
-    private byte[] hexStrToByteArr(String hex) {
-        byte[] bytes = new byte[hex.length() / 2];
-        for (int i = 0; i < bytes.length; i++) {
-            int index = i * 2;
-            int j = Integer.parseInt(hex.substring(index, index + 2), 16);
-            bytes[i] = (byte) j;
-        }
-        return bytes;
-    }
-
-    private byte[] getSalt() {
-        try {
-            SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-            byte[] salt = new byte[16];
-            sr.nextBytes(salt);
-            return salt;
-        } catch(NoSuchAlgorithmException e) {
-            System.out.println("NoSuchAlgorithmException");
-            e.printStackTrace();
-        }
-        return null;
-    }
+    // student functions
 
 // 1 /////////// add conditions
     public void addCourse(Set<Index> indexes){
@@ -232,7 +177,7 @@ public class StudentController{
         switch(courseType){
             case 1:
             // get the index object
-            Index i1 = model.getCurrentIndexes(dropIndex);
+            Index i1 = model.getIndex(dropIndex);
             model.removeCurrentIndexes(i1);
             // remove student from studentlist in index
             i1.removeStudent(model.getMatricNo());
@@ -306,8 +251,8 @@ public class StudentController{
         int nIndex;
         Index currentIndex = new Index();
         Index newIndex = new Index();
-        Boolean curFound = false;
-        Boolean nFound = false;
+        boolean curFound = false;
+        boolean nFound = false;
 
         System.out.println("---------- Change Index -----------");
         System.out.println("Please enter current index: ");
@@ -397,14 +342,10 @@ public class StudentController{
         System.out.println("Your index number: ");
         int myIndex = scan.nextInt();
         while(!success && counter < 3){
-            System.out.println("Peer's username: ");
-            String peerUsername = scan.next();
-            System.out.println("Peer's password: ");
-            String peerPassword = scan.next();
             System.out.println("Peer's index number: ");
             peerIndex = scan.nextInt();
             System.out.println("Trying peer's login...");
-            success = peer.login(peerUsername, peerPassword, indexes);
+            success = peer.init(indexes);
             counter ++;
         }
         if(counter == 3 && !success){
@@ -417,10 +358,10 @@ public class StudentController{
                4. swap
             */
 
-            Boolean valid = true;
+            boolean valid = true;
 
-            Index selfIndex = model.getCurrentIndexes(myIndex);
-            Index otherIndex = peer.getModel().getCurrentIndexes(peerIndex);
+            Index selfIndex = model.getIndex(myIndex);
+            Index otherIndex = peer.getModel().getIndex(peerIndex);
 
             if(selfIndex == null){
                 System.out.println("You are not registered for " + myIndex);
@@ -451,16 +392,3 @@ public class StudentController{
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

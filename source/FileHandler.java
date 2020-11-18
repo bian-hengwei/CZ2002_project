@@ -40,7 +40,7 @@ public class FileHandler {
         String[] row = null;
         boolean found = false;
         try {
-            FileReader fRead = new FileReader(filename);
+            FileReader fRead = new FileReader(path);
             BufferedReader bRead = new BufferedReader(fRead);
             String newline;
             while ((newline = bRead.readLine()) != null && !found) {
