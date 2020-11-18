@@ -78,13 +78,12 @@ public class Student extends Account
     public Set<Index> getCurrentIndexes(){ return currentIndexes; }
 
     public Index getCurrentIndexes(int index){
-        Iterator<Index> iterate = currentIndexes.iterator();
-        while(iterate.hasNext()){
-            if(iterate.next().getIndexNumber() == index){
-                break;
+        for(Index idx : currentIndexes){
+            if(idx.getIndexNumber() == index){
+                return idx;
             }
         }
-        return iterate.next();
+        return null;
     }
 
     public Set<Index> getOnWaitlist(){ return onWaitlist; }

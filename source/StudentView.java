@@ -13,11 +13,10 @@ public class StudentView {
     }
 
     public void printCoursesRegistered(Set<Index> indexes){
-    	Iterator<Index> iterate = indexes.iterator();
-    	System.out.println("---------- Courses Registered ----------");
-    	while(iterate.hasNext()){
-    		System.out.println("Course: " + iterate.next().getCourseId() + " Index: " + iterate.next().getIndexNumber());
-    	}
+        System.out.println("---------- Courses Registered ----------");
+    	for(Index idx : indexes){
+            System.out.println("Course: " + idx.getCourseId() + " Index: " + idx.getIndexNumber());
+        }
     	System.out.println();
     }
 

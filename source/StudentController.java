@@ -179,7 +179,7 @@ public class StudentController{
         return null;
     }
 
-// 1
+// 1 /////////// add conditions
     public void addCourse(Set<Index> indexes){
         System.out.println("Please enter the index you want to add: ");
         int i = scan.nextInt();
@@ -229,7 +229,7 @@ public class StudentController{
         System.out.printf("Index: ");
         int dropIndex = scan.nextInt();
 
-        switch(dropIndex){
+        switch(courseType){
             case 1:
             // get the index object
             Index i1 = model.getCurrentIndexes(dropIndex);
@@ -257,10 +257,10 @@ public class StudentController{
             i2.removeWaitlist(model.getMatricNo());
 
         }
-        System.out.println(dropIndex + "is successfully dropped");
+        System.out.println(dropIndex + " is successfully dropped");
     }
 
-// 3
+// 3 *****************
     public void printCoursesRegistered() {
         view.printCoursesRegistered(model.getCurrentIndexes());
     }
@@ -275,9 +275,10 @@ public class StudentController{
         String check = "y";
         int i;
         Index index;
-        while(check == "y"){
+        while(check.equals("y")){
             System.out.println("please enter the index you want to check: ");
             i = scan.nextInt();
+            scan.nextLine();
             Iterator<Index> iterate = indexes.iterator();
             for (Index idx : indexes){
                 if(idx.getIndexNumber() == i){
@@ -289,7 +290,7 @@ public class StudentController{
                 }
             }
             System.out.println("Would you like to check vacancy for another index? (please enter y/n)");
-            check = scan.next();
+            check = scan.nextLine();
         }
     }
 
@@ -335,7 +336,7 @@ public class StudentController{
         else if(!nFound){
             System.out.println("The new index you entered is not valid.");
         }
-        else if(currentIndex.getCourseId() != newIndex.getCourseId()){
+        else if(!currentIndex.getCourseId().equals(newIndex.getCourseId())){
             System.out.println("The indexes you entered are not from the same course.");
         }
         else{
@@ -353,7 +354,7 @@ public class StudentController{
                 System.out.println("Please enter y to confirm the change, enter n to cancel.");
                 String confirm = scan.next();
 
-                if(confirm == "y"){
+                if(confirm.equals("y")){
                     // drop currentIndex
                     model.removeCurrentIndexes(currentIndex);
                     // remove student from studentlist in index
@@ -373,7 +374,9 @@ public class StudentController{
                     newIndex.setVacancy(newIndex.getVacancy() - 1);
                     // modify student
                     model.addCurrentIndexes(newIndex);
-                    System.out.println("You have successfully changed from index " + currentIndex + " to index " + newIndex);
+                    System.out.println("You have successfully changed from index " + 
+                        currentIndex.getIndexNumber() + " to index " + 
+                        newIndex.getIndexNumber());
                 }
                 else{
                     System.out.println("Changing of indexes cancelled.");
@@ -425,7 +428,7 @@ public class StudentController{
             else if(otherIndex == null){
                 System.out.println("Peer is not registered for " + peerIndex);
             }
-            else if(selfIndex.getCourseId() != otherIndex.getCourseId()){
+            else if(!selfIndex.getCourseId().equals(otherIndex.getCourseId())){
                 System.out.println("The two indexes entered are not from the same course.");
             }
             else{
@@ -442,11 +445,11 @@ public class StudentController{
 
                 selfIndex.addStudent(peer.getModel().getMatricNo());
                 otherIndex.addStudent(model.getMatricNo());
+
+                System.out.println("Indexes successfully switched");
             }
         }
     }
-
-    public void reclassify(Course c, String newType) {}
 }
 
 

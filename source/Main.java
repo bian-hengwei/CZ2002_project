@@ -185,20 +185,16 @@ public class Main {
                     break;
 
                 case 4:
-                    studentController.checkVacancy(indexes);
-                    break;
-
-                case 5:
                     studentController.changeIndex(indexes);
                     break;
 
-                //case 6:
-                    //studentController.swapIndex();
-                    //break;
+                case 5:
+                    studentController.swapIndex(indexes);
+                    break;
 
-                //case 7:
-                    //studentController.reclassify();
-                    //break;
+                case 6:
+                    studentController.checkVacancy(indexes);
+                    break;
             }
         }
     }
