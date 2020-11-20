@@ -6,8 +6,10 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-public class Student extends Account {
+public class Student{
 
+    private String name;
+    private String nationality;
     private String matricNo;
     private String major;
     private String year;
@@ -20,7 +22,6 @@ public class Student extends Account {
         takenCourses = new HashSet<String>();
         currentIndexes = new HashSet<Index>();
         onWaitlist = new HashSet<Index>();
-        super.setPrefix("student");
     }
 
     public String[] readTime(String index) {
@@ -28,6 +29,14 @@ public class Student extends Account {
     }
 
     // getters
+    
+    public String getName() {
+        return name;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
 
     public String getMatricNo() {
         return matricNo;
@@ -58,6 +67,14 @@ public class Student extends Account {
     }
 
     // setters
+    
+    public void setName(String n) {
+        name = n;
+    }
+
+    public void setNationality(String n) {
+        nationality = n;
+    }
 
     public void setMatricNo(String matricNo) {
         this.matricNo = matricNo;

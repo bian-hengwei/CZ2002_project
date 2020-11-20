@@ -24,13 +24,11 @@ We plan to use
 pattern in our design.
   
 ## Model Properties
-- [Account (abstract)](source/Account.java):
-  - Name
-  - Nationality
-  
 - [Administrator](source/Admin.java):
   
 - [User](source/Student.java):
+  - Name
+  - Nationality
   - Matric Number
   - Major
   - Year

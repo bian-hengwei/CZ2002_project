@@ -32,17 +32,22 @@ public class AccountController {
 
     // common login methods
 
-    public boolean login(Set<String> allPasswords) {
+    public boolean login() {
         boolean success = false;
         while (!success) {
+            System.out.println("Logging in as " + prefix + "...");
+            System.out.println("(press enter to exit)");
             String[] loginInfo = promptForPassword();
             if (loginInfo == null) {
                 return false;
             }
-            success = checkPassword(loginInfo[0], loginInfo[1], allPasswords);
+            success = checkPassword(loginInfo[0], loginInfo[1]);
             if (!success) {
                 System.out.println("Login failed.");
                 System.out.println("Check account and password and try again.");
+            } else {
+                System.out.println("Logged in successfully.");
+                System.out.println("Current account: " + account);
             }
         }
         return success;
@@ -51,8 +56,6 @@ public class AccountController {
     public String[] promptForPassword() {
         Scanner scan = new Scanner(System.in);
         String[] loginInfo = new String[2];
-        System.out.println("Logging in as " + prefix + "...");
-        System.out.println("(press enter to exit)");
         System.out.printf("Account: ");
         loginInfo[0] = scan.nextLine();
         if (loginInfo[0].equals("")) {
@@ -66,24 +69,26 @@ public class AccountController {
         return loginInfo;
     }
 
-    public boolean checkPassword(String acc, String password, Set<String> allPasswords) {
-        for (String currentRecord: allPasswords) {
-            String[] currentTuple = currentRecord.split(",");
-            byte[] salt = hexStrToByteArr(currentTuple[1]);
-            String hashedPassword = hash(password, salt);
-            if (currentTuple[0].equals(acc) && currentTuple[2].equals(hashedPassword)) {
-                System.out.println("Logged in successfully.");
-                System.out.println("Current account: " + acc);
-                account = acc;
-                return true;
-            }
+    public boolean checkPassword(String acc, String password) {
+        String[] info = FileHandler.readRow(prefix + "_passwords", acc);
+        if (info == null)
+            return false;
+        byte[] salt = hexStrToByteArr(info[1]);
+        String hashedPassword = hash(password, salt);
+        if (info[0].equals(acc) && info[2].equals(hashedPassword)) {
+            account = acc;
+            return true;
         }
         return false;
     }
 
-    // private helper methods for hashing
+    public String[] readInfo(String account) {
+        return FileHandler.readRow(prefix + "_information", account);
+    }
 
-    private String hash(String password, byte[] salt) {
+    // helper methods for hashing
+
+    public String hash(String password, byte[] salt) {
         String generatedPassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
@@ -97,7 +102,7 @@ public class AccountController {
         return generatedPassword;
     }
 
-    private String byteArrToHexStr(byte[] bytes) {
+    public String byteArrToHexStr(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < bytes.length; i++) {
             sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
@@ -105,7 +110,7 @@ public class AccountController {
         return sb.toString();
     }
 
-    private byte[] hexStrToByteArr(String hex) {
+    public byte[] hexStrToByteArr(String hex) {
         byte[] bytes = new byte[hex.length() / 2];
         for (int i = 0; i < bytes.length; i++) {
             int index = i * 2;
@@ -115,7 +120,7 @@ public class AccountController {
         return bytes;
     }
 
-    private byte[] getSalt() {
+    public byte[] getSalt() {
         try {
             SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
             byte[] salt = new byte[16];
@@ -129,3 +134,4 @@ public class AccountController {
     }
 
 }
+

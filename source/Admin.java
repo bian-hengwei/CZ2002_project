@@ -1,7 +1,5 @@
-public class Admin extends Account {
+public class Admin{
 
-    public Admin() {
-        super.setPrefix("admin");
-    }
+    public Admin() {}
 
 }

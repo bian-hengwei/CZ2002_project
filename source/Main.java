@@ -117,18 +117,26 @@ public class Main {
 
         while(choice != 7) {
             System.out.println("Please select one of the functions: ");
-            System.out.println("1. Add Course");
+            System.out.println("1. Edit Student Access Period");
             System.out.println("2. Add Student");
-            System.out.println("3. Update A Course");
-            System.out.println("4. Print Student List By Index Number");
-            System.out.println("5. Print Student List By Course");
-            System.out.println("6. Check Vacancies Available");
+            System.out.println("3. Add/Update A Course");
+            System.out.println("4. Check Available Slot For An Index Number");
+            System.out.println("5. Print Student List By Index Number");
+            System.out.println("6. Print Student List By Course");
             System.out.println("7. Exit");
             System.out.print("Your choice: ");
             choice = scan.nextInt();
             scan.nextLine();
 
             switch(choice) {
+                case 1:
+                    adminController.editAccessPeriod();
+                    break;
+
+                case 2:
+                    adminController.addStudent();
+                    break;
+
                 default:
                     System.out.println("TBD");
                     break;

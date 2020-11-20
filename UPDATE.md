@@ -18,3 +18,7 @@ Back to [README.md](README.md)
 - [x] Create inheritance for [AccountController.java](source/AccountController.java), 
 [Admin.java](source/AdminController.java), [Student.java](source/StudentController.java)
   
+20/11/2020
+- [x] Removed [Admin.java](source/Admin.java) from inheritance relationship temporarily
+- [x] Edit Access Period
+- [x] Add student (account and password)

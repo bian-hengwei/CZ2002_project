@@ -33,9 +33,8 @@ public class StudentController extends AccountController {
     // initialize methods
 
     public boolean init(Set<Index> indexes) {
-        Set<String> allPasswords = model.readPasswords();
         System.out.println("Checking password...");
-        boolean success = login(allPasswords);
+        boolean success = login();
         if (!success) {
             return success;
         }
@@ -54,7 +53,7 @@ public class StudentController extends AccountController {
     }
 
     public boolean readStudent(String account, Set<Index> indexes) {
-        String[] modelInfo = model.readInfo(account);
+        String[] modelInfo = readInfo(account);
         if (modelInfo == null)
             return false;
         model.setName(modelInfo[1]);
