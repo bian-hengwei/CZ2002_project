@@ -82,10 +82,35 @@ public class AdminController extends AccountController {
         byte[] salt = getSalt();
         String saltString = byteArrToHexStr(salt);
         String hashed = hash(accountInfo[1], salt);
-        String content = String.format("%s,%s,%s,;", accountInfo[0], saltString, hashed);
+        String content = String.join(",", accountInfo[0], saltString, hashed, ";");
         FileHandler.writeLine("student_passwords", accountInfo[0], content);
         System.out.println("Successfully saved");
         // save student tbd
-   }
+    }
+
+    // 3
+    public void updateCourse(Set<Index> indexes) {
+        System.out.println("Course control system");
+        System.out.println("Please enter the index that you want to add / update");
+        int indexNumber = scan.nextInt();
+        IndexController iControl = new IndexController();
+        scan.nextLine();
+        boolean found = false;
+        for (Index idx: indexes) {
+            if (idx.getIndexNumber() == indexNumber) {
+                iControl.setModel(idx);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("Index not found in the system");
+            indexes.add(iControl.getModel());
+            iControl.addIndex(indexNumber);
+        } else {
+            System.out.println("Index found in the system");
+            iControl.updateIndex();
+        }
+    }
 
 }

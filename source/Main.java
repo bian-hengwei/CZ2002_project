@@ -137,6 +137,10 @@ public class Main {
                     adminController.addStudent();
                     break;
 
+                case 3:
+                    adminController.updateCourse(indexes);
+                    break;
+
                 default:
                     System.out.println("TBD");
                     break;

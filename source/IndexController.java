@@ -17,6 +17,14 @@ public class IndexController{
 		view.printVacancy(model.getCourseId(), model.getIndexNumber(), model.getVacancy(), model.getWaitListLength());
 	}
 
+	public Index getModel() {
+		return model;
+	}
+
+	public void setModel(Index i) {
+		model = i;
+	}
+
 	public boolean checkTimeClash(Index targetIndex){
 		int modelStartTime;
 		int modelEndTime;
@@ -96,6 +104,23 @@ public class IndexController{
 			}
 		}
 		return true;
+	}
+
+	public void addIndex(int idxNo) {
+		model.setIndexNumber(idxNo);
+		System.out.println("Adding new index " + idxNo + " to system");
+		System.out.printf("Enter course id: ");
+		model.setCourseId(scan.nextLine());
+		System.out.printf("Enter course name: ");
+		model.setCourseName(scan.nextLine());
+		System.out.printf("Enter school: ");
+		model.school(scan.nextLine());
+		System.out.printf("Enter course id: ");
+		model.setCourseId(scan.nextLine());
+	}
+
+	public void updateIndex() {
+		System.out.println("Updating index " + model.getIndexNumber());
 	}
 }
 
