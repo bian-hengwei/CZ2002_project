@@ -33,7 +33,6 @@ public class StudentController extends AccountController {
     // initialize methods
 
     public boolean init(Set<Index> indexes) {
-        System.out.println("Checking password...");
         boolean success = login();
         if (!success) {
             return success;
@@ -56,6 +55,7 @@ public class StudentController extends AccountController {
         String[] modelInfo = readInfo(account);
         if (modelInfo == null)
             return false;
+        model.setAccount(modelInfo[0]);
         model.setName(modelInfo[1]);
         model.setNationality(modelInfo[2]);
         model.setMatricNo(modelInfo[3]);
@@ -128,8 +128,8 @@ public class StudentController extends AccountController {
         System.out.println("Please enter the index you want to add: ");
         int i = scan.nextInt();
         Index index = new Index();
-        IndexView indexView = new IndexView();
-        IndexController indexController = new IndexController(index, indexView);
+        
+        IndexController indexController = new IndexController(index);
 
         boolean indexFound = false;
         boolean courseTaken = false;
@@ -276,8 +276,7 @@ public class StudentController extends AccountController {
             for (Index idx : indexes){
                 if(idx.getIndexNumber() == i){
                     index = idx;
-                    IndexView view = new IndexView();
-                    IndexController indexController = new IndexController(index, view);
+                    IndexController indexController = new IndexController(index);
                     indexController.printVacancy();
                     break;
                 }
@@ -335,9 +334,9 @@ public class StudentController extends AccountController {
         else{
             if(newIndex.getVacancy() > 0){
                 // confirm to change
-                IndexView indexView = new IndexView();
-                IndexController currentIndexController = new IndexController(currentIndex, indexView);
-                IndexController newIndexController = new IndexController(newIndex, indexView);
+                
+                IndexController currentIndexController = new IndexController(currentIndex);
+                IndexController newIndexController = new IndexController(newIndex);
                 System.out.println("Current Index Information: ");
                 currentIndexController.printIndexDetail();
                 System.out.println();

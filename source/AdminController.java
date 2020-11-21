@@ -18,7 +18,6 @@ public class AdminController extends AccountController {
     // initialize methods
 
     public boolean init() {
-        System.out.println("Checking password...");
         boolean success = login();
         if (!success) {
             return success;
@@ -85,32 +84,220 @@ public class AdminController extends AccountController {
         String content = String.join(",", accountInfo[0], saltString, hashed, ";");
         FileHandler.writeLine("student_passwords", accountInfo[0], content);
         System.out.println("Successfully saved");
+        System.out.println();
         // save student tbd
     }
 
     // 3
-    public void updateCourse(Set<Index> indexes) {
-        System.out.println("Course control system");
-        System.out.println("Please enter the index that you want to add / update");
-        int indexNumber = scan.nextInt();
-        IndexController iControl = new IndexController();
-        scan.nextLine();
-        boolean found = false;
-        for (Index idx: indexes) {
-            if (idx.getIndexNumber() == indexNumber) {
-                iControl.setModel(idx);
-                found = true;
-                break;
+    public void addUpdateCourse(Set<Course> courses, Set<Index> indexes) {
+        boolean quit = false;
+        while (!quit) {
+            System.out.println();
+            System.out.println("Select an option: ");
+            System.out.println("1. Add a new course");
+            System.out.println("2. Modify an existing course");
+            System.out.println("3. Exit");
+            System.out.printf("Option: ");
+            int option = scan.nextInt();
+            scan.nextLine();
+            String courseId;
+            switch (option) {
+                case 1:
+                    System.out.printf("Course ID: ");
+                    courseId = scan.nextLine();
+                    if (!addCourse(courseId, courses))
+                        break;
+                    addUpdateIndex(courseId, courses, indexes);
+                    break;
+
+                case 2:
+                    System.out.printf("Course ID: ");
+                    courseId = scan.nextLine();
+                    if (!updateCourse(courseId, courses))
+                        break;
+                    addUpdateIndex(courseId, courses, indexes);
+                    break;
+
+                case 3:
+                    quit = true;
+                    break;
+
+                default:
+                    System.out.println("Invalid option");
             }
         }
-        if (!found) {
-            System.out.println("Index not found in the system");
-            indexes.add(iControl.getModel());
-            iControl.addIndex(indexNumber);
-        } else {
-            System.out.println("Index found in the system");
-            iControl.updateIndex();
+    }
+
+    private boolean addCourse(String courseId, Set<Course> courses) {
+        for (Course c: courses) {
+            if (c.getCourseId().equals(courseId)) {
+                System.out.println("Error: current course already exists");
+                return false;
+            }
         }
+        Course newCourse = new Course(courseId);
+        System.out.printf("School of the course: ");
+        newCourse.setSchool(scan.nextLine());
+        courses.add(newCourse);
+        return true;
+    }
+
+    private boolean updateCourse(String courseId, Set<Course> courses) {
+        Course course = null;
+        for (Course c: courses) {
+            if (c.getCourseId().equals(courseId)) {
+                course = c;
+            }
+        }
+        if (course == null) {
+            System.out.println("Error: current course does not exist");
+            return false;
+        }
+        boolean quit = false;
+        while (!quit) {
+            System.out.println();
+            System.out.println("Select an option: ");
+            System.out.println("1. Change course id");
+            System.out.println("2. Change school");
+            System.out.println("3. Continue");
+            System.out.printf("Option: ");
+            int option = scan.nextInt();
+            scan.nextLine();
+            switch (option) {
+                case 1:
+                    System.out.printf("Course ID: ");
+                    String newId = scan.nextLine();
+                    course.setCourseId(newId);
+                    break;
+
+                case 2:
+                    System.out.printf("School: ");
+                    String school = scan.nextLine();
+                    course.setSchool(school);
+                    break;
+
+                case 3:
+                    quit = true;
+                    break;
+
+                default:
+                    System.out.println("Invalid option");
+            }
+        }
+        return true;
+    }
+
+    private void addUpdateIndex(String courseId, Set<Course> courses, Set<Index> indexes) {
+        Course course = null;
+        for (Course c: courses) {
+            if (c.getCourseId().equals(courseId)) {
+                course = c;
+            }
+        }
+        boolean quit = false;
+        while (!quit) {
+            System.out.println();
+            System.out.println("Choose an option:");
+            System.out.println("1. Display all indexes");
+            System.out.println("2. Add new index");
+            System.out.println("3. Modify existing index");
+            System.out.println("4. Remove current index");
+            System.out.println("5. Exit");
+            System.out.printf("Option: ");
+            int indexNo;
+            int option = scan.nextInt();
+            scan.nextLine();
+            switch (option) {
+                case 1:
+                    if (course.size() == 0) {
+                        System.out.println("No index added");
+                        break;
+                    }
+                    for (Index i: course.getIndexes())
+                        System.out.printf(i.getIndexNumber() + " ");
+                    System.out.println();
+                    break;
+
+                case 2:
+                    System.out.printf("Index number: ");
+                    indexNo = scan.nextInt();
+                    scan.nextLine();
+                    if (indexes.contains(indexNo)) {
+                        System.out.println("Index already exists");
+                    } else {
+                        Index idxAdd = new Index(indexNo);
+                        course.addIndex(idxAdd);
+                        indexes.add(idxAdd);
+                        System.out.println("Index added");
+                        IndexController iControlAdd = new IndexController(idxAdd);
+                        iControlAdd.editIndex();
+                    }
+                    break;
+
+                case 3:
+                    System.out.printf("Index number: ");
+                    indexNo = scan.nextInt();
+                    scan.nextLine();
+                    boolean modify = false;
+                    for (Index i: course.getIndexes()) {
+                        if (i.getIndexNumber() == indexNo) {
+                            modify = true;
+                        }
+                    }
+                    if (!modify) {
+                        System.out.println("Index not found");
+                    } else {
+                        Index idxModify = course.getIndex(indexNo);
+                        IndexController iControlModify = new IndexController(idxModify);
+                        iControlModify.editIndex();
+                    }
+                    break;
+
+                case 4:
+                    System.out.printf("Index number: ");
+                    indexNo = scan.nextInt();
+                    scan.nextLine();
+                    boolean delete = false;
+                    for (Index i: course.getIndexes()) {
+                        if (i.getIndexNumber() == indexNo) {
+                            delete = true;
+                            course.removeIndex(indexNo);
+                            indexes.remove(i);
+                            System.out.println("Successfully deleted");
+                            break;
+                        }
+                    }
+                    if (!delete) {
+                        System.out.println("Index not found");
+                    }
+                    break;
+
+                case 5:
+                    quit = true;
+                    break;
+
+                default:
+                    System.out.println("Invalid option");
+            }
+        }
+
+    }
+
+    public void printByIndex(Set<Index> indexes) {
+        for (Index i: indexes) {
+            IndexController ic = new IndexController(i);
+            ic.printStudents();
+        }
+    }
+
+    public void printByCourse(Set<Course> courses) {
+        for (Course c: courses) {
+            printByIndex(c.getIndexes());
+        }
+    }
+
+    public void save() {
+        System.out.println("saved");
     }
 
 }

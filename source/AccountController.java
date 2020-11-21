@@ -33,6 +33,7 @@ public class AccountController {
     // common login methods
 
     public boolean login() {
+        System.out.println("Checking password...");
         boolean success = false;
         while (!success) {
             System.out.println("Logging in as " + prefix + "...");
@@ -75,7 +76,7 @@ public class AccountController {
             return false;
         byte[] salt = hexStrToByteArr(info[1]);
         String hashedPassword = hash(password, salt);
-        if (info[0].equals(acc) && info[2].equals(hashedPassword)) {
+        if (info[2].equals(hashedPassword)) {
             account = acc;
             return true;
         }

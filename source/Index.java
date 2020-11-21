@@ -25,6 +25,13 @@ public class Index {
     public Index() {
         waitlist = new LinkedList<String>();
         studentList = new HashSet<String>();
+        lectureTime = new String[]{"", ""};
+        lectureVenue = new String[]{"", ""};
+    }
+
+    public Index(int idx) {
+        this();
+        indexNumber = idx;
     }
 
     // getters
@@ -121,10 +128,28 @@ public class Index {
 
     public void setLectureTime(String lecture) {
         lectureTime = lecture.split("&");
+        if (lectureTime.length == 0) {
+            lectureTime = new String[]{"", ""};
+        } else if (lectureTime.length == 1) {
+            lectureTime = new String[]{lectureTime[0], ""};
+        }
+    }
+
+    public void setLectureTime(int idx, String time) {
+        lectureTime[idx] = time;
     }
 
     public void setLectureVenue(String venue) {
         lectureVenue = venue.split("&");
+        if (lectureVenue.length == 0) {
+            lectureVenue = new String[]{"", ""};
+        } else if (lectureVenue.length == 1) {
+            lectureVenue = new String[]{lectureVenue[0], ""};
+        }
+    }
+
+    public void setLectureVenue(int idx, String venue) {
+        lectureVenue[idx] = venue;
     }
 
     public void setExamTime(String exam) {

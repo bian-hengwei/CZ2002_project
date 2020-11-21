@@ -18,12 +18,13 @@ public class Main {
 
         indexes = new HashSet<Index>();
         courses = new HashSet<Course>();
+
         readIndexes();
 
         scan = new Scanner(System.in);
 
         boolean quit = false;
-        while(!quit) {
+        while (!quit) {
             System.out.println();
             System.out.println("--------------------------------------------");
             System.out.println("| My STudent Automated Registration System |");
@@ -32,10 +33,10 @@ public class Main {
             System.out.println("1. Admin login");
             System.out.println("2. Student login");
             System.out.println("3. Quit");
-            System.out.print("Your choice: ");
+            System.out.printf("Your choice: ");
             int login = scan.nextInt();
             scan.nextLine();
-            switch(login) {
+            switch (login) {
                 case 1:
                     adminLogin();
                     break;
@@ -51,6 +52,135 @@ public class Main {
         }
         saveIndexes();
         scan.close();
+    }
+
+    public static void studentLogin() {
+        boolean success = false;
+        studentController = new StudentController();
+        success = studentController.init(indexes);
+        if (!success) {
+            return;
+        }
+        studentMain();
+    }
+
+    public static void adminLogin() {
+        boolean success = false;
+        adminController = new AdminController();
+        success = adminController.init();
+        if (!success) {
+            return;
+        }
+        adminMain();
+    }
+
+    public static void adminMain() {
+        
+        int choice = 0;
+        while (choice != 7) {
+            System.out.println();
+            System.out.println("Please select one of the functions: ");
+            System.out.println("1. Edit Student Access Period");
+            System.out.println("2. Add Student");
+            System.out.println("3. Add/Update A Course");
+            System.out.println("4. Check Available Slot For An Index Number");
+            System.out.println("5. Print Student List By Index Number");
+            System.out.println("6. Print Student List By Course");
+            System.out.println("7. Exit");
+            System.out.printf("Your choice: ");
+            choice = scan.nextInt();
+            scan.nextLine();
+
+            switch (choice) {
+                case 1:
+                    adminController.editAccessPeriod();
+                    break;
+
+                case 2:
+                    adminController.addStudent();
+                    break;
+
+                case 3:
+                    adminController.addUpdateCourse(courses, indexes);
+                    break;
+
+                case 4:
+                    break;
+
+                case 5:
+                    adminController.printByIndex(indexes);
+                    break;
+
+                case 6:
+                    adminController.printByCourse(courses);
+                    break;
+
+                case 7:
+                    // save current account
+                    adminController.save();
+                    System.out.println("Saving admin...");
+                    break;
+
+                default:
+                    System.out.println("Invalid option");
+                    break;
+            }
+        }
+    }
+
+    public static void studentMain() {
+        
+        int choice = 0;
+        while (choice != 7) {
+            System.out.println("Please select one of the functions: ");
+            System.out.println("1. Add Course");
+            System.out.println("2. Drop Course");
+            System.out.println("3. Check/Print Courses Registered and on Wait list");
+            System.out.println("4. Change Index Number of Course");
+            System.out.println("5. Swap Index Number with Another Student");
+            System.out.println("6. Check Vacancies Available");
+            System.out.println("7. Exit");
+            System.out.printf("Your choice: ");
+            choice = scan.nextInt();
+            scan.nextLine();
+
+            switch (choice) {
+
+                case 1:
+                    studentController.addCourse(indexes);
+                    break;
+
+                case 2:
+                    studentController.dropCourse();
+                    break;
+
+                case 3:
+                    studentController.printCoursesRegistered();
+                    studentController.printOnWaitlist();
+                    break;
+
+                case 4:
+                    studentController.changeIndex(indexes);
+                    break;
+
+                case 5:
+                    studentController.swapIndex(indexes);
+                    break;
+
+                case 6:
+                    studentController.checkVacancy(indexes);
+                    break;
+
+                case 7:
+                    studentController.saveStudentInfo();
+                    System.out.println("Saving student...");
+                    break;
+
+                default:
+                    System.out.println("Invalid option");
+                    break;
+            }
+        }
     }
 
     public static void readIndexes() {
@@ -85,120 +215,11 @@ public class Main {
             }
             if (!added) {
                 Course course = new Course(idx.getCourseId());
+                course.setSchool(idx.getSchool());
                 course.addIndex(idx);
                 courses.add(course);
             }
             indexes.add(idx);
-        }
-    }
-
-    public static void studentLogin() {
-        boolean success = false;
-        studentController = new StudentController();
-        success = studentController.init(indexes);
-        if (!success) {
-            return;
-        }
-        studentMain();
-    }
-
-    public static void adminLogin() {
-        boolean success = false;
-        adminController = new AdminController();
-        success = adminController.init();
-        if (!success) {
-            return;
-        }
-        adminMain();
-    }
-
-    public static void adminMain() {
-        int choice = 0;
-
-        while(choice != 7) {
-            System.out.println("Please select one of the functions: ");
-            System.out.println("1. Edit Student Access Period");
-            System.out.println("2. Add Student");
-            System.out.println("3. Add/Update A Course");
-            System.out.println("4. Check Available Slot For An Index Number");
-            System.out.println("5. Print Student List By Index Number");
-            System.out.println("6. Print Student List By Course");
-            System.out.println("7. Exit");
-            System.out.print("Your choice: ");
-            choice = scan.nextInt();
-            scan.nextLine();
-
-            switch(choice) {
-                case 1:
-                    adminController.editAccessPeriod();
-                    break;
-
-                case 2:
-                    adminController.addStudent();
-                    break;
-
-                case 3:
-                    adminController.updateCourse(indexes);
-                    break;
-
-                default:
-                    System.out.println("TBD");
-                    break;
-            }
-        }
-    }
-
-    public static void studentMain() {
-        int choice = 0;
-
-        while(choice != 7) {
-            System.out.println("Please select one of the functions: ");
-            System.out.println("1. Add Course");
-            System.out.println("2. Drop Course");
-            System.out.println("3. Check/Print Courses Registered and on Wait list");
-            System.out.println("4. Change Index Number of Course");
-            System.out.println("5. Swap Index Number with Another Student");
-            System.out.println("6. Check Vacancies Available");
-            System.out.println("7. Exit");
-            System.out.print("Your choice: ");
-            choice = scan.nextInt();
-            scan.nextLine();
-
-            switch(choice) {
-
-                default:
-                    System.out.println("Please choose an option.");
-                    break;
-
-                case 1:
-                    studentController.addCourse(indexes);
-                    break;
-
-                case 2:
-                    studentController.dropCourse();
-                    break;
-
-                case 3:
-                    studentController.printCoursesRegistered();
-                    studentController.printOnWaitlist();
-                    break;
-
-                case 4:
-                    studentController.changeIndex(indexes);
-                    break;
-
-                case 5:
-                    studentController.swapIndex(indexes);
-                    break;
-
-                case 6:
-                    studentController.checkVacancy(indexes);
-                    break;
-
-                case 7:
-                    studentController.saveStudentInfo();
-                    break;
-            }
         }
     }
 

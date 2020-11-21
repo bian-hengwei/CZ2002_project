@@ -1,19 +1,25 @@
 import java.util.Set;
+import java.util.Scanner;
 
-public class IndexController{
+public class IndexController {
 	private Index model;
 	private IndexView view;
 
-	public IndexController(Index model, IndexView view){
-		this.model = model;
-		this.view = view;
+	public IndexController() {
+		model = new Index();
+		view = new IndexView();
 	}
 
-	public void printIndexDetail(){
+	public IndexController(Index model) {
+		this.model = model;
+		view = new IndexView();
+	}
+
+	public void printIndexDetail() {
 		view.printIndexDetail(model.getCourseId(), model.getIndexNumber(), model.getVacancy(), model.getTutorialTime(), model.getLabTime());
 	}
 
-	public void printVacancy(){
+	public void printVacancy() {
 		view.printVacancy(model.getCourseId(), model.getIndexNumber(), model.getVacancy(), model.getWaitListLength());
 	}
 
@@ -25,7 +31,7 @@ public class IndexController{
 		model = i;
 	}
 
-	public boolean checkTimeClash(Index targetIndex){
+	public boolean checkTimeClash(Index targetIndex) {
 		int modelStartTime;
 		int modelEndTime;
 		int targetStartTime;
@@ -68,64 +74,58 @@ public class IndexController{
 
 
 		// check exam time
-		if(modelExamDate != targetExamDate){
-				if(modelExamStart > targetExamStart && modelExamStart < targetExamEnd){
-					noTimeClash = false;
-				}
-				else if(modelExamEnd > targetExamStart && modelExamEnd < targetExamEnd){
-					noTimeClash = false;
-				}
-				else if(modelExamStart > targetExamStart && modelExamEnd < targetExamEnd){
-					noTimeClash = false;
-				}
-				else if(targetExamStart > modelExamStart && targetExamEnd < modelExamEnd){
-					noTimeClash = false;
-				}
-		}
+		if ((modelExamDate != targetExamDate) && 
+			((modelExamStart > targetExamStart && 
+				modelExamStart < targetExamEnd) || 
+			(modelExamEnd > targetExamStart && 
+				modelExamEnd < targetExamEnd) || 
+			(modelExamStart > targetExamStart && 
+				modelExamEnd < targetExamEnd) || 
+			(targetExamStart > modelExamStart && 
+				targetExamEnd < modelExamEnd)))
+				noTimeClash = false;
 
-		for(i = 0; i < 4; i++){
-			if(modelArray[i].equals("")){
+		for(i = 0; i < 4; i++) {
+			if(modelArray[i].equals("")) {
 				continue;
 			}
-			if(i == 3){
+			if(i == 3) {
 				modelOddEven = modelArray[i].substring(0, 3);
 				modelStartTime = Integer.parseInt(modelArray[i].substring(6, 10));
 				modelEndTime = Integer.parseInt(modelArray[i].substring(11, 15));
 				modelDay = modelArray[i].substring(3, 6);
-			}
-			else{
+			} else {
 				modelStartTime = Integer.parseInt(modelArray[i].substring(3, 7));
 				modelEndTime = Integer.parseInt(modelArray[i].substring(8, 12));
 				modelDay = modelArray[i].substring(0, 3);
 			}
-			for(j = 0; j < 4; j++){
-				if(targetArray[j].equals("")){
+			for (j = 0; j < 4; j++) {
+				if (targetArray[j].equals("")) {
 					continue;
 				}
-				if(i == 3){
+				if (i == 3) {
 					targetOddEven = targetArray[i].substring(0, 3);
 					targetStartTime = Integer.parseInt(targetArray[i].substring(6, 10));
 					targetEndTime = Integer.parseInt(targetArray[i].substring(11, 15));
 					targetDay = targetArray[i].substring(3, 6);
-				}
-				else{
+				} else {
 					targetStartTime = Integer.parseInt(targetArray[i].substring(3, 7));
 					targetEndTime = Integer.parseInt(targetArray[i].substring(8, 12));
 					targetDay = targetArray[i].substring(0, 3);
 				}
-				if(i == 3 && j == 3 && !modelOddEven.equals(targetOddEven)){
+				if (i == 3 && j == 3 && !modelOddEven.equals(targetOddEven)) {
 					continue;
 				}
-				if(modelStartTime > targetStartTime && modelStartTime < targetEndTime){
+				if (modelStartTime > targetStartTime && modelStartTime < targetEndTime) {
 					noTimeClash = false;
 				}
-				else if(modelEndTime > targetStartTime && modelEndTime < targetEndTime){
+				else if (modelEndTime > targetStartTime && modelEndTime < targetEndTime) {
 					noTimeClash = false;
 				}
-				else if(modelStartTime > targetStartTime && modelEndTime < targetEndTime){
+				else if (modelStartTime > targetStartTime && modelEndTime < targetEndTime) {
 					noTimeClash = false;
 				}
-				else if(targetStartTime > modelStartTime && targetEndTime < modelEndTime){
+				else if (targetStartTime > modelStartTime && targetEndTime < modelEndTime) {
 					noTimeClash = false;
 				}
 			}
@@ -133,22 +133,101 @@ public class IndexController{
 		return noTimeClash;
 	}
 
-	public void addIndex(int idxNo) {
-		model.setIndexNumber(idxNo);
-		System.out.println("Adding new index " + idxNo + " to system");
-		System.out.printf("Enter course id: ");
-		model.setCourseId(scan.nextLine());
-		System.out.printf("Enter course name: ");
-		model.setCourseName(scan.nextLine());
-		System.out.printf("Enter school: ");
-		model.school(scan.nextLine());
-		System.out.printf("Enter course id: ");
-		model.setCourseId(scan.nextLine());
+	public void editIndex() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Editing index " + model.getIndexNumber());
+        boolean quit = false;
+        while (!quit) {
+            System.out.println();
+            System.out.println("Choose an option:");
+            System.out.println("1. Print current index information");
+            System.out.println("2. Change index number");
+            System.out.println("3. Change vacancy");
+            System.out.println("4. Set lecture");
+            System.out.println("5. Set exam");
+            System.out.println("6. Set tutorial");
+            System.out.println("7. Set lab");
+            System.out.println("8. Exit");
+            System.out.printf("Option: ");
+            int option = scan.nextInt();
+            scan.nextLine();
+            switch (option) {
+
+                case 1:
+                	view.printIndex(model);
+                	break;
+
+                case 2:
+                	System.out.printf("New index number: ");
+                	int newIndex = scan.nextInt();
+                	scan.nextLine();
+                	model.setIndexNumber(newIndex);
+                	break;
+
+                case 3:
+                	System.out.printf("New vacancy: ");
+                	int newVacancy = scan.nextInt();
+                	scan.nextLine();
+                	model.setVacancy(newVacancy);
+                	fixWaitlist();
+                	break;
+
+                case 4:
+        			System.out.printf(String.join(" ", "Lecture Time:", "0.", model.getLectureTime()[0], 
+        				"1.", model.getLectureTime()[1], "\n"));
+        			System.out.println("Select index to edit (or empty lecture to delete)");
+        			System.out.printf("Option: ");
+        			int op = scan.nextInt();
+        			scan.nextLine();
+        			if (op != 0 && op != 1) {
+        				System.out.println("Invalid option");
+        				break;
+        			}
+        			System.out.printf("New lecture time (MON1030-1130): ");
+        			model.setLectureTime(op, scan.nextLine());
+        			System.out.printf("New lecture venue: ");
+        			model.setLectureVenue(op, scan.nextLine());
+        			System.out.println("Successfully saved");
+        			break;
+
+                case 5:
+        			System.out.printf("New exam time (12011000-1100): ");
+        			model.setExamTime(scan.nextLine());
+        			System.out.printf("New exam venue: ");
+        			model.setExamVenue(scan.nextLine());
+        			System.out.println("Successfully saved");
+        			break;
+
+        		case 6:
+        			System.out.printf("New tutorial time (MON1030-1130): ");
+        			model.setTutorialTime(scan.nextLine());
+        			System.out.printf("New tutorial venue: ");
+        			model.setTutorialVenue(scan.nextLine());
+        			System.out.println("Successfully saved");
+        			break;
+
+        		case 7:
+        			System.out.printf("New lab time (ODDMON1030-1230): ");
+        			model.setLabTime(scan.nextLine());
+        			System.out.printf("New lab venue: ");
+        			model.setLabVenue(scan.nextLine());
+        			System.out.println("Successfully saved");
+        			break;
+
+        		case 8:
+        			quit = true;
+        			break;
+
+        		default:
+        			System.out.println("Invalid option");
+            }
+        }
 	}
 
-	public void updateIndex() {
-		System.out.println("Updating index " + model.getIndexNumber());
+	public void printStudents() {
+		view.printStudents(model);
 	}
+
+	public void fixWaitlist() {}
+
 }
-
-     
