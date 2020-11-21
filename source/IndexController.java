@@ -31,7 +31,7 @@ public class IndexController {
 		model = i;
 	}
 
-	public boolean checkTimeClash(Index targetIndex) {
+	private boolean timeClashWithIndex(Index targetIndex){
 		int modelStartTime;
 		int modelEndTime;
 		int targetStartTime;
@@ -46,8 +46,8 @@ public class IndexController {
 		// targetSet: all taken time
 		// modelSet: all taken time
 
-		String[] targetArray = new String[5];
-		String[] modelArray = new String[5];
+		String[] targetArray = new String[4];
+		String[] modelArray = new String[4];
 
 		targetArray[0] = targetIndex.getLectureTime()[0];
 		targetArray[1] = targetIndex.getLectureTime()[1];
@@ -121,16 +121,32 @@ public class IndexController {
 				}
 				else if (modelEndTime > targetStartTime && modelEndTime < targetEndTime) {
 					noTimeClash = false;
+					System.out.printf("%d, %d, 3\n", i, j);
 				}
 				else if (modelStartTime > targetStartTime && modelEndTime < targetEndTime) {
 					noTimeClash = false;
+					System.out.printf("%d, %d, 4\n", i, j);
 				}
 				else if (targetStartTime > modelStartTime && targetEndTime < modelEndTime) {
 					noTimeClash = false;
+					System.out.printf("%d, %d, 5\n", i, j);
+				}
+				else if(targetStartTime == modelStartTime){
+					noTimeClash = false;
+					System.out.printf("%d, %d, 6\n", i, j);
 				}
 			}
 		}
 		return noTimeClash;
+	}
+
+	public Index timeClashWithSet(Set<Index> indexes) {
+		for(Index idx : indexes) {
+	        if(!idx.getCourseId().equals(model.getCourseId()) && !timeClashWithIndex(idx)){
+	            return idx;
+	        }
+	    }
+	    return null;
 	}
 
 	public void editIndex() {
