@@ -49,7 +49,7 @@ public class Main {
                     System.out.println("Invalid option");
             }
         }
-        saveIndexes();
+        //saveIndexes();
         scan.close();
     }
 

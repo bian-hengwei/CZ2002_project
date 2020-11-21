@@ -4,9 +4,9 @@ public class IndexController{
 	private Index model;
 	private IndexView view;
 
-	public IndexController(Index model, IndexView view){
+	public IndexController(Index model){
 		this.model = model;
-		this.view = view;
+		view = new IndexView();
 	}
 
 	public void printIndexDetail(){
@@ -32,8 +32,8 @@ public class IndexController{
 		// targetSet: all taken time
 		// modelSet: all taken time
 
-		String[] targetArray = new String[5];
-		String[] modelArray = new String[5];
+		String[] targetArray = new String[4];
+		String[] modelArray = new String[4];
 
 		targetArray[0] = targetIndex.getLectureTime()[0];
 		targetArray[1] = targetIndex.getLectureTime()[1];
@@ -95,15 +95,15 @@ public class IndexController{
 					continue;
 				}
 				if(i == 3){
-					targetOddEven = targetArray[i].substring(0, 3);
-					targetStartTime = Integer.parseInt(targetArray[i].substring(6, 10));
-					targetEndTime = Integer.parseInt(targetArray[i].substring(11, 15));
-					targetDay = targetArray[i].substring(3, 6);
+					targetOddEven = targetArray[j].substring(0, 3);
+					targetStartTime = Integer.parseInt(targetArray[j].substring(6, 10));
+					targetEndTime = Integer.parseInt(targetArray[j].substring(11, 15));
+					targetDay = targetArray[j].substring(3, 6);
 				}
 				else{
-					targetStartTime = Integer.parseInt(targetArray[i].substring(3, 7));
-					targetEndTime = Integer.parseInt(targetArray[i].substring(8, 12));
-					targetDay = targetArray[i].substring(0, 3);
+					targetStartTime = Integer.parseInt(targetArray[j].substring(3, 7));
+					targetEndTime = Integer.parseInt(targetArray[j].substring(8, 12));
+					targetDay = targetArray[j].substring(0, 3);
 				}
 				if(i == 3 && j == 3 && !modelOddEven.equals(targetOddEven)){
 					continue;

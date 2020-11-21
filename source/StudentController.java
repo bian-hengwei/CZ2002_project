@@ -127,9 +127,8 @@ public class StudentController extends AccountController {
     public void addCourse(Set<Index> indexes){
         System.out.println("Please enter the index you want to add: ");
         int i = scan.nextInt();
-        Index index = new Index();
-        IndexView indexView = new IndexView();
-        IndexController indexController = new IndexController(index, indexView);
+        Index index = null;
+        IndexController indexController = null;
 
         boolean indexFound = false;
         boolean courseTaken = false;
@@ -141,9 +140,21 @@ public class StudentController extends AccountController {
         for (Index idx : indexes){
             if(idx.getIndexNumber() == i){
                 index = idx;
+                indexController = new IndexController(index);
                 indexFound = true;
                 break;
             }
+        }
+
+        if(!indexFound){
+            System.out.println("Index entered is invalid.");
+            return;
+        }
+
+
+        if(model.getCurrentAu() + index.getAu() >= 21){
+            System.out.println("Taking this course will result in you exceeding maximum AU of 22");
+            return;
         }
 
         for(String idx : model.getTakenCourses()){
@@ -153,12 +164,24 @@ public class StudentController extends AccountController {
             }
         }
 
+        if(courseTaken){
+            System.out.println("You have taken this course before.");
+            return;
+        }
+
         for(Index idx : model.getCurrentIndexes()){
             if(idx.getCourseId().equals(index.getCourseId())){
                 currentlyRegistered = true;
                 break;
             }
         }
+
+        if(currentlyRegistered){
+            System.out.println("This course is already registered");
+            return;
+        }
+
+
 
         for(Index idx : model.getCurrentIndexes()){
             if(!indexController.checkTimeClash(idx)){
@@ -168,24 +191,13 @@ public class StudentController extends AccountController {
             }
         }
 
-        if(!indexFound){
-            System.out.println("Index entered is invalid.");
-        }
-        else if(model.getCurrentAu() + index.getAu() >= 21){
-            System.out.println("Taking this course will result in you exceeding maximum AU of 22");
-        }
-        else if(courseTaken){
-            System.out.println("You have taken this course before.");
-        }
-        // if this course is already registered
-        else if(currentlyRegistered){
-            System.out.println("This course is already registered");
-        }
-        else if(timeClash){
+        if(timeClash){
             System.out.println("This course has a time clash with " + clashedIndex.getCourseId() + 
                                "which you are currently registered");
+            return;
         }
-        else if(index.getVacancy() != 0){
+
+        if(index.getVacancy() != 0){
             index.addStudent(model.getMatricNo());
             index.setVacancy(index.getVacancy() - 1);
             // modify student
@@ -276,8 +288,7 @@ public class StudentController extends AccountController {
             for (Index idx : indexes){
                 if(idx.getIndexNumber() == i){
                     index = idx;
-                    IndexView view = new IndexView();
-                    IndexController indexController = new IndexController(index, view);
+                    IndexController indexController = new IndexController(index);
                     indexController.printVacancy();
                     break;
                 }
@@ -335,9 +346,8 @@ public class StudentController extends AccountController {
         else{
             if(newIndex.getVacancy() > 0){
                 // confirm to change
-                IndexView indexView = new IndexView();
-                IndexController currentIndexController = new IndexController(currentIndex, indexView);
-                IndexController newIndexController = new IndexController(newIndex, indexView);
+                IndexController currentIndexController = new IndexController(currentIndex);
+                IndexController newIndexController = new IndexController(newIndex);
                 System.out.println("Current Index Information: ");
                 currentIndexController.printIndexDetail();
                 System.out.println();
