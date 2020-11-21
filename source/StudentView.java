@@ -4,20 +4,20 @@ import java.util.Iterator;
 public class StudentView {
 
     public void printStudentInfo(String studentName, String nationality, String matricNo, String major, int year, int currentAu){
-    	System.out.println("Student Name: " + studentName);
-    	System.out.println("Nationality: " + nationality);
-    	System.out.println("Matriculation Number: " + matricNo);
-    	System.out.println("Major: " + major);
-    	System.out.println("Year: " + year);
-    	System.out.println("Number of AUs taken: " + currentAu);
+        System.out.println("Student Name: " + studentName);
+        System.out.println("Nationality: " + nationality);
+        System.out.println("Matriculation Number: " + matricNo);
+        System.out.println("Major: " + major);
+        System.out.println("Year: " + year);
+        System.out.println("Number of AUs taken: " + currentAu);
     }
 
     public void printCoursesRegistered(Set<Index> indexes) {
         System.out.println("---------- Courses Registered ----------");
-    	for(Index idx : indexes){
+        for(Index idx : indexes){
             System.out.println("Course: " + idx.getCourseId() + " Index: " + idx.getIndexNumber());
         }
-    	System.out.println();
+        System.out.println();
     }
 
     public void printOnWaitlist(Set<Index> indexes) {

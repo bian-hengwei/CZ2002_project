@@ -134,4 +134,31 @@ public class AccountController {
         return null;
     }
 
+    // 4
+    // this is written in index class
+    public void checkVacancy(Set<Index> indexes) {
+        Scanner scan = new Scanner(System.in);
+        String check = "y";
+        int i;
+        while(check.equals("y")){
+            Index index = null;
+            System.out.println("please enter the index you want to check: ");
+            i = scan.nextInt();
+            scan.nextLine();
+            for (Index idx : indexes){
+                if(idx.getIndexNumber() == i){
+                    index = idx;
+                    IndexController indexController = new IndexController(index);
+                    indexController.printVacancy();
+                    break;
+                }
+            }
+            if (index == null) {
+                System.out.println("Index not found");
+            }
+            System.out.println("Would you like to check vacancy for another index? (please enter y/n)");
+            check = scan.nextLine();
+        }
+    }
+
 }

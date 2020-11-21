@@ -105,6 +105,7 @@ public class Main {
                     break;
 
                 case 4:
+                    adminController.checkVacancy(indexes);
                     break;
 
                 case 5:

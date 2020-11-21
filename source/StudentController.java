@@ -278,30 +278,6 @@ public class StudentController extends AccountController {
         view.printOnWaitlist(model.getOnWaitlist());
     }
 
-// 4
-    // this is written in index class
-    public void checkVacancy(Set<Index> indexes) {
-        String check = "y";
-        int i;
-        Index index;
-        while(check.equals("y")){
-            System.out.println("please enter the index you want to check: ");
-            i = scan.nextInt();
-            scan.nextLine();
-            Iterator<Index> iterate = indexes.iterator();
-            for (Index idx : indexes){
-                if(idx.getIndexNumber() == i){
-                    index = idx;
-                    IndexController indexController = new IndexController(index);
-                    indexController.printVacancy();
-                    break;
-                }
-            }
-            System.out.println("Would you like to check vacancy for another index? (please enter y/n)");
-            check = scan.nextLine();
-        }
-    }
-
     public void changeIndex(Set<Index> indexes) {
         /*logic:
           1. input current index and new index

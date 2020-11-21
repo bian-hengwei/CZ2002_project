@@ -18,10 +18,12 @@ Back to [README.md](README.md)
 - [x] Fix inheritance of [AdminController.java](source/AdminController.java) and 
 [StudentController.java](source/StudentController.java)
 - [x] Move I/O of password and information to account controller
+- [x] Student course clash
 - [ ] Admin class functions
-- [ ] Viewer classes _(especially for debug)_
-- [ ] Save after log out from accounts in _View_ class
-- [ ] Fix structure of [Index.java](source/Index.java) and 
-[IndexController.java](source/IndexController.java)
-- [ ] Student course clash
+  - Admin add student information
+  - Admin fix add course
+  - Print students by course/index in [AdminView.java](source/AdminView.java)
+  - [x] Show Vacancies (_move student controller one to account controller?_)
+  - Admin save
+- [ ] Student wait list I/O
   

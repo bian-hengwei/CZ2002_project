@@ -1,8 +1,8 @@
-public class IndexView{
+public class IndexView {
     
     // for students
     // step 3 of add course and drop course. needs to print the course details for students before confirming to add or drop. waitlist and student list should not be shown
-    public void printIndexDetail(String courseId, int indexNumber, int vacancy, String tutorialTime, String labTime){
+    public void printIndexDetail(String courseId, int indexNumber, int vacancy, String tutorialTime, String labTime) {
         System.out.println("Course id: " + courseId);
         System.out.println("Index: " + indexNumber);
         System.out.println("Tutorial Timing:" + tutorialTime);
@@ -11,7 +11,7 @@ public class IndexView{
 
     // for students
     // print vacancy of a course
-    public void printVacancy(String courseId, int indexNumber, int vacancy, int waitlistLength){
+    public void printVacancy(String courseId, int indexNumber, int vacancy, int waitlistLength) {
         System.out.println("Course id: " + courseId);
         System.out.println("Index: " + indexNumber);
         System.out.println("Vacancy: " + vacancy);
