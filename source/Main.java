@@ -190,6 +190,10 @@ public class Main {
                 case 6:
                     studentController.checkVacancy(indexes);
                     break;
+
+                case 7:
+                    studentController.saveStudentInfo();
+                    break;
             }
         }
     }
