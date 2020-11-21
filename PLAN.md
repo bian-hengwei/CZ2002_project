@@ -20,10 +20,17 @@ Back to [README.md](README.md)
 - [x] Move I/O of password and information to account controller
 - [x] Student course clash
 - [ ] Admin class functions
-  - Admin add student information
-  - Admin fix add course
+  - Admin add student information _invalid data entry_
+  - Admin fix add course _display_ _invalid data entry_
   - Print students by course/index in [AdminView.java](source/AdminView.java)
-  - [x] Show Vacancies (_move student controller one to account controller?_)
+  - [x]Show Vacancies (_move student controller one to account controller?_)
   - Admin save
 - [ ] Student wait list I/O
+- [ ] Email
+- [ ] Check vacancies display
+- [ ] Print student timetable
+
+## TESTS
+- [ ] Empty exam/tutorial/lab
+- [ ] Email
   
