@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class StudentController extends AccountController {
 
-	private Student model;
+    private Student model;
 	private StudentView view;
     private Scanner scan = new Scanner(System.in);
 
@@ -128,10 +128,16 @@ public class StudentController extends AccountController {
         System.out.println("Please enter the index you want to add: ");
         int i = scan.nextInt();
         Index index = new Index();
+        IndexView indexView = new IndexView();
+        IndexController indexController = new IndexController(index, indexView);
 
         boolean indexFound = false;
         boolean courseTaken = false;
         boolean currentlyRegistered = false;
+        boolean timeClash = false;
+
+        Index clashedIndex = new Index();
+
         for (Index idx : indexes){
             if(idx.getIndexNumber() == i){
                 index = idx;
@@ -143,12 +149,22 @@ public class StudentController extends AccountController {
         for(String idx : model.getTakenCourses()){
             if(idx.equals(index.getCourseId())){
                 courseTaken = true;
+                break;
             }
         }
 
         for(Index idx : model.getCurrentIndexes()){
             if(idx.getCourseId().equals(index.getCourseId())){
                 currentlyRegistered = true;
+                break;
+            }
+        }
+
+        for(Index idx : model.getCurrentIndexes()){
+            if(!indexController.checkTimeClash(idx)){
+                clashedIndex = idx;
+                timeClash = true;
+                break;
             }
         }
 
@@ -165,8 +181,11 @@ public class StudentController extends AccountController {
         else if(currentlyRegistered){
             System.out.println("This course is already registered");
         }
+        else if(timeClash){
+            System.out.println("This course has a time clash with " + clashedIndex.getCourseId() + 
+                               "which you are currently registered");
+        }
         else if(index.getVacancy() != 0){
-            // modify index
             index.addStudent(model.getMatricNo());
             index.setVacancy(index.getVacancy() - 1);
             // modify student
@@ -180,8 +199,6 @@ public class StudentController extends AccountController {
             model.addOnWaitlist(index);
             System.out.println("You have been successfully added onto waitlist of index " + i);
         }
-
-
     }
 
 // 2
@@ -216,6 +233,7 @@ public class StudentController extends AccountController {
             if(i1.getWaitListLength() > 0){
                 String matricNo = i1.removeWaitlist();
                 i1.addStudent(matricNo);
+
                 //// add email here/////
             }
             else{
@@ -420,6 +438,10 @@ public class StudentController extends AccountController {
                 System.out.println("Indexes successfully switched");
             }
         }
+    }
+
+    public void saveStudentInfo() {
+        view.saveStudentInfo(this.model);
     }
     
 }

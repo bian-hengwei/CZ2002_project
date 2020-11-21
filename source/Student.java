@@ -6,8 +6,9 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-public class Student{
+public class Student {
 
+    private String account;
     private String name;
     private String nationality;
     private String matricNo;
@@ -29,6 +30,10 @@ public class Student{
     }
 
     // getters
+
+    public String getAccount() {
+        return account;
+    }
     
     public String getName() {
         return name;
@@ -67,6 +72,10 @@ public class Student{
     }
 
     // setters
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
     
     public void setName(String n) {
         name = n;
