@@ -42,7 +42,9 @@ public class StudentView {
         for(Index idx : onWaitlist) {
             onWaitlistString += idx.getIndexNumber() + "&";
         }
-        onWaitlistString = onWaitlistString.substring(0, onWaitlistString.length()-1);
+        if(onWaitlistString.length() > 0){
+            onWaitlistString = onWaitlistString.substring(0, onWaitlistString.length()-1);
+        }
 
         String takenCourses = String.join("&", student.getTakenCourses());
 

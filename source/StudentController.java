@@ -135,7 +135,7 @@ public class StudentController extends AccountController {
         boolean currentlyRegistered = false;
         boolean timeClash = false;
 
-        Index clashedIndex = new Index();
+        Index clashedIndex;
 
         for (Index idx : indexes){
             if(idx.getIndexNumber() == i){
@@ -181,19 +181,17 @@ public class StudentController extends AccountController {
             return;
         }
 
-
-
-        for(Index idx : model.getCurrentIndexes()){
-            if(!indexController.checkTimeClash(idx)){
-                clashedIndex = idx;
-                timeClash = true;
-                break;
-            }
+        clashedIndex = indexController.timeClashWithSet(model.getCurrentIndexes());
+        if(clashedIndex != null){
+            System.out.println("This Index has a time clash with " + clashedIndex.getCourseId() + 
+                               " which you are currently registered");
+            return;
         }
 
-        if(timeClash){
-            System.out.println("This course has a time clash with " + clashedIndex.getCourseId() + 
-                               "which you are currently registered");
+        clashedIndex = indexController.timeClashWithSet(model.getOnWaitlist());
+        if(clashedIndex != null){
+            System.out.println("This Index has a time clash with " + clashedIndex.getCourseId() + 
+                               " which you are currently on waitlist");
             return;
         }
 
@@ -245,6 +243,12 @@ public class StudentController extends AccountController {
             if(i1.getWaitListLength() > 0){
                 String matricNo = i1.removeWaitlist();
                 i1.addStudent(matricNo);
+
+                ///// modify student
+
+                String text = "Dear " + model.getName() + ", you have successfully registered " + 
+                              i1.getCourseId() + " with index " + i1.getIndexNumber();
+                Notification.sendEmail(model.getEmail(), text, "Registered course");
 
                 //// add email here/////
             }
@@ -308,10 +312,13 @@ public class StudentController extends AccountController {
 
         int curIndex;
         int nIndex;
-        Index currentIndex = new Index();
-        Index newIndex = new Index();
+        Index currentIndex = null;
+        Index newIndex = null;
         boolean curFound = false;
         boolean nFound = false;
+        Index clashedIndex;
+        boolean timeClash = false;
+        IndexController indexController = null;
 
         System.out.println("---------- Change Index -----------");
         System.out.println("Please enter current index: ");
@@ -326,76 +333,97 @@ public class StudentController extends AccountController {
             }
         }
 
+        if(!curFound){
+            System.out.println("You have not registered the current index you entered.");
+            return;
+        }
+
         for(Index idx2 : indexes){
             if(idx2.getIndexNumber() == nIndex){
                 newIndex = idx2;
                 nFound = true;
+                indexController = new IndexController(newIndex);
                 break;
             }
         }
 
-        if(!curFound){
-            System.out.println("You have not registered the current index you entered.");
-        }
-        else if(!nFound){
+        if(!nFound){
             System.out.println("The new index you entered is not valid.");
+            return;
         }
-        else if(!currentIndex.getCourseId().equals(newIndex.getCourseId())){
+
+        if(!currentIndex.getCourseId().equals(newIndex.getCourseId())){
             System.out.println("The indexes you entered are not from the same course.");
+            return;
         }
-        else{
-            if(newIndex.getVacancy() > 0){
-                // confirm to change
-                IndexController currentIndexController = new IndexController(currentIndex);
-                IndexController newIndexController = new IndexController(newIndex);
-                System.out.println("Current Index Information: ");
-                currentIndexController.printIndexDetail();
-                System.out.println();
-                System.out.println("New Index Information");
-                newIndexController.printIndexDetail();
-                System.out.println();
-                System.out.println("Please enter y to confirm the change, enter n to cancel.");
-                String confirm = scan.next();
 
-                if(confirm.equals("y")){
-                    // drop currentIndex
-                    model.removeCurrentIndexes(currentIndex);
-                    // remove student from studentlist in index
-                    currentIndex.removeStudent(model.getMatricNo());
-                    // if there are students on waitlist for currentIndex, register the student at head of queue
-                    if(currentIndex.getWaitListLength() > 0){
-                        String matricNo = currentIndex.removeWaitlist();
-                        currentIndex.addStudent(matricNo);
-                    }
-                    // else, vacancy of currentCourse + 1
-                    else{
-                        currentIndex.setVacancy(currentIndex.getVacancy() + 1);
-                    }
+        clashedIndex = indexController.timeClashWithSet(model.getCurrentIndexes());
+        if(clashedIndex != null){
+            System.out.println("This Index has a time clash with " + clashedIndex.getCourseId() + 
+                               " which you are currently registered");
+            return;
+        }
 
-                    // add newIndex
-                    newIndex.addStudent(model.getMatricNo());
-                    newIndex.setVacancy(newIndex.getVacancy() - 1);
-                    // modify student
-                    model.addCurrentIndexes(newIndex);
-                    System.out.println("You have successfully changed from index " + 
-                        currentIndex.getIndexNumber() + " to index " + 
-                        newIndex.getIndexNumber());
+        clashedIndex = indexController.timeClashWithSet(model.getOnWaitlist());
+        if(clashedIndex != null){
+            System.out.println("This Index has a time clash with " + clashedIndex.getCourseId() + 
+                               " which you are currently on waitlist");
+            return;
+        }
+
+
+        if(newIndex.getVacancy() > 0){
+            // confirm to change
+            IndexController currentIndexController = new IndexController(currentIndex);
+            IndexController newIndexController = new IndexController(newIndex);
+            System.out.println("Current Index Information: ");
+            currentIndexController.printIndexDetail();
+            System.out.println();
+            System.out.println("New Index Information");
+            newIndexController.printIndexDetail();
+            System.out.println();
+            System.out.println("Please enter y to confirm the change, enter n to cancel.");
+            String confirm = scan.next();
+
+            if(confirm.equals("y")){
+                // drop currentIndex
+                model.removeCurrentIndexes(currentIndex);
+                // remove student from studentlist in index
+                currentIndex.removeStudent(model.getMatricNo());
+                // if there are students on waitlist for currentIndex, register the student at head of queue
+                if(currentIndex.getWaitListLength() > 0){
+                    String matricNo = currentIndex.removeWaitlist();
+                    currentIndex.addStudent(matricNo);
                 }
+                // else, vacancy of currentCourse + 1
                 else{
-                    System.out.println("Changing of indexes cancelled.");
+                    currentIndex.setVacancy(currentIndex.getVacancy() + 1);
                 }
+
+                // add newIndex
+                newIndex.addStudent(model.getMatricNo());
+                newIndex.setVacancy(newIndex.getVacancy() - 1);
+                // modify student
+                model.addCurrentIndexes(newIndex);
+                System.out.println("You have successfully changed from index " + 
+                    currentIndex.getIndexNumber() + " to index " + 
+                    newIndex.getIndexNumber());
             }
             else{
-                System.out.println("The new Index do not have vacancy.");
+                System.out.println("Changing of indexes cancelled.");
             }
         }
+        else{
+            System.out.println("The new Index do not have vacancy.");
+        }
+
     }
     
-
     public void swapIndex(Set<Index> indexes) {
         boolean success = false;
         int counter = 0;
         int peerIndex = -1;
+        Index clashedIndex = null;
         StudentController peer = new StudentController();
         System.out.println("Your index number: ");
         int myIndex = scan.nextInt();
@@ -423,13 +451,51 @@ public class StudentController extends AccountController {
 
             if(selfIndex == null){
                 System.out.println("You are not registered for " + myIndex);
+                return;
             }
-            else if(otherIndex == null){
+            
+            if(otherIndex == null){
                 System.out.println("Peer is not registered for " + peerIndex);
+                return;
             }
-            else if(!selfIndex.getCourseId().equals(otherIndex.getCourseId())){
+            
+            if(!selfIndex.getCourseId().equals(otherIndex.getCourseId())){
                 System.out.println("The two indexes entered are not from the same course.");
+                return;
             }
+            // check self clash
+            IndexController selfIndexController = new IndexController(otherIndex);
+            clashedIndex = selfIndexController.timeClashWithSet(model.getCurrentIndexes());
+            if(clashedIndex != null){
+                System.out.println("Peer's index has a time clash with your " + clashedIndex.getCourseId() + 
+                                   " which you are currently registered");
+                return;
+            }
+
+            clashedIndex = selfIndexController.timeClashWithSet(model.getOnWaitlist());
+            if(clashedIndex != null){
+                System.out.println("Peer's index has a time clash with your " + clashedIndex.getCourseId() + 
+                                   " which you are currently on waitlist");
+                return;
+            }
+
+            // check other clash
+            IndexController otherIndexController = new IndexController(selfIndex);
+            clashedIndex = otherIndexController.timeClashWithSet(peer.getModel().getCurrentIndexes());
+            if(clashedIndex != null){
+                System.out.println("Your index has a time clash with peer's " + clashedIndex.getCourseId() + 
+                                   " which peer is currently registered");
+                return;
+            }
+
+            clashedIndex = otherIndexController.timeClashWithSet(peer.getModel().getOnWaitlist());
+            if(clashedIndex != null){
+                System.out.println("Peer's index has a time clash with peer's " + clashedIndex.getCourseId() + 
+                                   " which peer is currently on waitlist");
+                return;
+            }
+
+
             else{
                 // student
                 model.removeCurrentIndexes(selfIndex);
@@ -455,3 +521,7 @@ public class StudentController extends AccountController {
     }
     
 }
+
+// test case for swap index
+//3 20013
+//15 20011

@@ -18,6 +18,7 @@ public class Student {
     private Set<String> takenCourses;
     private Set<Index> currentIndexes;
     private Set<Index> onWaitlist;
+    private String email;
 
     public Student() {
         takenCourses = new HashSet<String>();
@@ -69,6 +70,10 @@ public class Student {
 
     public Set<Index> getOnWaitlist() {
         return onWaitlist;
+    }
+
+    public String getEmail(){
+        return email;
     }
 
     // setters
@@ -145,6 +150,10 @@ public class Student {
             }
         }
         return null;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

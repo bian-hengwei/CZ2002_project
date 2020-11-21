@@ -17,7 +17,7 @@ public class IndexController{
 		view.printVacancy(model.getCourseId(), model.getIndexNumber(), model.getVacancy(), model.getWaitListLength());
 	}
 
-	public boolean checkTimeClash(Index targetIndex){
+	private boolean timeClashWithIndex(Index targetIndex){
 		int modelStartTime;
 		int modelEndTime;
 		int targetStartTime;
@@ -94,7 +94,7 @@ public class IndexController{
 				if(targetArray[j].equals("")){
 					continue;
 				}
-				if(i == 3){
+				if(j == 3){
 					targetOddEven = targetArray[j].substring(0, 3);
 					targetStartTime = Integer.parseInt(targetArray[j].substring(6, 10));
 					targetEndTime = Integer.parseInt(targetArray[j].substring(11, 15));
@@ -105,24 +105,45 @@ public class IndexController{
 					targetEndTime = Integer.parseInt(targetArray[j].substring(8, 12));
 					targetDay = targetArray[j].substring(0, 3);
 				}
-				if(i == 3 && j == 3 && !modelOddEven.equals(targetOddEven)){
+				if(i == 3 && j == 3 && !modelOddEven.equals(targetOddEven) || !modelDay.equals(targetDay)){
 					continue;
 				}
 				if(modelStartTime > targetStartTime && modelStartTime < targetEndTime){
+					System.out.printf("%d, %d, 1\n", i, j);
+					noTimeClash = false;
+				}
+				else if(targetStartTime > modelStartTime && targetStartTime < modelEndTime){
+					System.out.printf("%d, %d, 2\n", i, j);
 					noTimeClash = false;
 				}
 				else if(modelEndTime > targetStartTime && modelEndTime < targetEndTime){
 					noTimeClash = false;
+					System.out.printf("%d, %d, 3\n", i, j);
 				}
 				else if(modelStartTime > targetStartTime && modelEndTime < targetEndTime){
 					noTimeClash = false;
+					System.out.printf("%d, %d, 4\n", i, j);
 				}
 				else if(targetStartTime > modelStartTime && targetEndTime < modelEndTime){
 					noTimeClash = false;
+					System.out.printf("%d, %d, 5\n", i, j);
+				}
+				else if(targetStartTime == modelStartTime){
+					noTimeClash = false;
+					System.out.printf("%d, %d, 6\n", i, j);
 				}
 			}
 		}
 		return noTimeClash;
+	}
+
+	public Index timeClashWithSet(Set<Index> indexes) {
+		for(Index idx : indexes) {
+	        if(!idx.getCourseId().equals(model.getCourseId()) && !timeClashWithIndex(idx)){
+	            return idx;
+	        }
+	    }
+	    return null;
 	}
 }
 
