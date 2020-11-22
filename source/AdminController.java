@@ -86,6 +86,7 @@ public class AdminController extends AccountController {
         System.out.println("Successfully saved");
         System.out.println();
         // save student tbd
+        // invalid data entry
     }
 
     // 3
@@ -283,16 +284,42 @@ public class AdminController extends AccountController {
 
     }
 
+    public void printByIndex(Index index) {
+        // create index controller for the index and print
+        IndexController ic = new IndexController(index);
+        ic.printStudents();
+    }
+
     public void printByIndex(Set<Index> indexes) {
-        for (Index i: indexes) {
-            IndexController ic = new IndexController(i);
-            ic.printStudents();
-        }
+        // get index number
+        Index index = new Index();
+        printByIndex(index);
     }
 
     public void printByCourse(Set<Course> courses) {
+
+        // prompts for course id input
+        System.out.printf("Enter the course Id: ");
+        String id = scan.nextLine();
+
+        // loop through all courses to find any match
+        Course course = null;
         for (Course c: courses) {
-            printByIndex(c.getIndexes());
+            if (c.getCourseId().equals(id)) {
+                course = c;
+                break;
+            }
+        }
+
+        // ends if no matches found
+        if (course == null) {
+            System.out.println("Course id not found");
+            return;
+        }
+
+        // loop through all indexes in the course and print accordingly
+        for (Index idx: course.getIndexes()) {
+            printByIndex(idx);
         }
     }
 

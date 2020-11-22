@@ -241,6 +241,7 @@ public class IndexController {
     }
 
     public void printStudents() {
+        // print with view
         view.printStudents(model);
     }
 

@@ -1,8 +1,4 @@
-import java.io.Console;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -54,16 +50,6 @@ public class Main {
         scan.close();
     }
 
-    public static void studentLogin() {
-        boolean success = false;
-        studentController = new StudentController();
-        success = studentController.init(indexes);
-        if (!success) {
-            return;
-        }
-        studentMain();
-    }
-
     public static void adminLogin() {
         boolean success = false;
         adminController = new AdminController();
@@ -72,6 +58,16 @@ public class Main {
             return;
         }
         adminMain();
+    }
+
+    public static void studentLogin() {
+        boolean success = false;
+        studentController = new StudentController();
+        success = studentController.init(indexes);
+        if (!success) {
+            return;
+        }
+        studentMain();
     }
 
     public static void adminMain() {
@@ -113,6 +109,7 @@ public class Main {
                     break;
 
                 case 6:
+                    // looking for input 6
                     adminController.printByCourse(courses);
                     break;
 

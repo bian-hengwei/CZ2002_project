@@ -134,8 +134,6 @@ public class AccountController {
         return null;
     }
 
-    // 4
-    // this is written in index class
     public void checkVacancy(Set<Index> indexes) {
         Scanner scan = new Scanner(System.in);
         String check = "y";

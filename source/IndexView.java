@@ -1,3 +1,5 @@
+import java.util.Set;
+
 public class IndexView {
     
     // for students
@@ -36,6 +38,12 @@ public class IndexView {
     }
     
     public void printStudents(Index idx) {
+        Set<String> studentsInfo = FileHandler.readToSet("student_information");
         System.out.println("Printing students...");
+        for (String studentRecord: studentsInfo) {
+            if (idx.getStudentList().contains(studentRecord.split(",")[3])) {
+                System.out.println(studentRecord.split(",")[3] + " " + studentRecord.split(",")[4]);
+            }
+        }
     }
 }
