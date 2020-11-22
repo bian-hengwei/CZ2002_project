@@ -83,8 +83,8 @@ public class AccountController {
         return false;
     }
 
-    public String[] readInfo(String account) {
-        return FileHandler.readRow(prefix + "_information", account);
+    public String[] readInfo(String account, int col) {
+        return FileHandler.readRow(prefix + "_information", account, col);
     }
 
     // helper methods for hashing

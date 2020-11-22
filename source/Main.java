@@ -149,7 +149,7 @@ public class Main {
                     break;
 
                 case 2:
-                    studentController.dropCourse();
+                    studentController.dropCourse(indexes);
                     break;
 
                 case 3:

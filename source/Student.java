@@ -1,9 +1,4 @@
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
 import java.util.Set;
 
 public class Student {
@@ -106,6 +101,10 @@ public class Student {
         this.currentAU = currentAu;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     // Data structure operations
 
     public void addTakenCourses(String course) {
@@ -134,7 +133,7 @@ public class Student {
 
     // TODO: deal with null output
     public Index getIndex(int index) {
-        for(Index idx : currentIndexes){
+        for(Index idx : currentIndexes) {
             if(idx.getIndexNumber() == index) {
                 return idx;
             }
@@ -150,10 +149,6 @@ public class Student {
             }
         }
         return null;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
 }

@@ -42,7 +42,8 @@ public class Notification {
 			System.out.println("Email sent");
 
 		} catch (MessagingException e) {
-		System.out.println("Error: failed to send email to " + targetEmail);
+			System.out.println("Error: failed to send email to " + targetEmail);
+			System.out.println(e);
 		}
 	}
 }
