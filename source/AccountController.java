@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class AccountController {
 
-    private String prefix;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    private String prefix;
     private String account;
 
     // getters
