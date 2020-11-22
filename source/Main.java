@@ -114,9 +114,6 @@ public class Main {
                     break;
 
                 case 7:
-                    // save current account
-                    adminController.save();
-                    System.out.println("Saving admin...");
                     break;
 
                 default:

@@ -34,8 +34,9 @@ public class AdminController extends AccountController {
         String[] modelInfo = readInfo(account, 0);
         if (modelInfo == null)
             return false;
-        //model.setName(modelInfo[1]);
-        //model.setNationality(modelInfo[2]);
+        model.setAccount(modelInfo[0])
+        model.setName(modelInfo[1]);
+        model.setNationality(modelInfo[2]);
         return true;
     }
 
@@ -320,10 +321,6 @@ public class AdminController extends AccountController {
         for (Index idx: course.getIndexes()) {
             printByIndex(idx);
         }
-    }
-
-    public void save() {
-        System.out.println("saved");
     }
 
 }

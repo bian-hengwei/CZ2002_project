@@ -231,4 +231,8 @@ public class Index {
         return studentList.contains(matricNo);
     }
 
+    public int studentListSize() {
+        return studentList.size();
+    }
+
 }

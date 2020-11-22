@@ -16,11 +16,11 @@ public class IndexController {
     }
 
     public void printIndexDetail() {
-        view.printIndexDetail(model.getCourseId(), model.getIndexNumber(), model.getVacancy(), model.getTutorialTime(), model.getLabTime());
+        view.printIndexDetail(model);
     }
 
     public void printVacancy() {
-        view.printVacancy(model.getCourseId(), model.getIndexNumber(), model.getVacancy(), model.getWaitListLength());
+        view.printVacancy(model);
     }
 
     public Index getModel() {
