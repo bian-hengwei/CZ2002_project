@@ -34,7 +34,7 @@ public class AdminController extends AccountController {
         String[] modelInfo = readInfo(account, 0);
         if (modelInfo == null)
             return false;
-        model.setAccount(modelInfo[0])
+        model.setAccount(modelInfo[0]);
         model.setName(modelInfo[1]);
         model.setNationality(modelInfo[2]);
         return true;
