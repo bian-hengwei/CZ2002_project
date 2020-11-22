@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class StudentController extends AccountController {
 
     private Student model;
-	private StudentView view;
+    private StudentView view;
     private Scanner scan = new Scanner(System.in);
 
     public StudentController() {
@@ -18,10 +18,6 @@ public class StudentController extends AccountController {
 
     public Student getModel(){
         return model;
-    }
-
-    public StudentView getView(){
-        return view;
     }
 
     // initialize methods
@@ -530,6 +526,10 @@ public class StudentController extends AccountController {
 
     public void saveStudentInfo() {
         view.saveStudentInfo(this.model);
+    }
+
+    public void printModelDetail() {
+        view.printModelDetail(model);
     }
     
 }
