@@ -23,11 +23,10 @@ Back to [README.md](README.md)
   - Admin add student information _invalid data entry_
   - Admin fix add course _display_ _invalid data entry_
   - Print students by course/index in [AdminView.java](source/AdminView.java)
-  - [x]Show Vacancies (_move student controller one to account controller?_)
-  - Admin save
-- [ ] Student wait list I/O
-- [ ] Email
-- [ ] Check vacancies display
+  - [x] Show Vacancies (_move student controller one to account controller?_)
+- [x] Student wait list I/O
+- [x] Email
+- [x] Check vacancies display
 - [ ] Print student timetable
 
 ## TESTS
