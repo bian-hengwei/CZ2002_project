@@ -351,11 +351,11 @@ public class StudentController extends AccountController {
             // confirm to change
             IndexController currentIndexController = new IndexController(currentIndex);
             IndexController newIndexController = new IndexController(newIndex);
-            System.out.println("Current Index Information: ");
-            currentIndexController.printIndexDetail();
+            System.out.println("--- Current Index Information ---");
+            currentIndexController.getView().printModelDetail(currentIndexController.getModel());
             System.out.println();
-            System.out.println("New Index Information");
-            newIndexController.printIndexDetail();
+            System.out.println("--- New Index Information ---");
+            newIndexController.getView().printModelDetail(newIndexController.getModel());
             System.out.println();
             System.out.println("Please enter y to confirm the change, enter n to cancel.");
             String confirm = scan.next();
