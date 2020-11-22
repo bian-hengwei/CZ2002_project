@@ -2,12 +2,13 @@ import java.util.Set;
 
 public class StudentView {
 
-    public void printModelDetail(Student student){
-        System.out.println("Student Name: " + student.getName());
-        System.out.println("Matriculation Number: " + student.getMatricNo());
-        System.out.println("Major: " + student.getMajor());
-        System.out.println("Year: " + student.getYear());
-        System.out.println("Number of AUs taken: " + student.getCurrentAu());
+    public void printStudentInfo(String studentName, String nationality, String matricNo, String major, int year, int currentAu){
+        System.out.println("Student Name: " + studentName);
+        System.out.println("Nationality: " + nationality);
+        System.out.println("Matriculation Number: " + matricNo);
+        System.out.println("Major: " + major);
+        System.out.println("Year: " + year);
+        System.out.println("Number of AUs taken: " + currentAu);
     }
 
     public void printCoursesRegistered(Set<Index> indexes) {
@@ -64,6 +65,4 @@ public class StudentView {
                                      Integer.toString(student.getCurrentAu()), ";,");
         FileHandler.writeLine("student_information", student.getAccount(), content);
     }
-
-    // printStudentDetail
 }

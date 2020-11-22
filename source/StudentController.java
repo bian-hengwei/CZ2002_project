@@ -340,88 +340,44 @@ public class StudentController extends AccountController {
             return;
         }
 
-
-        if(newIndex.getVacancy() > 0){
-            // confirm to change
-            IndexController currentIndexController = new IndexController(currentIndex);
-            IndexController newIndexController = new IndexController(newIndex);
-            System.out.println("--- Current Index Information ---");
-            currentIndexController.getView().printModelDetail(currentIndexController.getModel());
-            System.out.println();
-            System.out.println("--- New Index Information ---");
-            newIndexController.getView().printModelDetail(newIndexController.getModel());
-            System.out.println();
-            System.out.println("Please enter y to confirm the change, enter n to cancel.");
-            String confirm = scan.next();
-
-            if(confirm.equals("y")){
-                // drop currentIndex
-                model.removeCurrentIndexes(currentIndex);
-                // remove student from studentlist in index
-                currentIndex.removeStudent(model.getMatricNo());
-                // if there are students on waitlist for currentIndex, register the student at head of queue
-                if(currentIndex.getWaitListLength() > 0){
-                    String matricNo = currentIndex.removeWaitlist();
-                    currentIndex.addStudent(matricNo);
-                }
-                // else, vacancy of currentCourse + 1
-                else{
-                    currentIndex.setVacancy(currentIndex.getVacancy() + 1);
-                }
-
-                // add newIndex
-                newIndex.addStudent(model.getMatricNo());
-                newIndex.setVacancy(newIndex.getVacancy() - 1);
-                // modify student
-                model.addCurrentIndexes(newIndex);
-                System.out.println("You have successfully changed from index " + 
-                    currentIndex.getIndexNumber() + " to index " + 
-                    newIndex.getIndexNumber());
-            }
-            else{
-                System.out.println("Changing of indexes cancelled.");
-            }
+        if (newIndex.getVacancy() <= 0) {
+            System.out.println("The new Index do not have vacancy.");
+            return;
         }
-        else{
-            if (newIndex.getVacancy() <= 0) {
-                System.out.println("The new Index do not have vacancy.");
-                return;
-            }
 
-            // confirm to change
-            IndexController currentIndexController = new IndexController(currentIndex);
-            IndexController newIndexController = new IndexController(newIndex);
-            System.out.println("Current Index Information: ");
-            currentIndexController.getView().printModelDetail(currentIndexController.getModel());
-            System.out.println();
-            System.out.println("New Index Information");
-            newIndexController.getView().printModelDetail(newIndexController.getModel());
-            System.out.println();
-            System.out.println("Please enter y to confirm the change, enter n to cancel.");
-            String confirm = scan.nextLine();
+        // confirm to change
+        IndexController currentIndexController = new IndexController(currentIndex);
+        IndexController newIndexController = new IndexController(newIndex);
+        System.out.println("Current Index Information: ");
+        currentIndexController.printIndexDetail();
+        System.out.println();
+        System.out.println("New Index Information");
+        newIndexController.printIndexDetail();
+        System.out.println();
+        System.out.println("Please enter y to confirm the change, enter n to cancel.");
+        String confirm = scan.nextLine();
 
-            if (confirm.equals("y")) {
-                // drop currentIndex
-                model.removeCurrentIndexes(currentIndex);
-                // remove student from student list in index
-                currentIndex.removeStudent(model.getMatricNo());
-                // if there are students on waitlist for currentIndex, register the student at head of queue
-                currentIndex.setVacancy(currentIndex.getVacancy() + 1);
+        if (confirm.equals("y")) {
+            // drop currentIndex
+            model.removeCurrentIndexes(currentIndex);
+            // remove student from student list in index
+            currentIndex.removeStudent(model.getMatricNo());
+            // if there are students on waitlist for currentIndex, register the student at head of queue
+            currentIndex.setVacancy(currentIndex.getVacancy() + 1);
 
-                IndexController ic = new IndexController(currentIndex);
-                ic.fixWaitlist(indexes);
+            IndexController ic = new IndexController(currentIndex);
+            ic.fixWaitlist(indexes);
 
-                // add newIndex
-                newIndex.addStudent(model.getMatricNo());
-                newIndex.setVacancy(newIndex.getVacancy() - 1);
-                // modify student
-                model.addCurrentIndexes(newIndex);
-                System.out.println("You have successfully changed from index " + 
-                    currentIndex.getIndexNumber() + " to index " + 
-                    newIndex.getIndexNumber());
-            } else {
-                System.out.println("Changing of indexes cancelled.");
-            }
+            // add newIndex
+            newIndex.addStudent(model.getMatricNo());
+            newIndex.setVacancy(newIndex.getVacancy() - 1);
+            // modify student
+            model.addCurrentIndexes(newIndex);
+            System.out.println("You have successfully changed from index " + 
+                currentIndex.getIndexNumber() + " to index " + 
+                newIndex.getIndexNumber());
+        } else {
+            System.out.println("Changing of indexes cancelled.");
         }
     }
     

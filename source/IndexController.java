@@ -15,6 +15,10 @@ public class IndexController {
         view = new IndexView();
     }
 
+    public void printIndexDetail() {
+        view.printIndexDetail(model);
+    }
+
     public void printVacancy() {
         view.printVacancy(model);
     }
@@ -25,10 +29,6 @@ public class IndexController {
 
     public void setModel(Index i) {
         model = i;
-    }
-
-    public IndexView getView() {
-        return view;
     }
 
     private boolean timeClashWithIndex(Index targetIndex){
@@ -170,7 +170,7 @@ public class IndexController {
             switch (option) {
 
                 case 1:
-                    view.printModelDetail(model);
+                    view.printIndex(model);
                     break;
 
                 case 2:

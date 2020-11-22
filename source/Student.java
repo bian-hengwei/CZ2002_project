@@ -138,7 +138,6 @@ public class Student {
                 return idx;
             }
         }
-        System.out.println("Index cannot be found among registered indexes.");
         return null;
     }
 
@@ -149,7 +148,6 @@ public class Student {
                 return idx;
             }
         }
-        System.out.println("Index cannot be found among waitlisted indexes.");
         return null;
     }
 

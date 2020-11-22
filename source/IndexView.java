@@ -1,7 +1,17 @@
 import java.util.Set;
 
 public class IndexView {
+    
+    // for students
+    // step 3 of add course and drop course. needs to print the course details for students before confirming to add or drop. waitlist and student list should not be shown
+    public void printIndexDetail(Index idx) {
+        System.out.println("Course id: " + idx.getCourseId());
+        System.out.println("Index: " + idx.getIndexNumber());
+        System.out.println("Tutorial Timing:" + idx.getTutorialTime());
+        System.out.println("Lab Timing: " + idx.getLabTime());
+    }
 
+    // for students
     // print vacancy of a course
     public void printVacancy(Index idx) {
         System.out.println("Course id: " + idx.getCourseId());
@@ -10,7 +20,7 @@ public class IndexView {
         System.out.println("Length of Wait list: " + idx.getWaitListLength());
     }
 
-    public void printModelDetail(Index idx) {
+    public void printIndex(Index idx) {
         System.out.printf("Printing index: %d\n", idx.getIndexNumber());
         System.out.printf("Course ID: %s\n", idx.getCourseId());
         System.out.printf("Course Name: %s\n", idx.getCourseName());
