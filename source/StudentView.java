@@ -1,5 +1,4 @@
 import java.util.Set;
-import java.util.Iterator;
 
 public class StudentView {
 
@@ -12,18 +11,27 @@ public class StudentView {
     }
 
     public void printCoursesRegistered(Set<Index> indexes) {
+        if (indexes.size() == 0) {
+            System.out.println("Not registered to any course yet");
+            return;
+        }
         System.out.println("---------- Courses Registered ----------");
-        for(Index idx : indexes){
-            System.out.println("Course: " + idx.getCourseId() + " Index: " + idx.getIndexNumber());
+        for (Index idx : indexes) {
+            System.out.printf("Course: %s %s, Index: %s, School: %s\n", idx.getCourseId(), idx.getCourseName(), 
+                idx.getIndexNumber(), idx.getSchool());
         }
         System.out.println();
     }
 
     public void printOnWaitlist(Set<Index> indexes) {
-        Iterator<Index> iterate = indexes.iterator();
+        if (indexes.size() == 0) {
+            System.out.println("Not registered on any waitlist");
+            return;
+        }
         System.out.println("---------- Courses on Waitlist ----------");
-        while(iterate.hasNext()){
-            System.out.println("Course: " + iterate.next().getCourseId() + "Index: " + iterate.next().getIndexNumber());
+        for (Index idx : indexes) {
+            System.out.printf("Course: %s %s, Index: %s, School: %s\n", idx.getCourseId(), idx.getCourseName(), 
+                idx.getIndexNumber(), idx.getSchool());
         }
         System.out.println();
     }
@@ -50,9 +58,10 @@ public class StudentView {
         String content = String.join(",", student.getAccount(), student.getName(), 
                                      student.getNationality(), student.getMatricNo(), 
                                      student.getMajor(), student.getYear(), 
-                                     Integer.toString(student.getCurrentAu()), 
                                      takenCourses, 
-                                     currentIndexesString, onWaitlistString);
+                                     currentIndexesString, onWaitlistString, 
+                                     student.getEmail(), 
+                                     Integer.toString(student.getCurrentAu()), ";,");
         FileHandler.writeLine("student_information", student.getAccount(), content);
     }
 

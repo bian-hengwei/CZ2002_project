@@ -83,8 +83,8 @@ public class AccountController {
         return false;
     }
 
-    public String[] readInfo(String account) {
-        return FileHandler.readRow(prefix + "_information", account);
+    public String[] readInfo(String account, int col) {
+        return FileHandler.readRow(prefix + "_information", account, col);
     }
 
     // helper methods for hashing
@@ -154,7 +154,7 @@ public class AccountController {
             if (index == null) {
                 System.out.println("Index not found");
             }
-            System.out.println("Would you like to check vacancy for another index? (please enter y/n)");
+            System.out.println("Would you like to check vacancy for another index? (y/n)");
             check = scan.nextLine();
         }
     }

@@ -35,6 +35,10 @@ public class FileHandler {
     }
 
     public static String[] readRow(String filename, String attribute) {
+        return readRow(filename, attribute, 0);
+    }
+
+    public static String[] readRow(String filename, String attribute, int col) {
         String path = generatePath(filename);
         String[] row = null;
         boolean found = false;
@@ -44,7 +48,7 @@ public class FileHandler {
             String newline;
             while ((newline = bRead.readLine()) != null && !found) {
                 row = newline.split(",");
-                if (row[0].equals(attribute)) 
+                if (row[col].equals(attribute)) 
                     found = true;
             }
             bRead.close();

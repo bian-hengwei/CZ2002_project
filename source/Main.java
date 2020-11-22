@@ -114,9 +114,6 @@ public class Main {
                     break;
 
                 case 7:
-                    // save current account
-                    adminController.save();
-                    System.out.println("Saving admin...");
                     break;
 
                 default:
@@ -151,7 +148,7 @@ public class Main {
                     break;
 
                 case 2:
-                    studentController.dropCourse();
+                    studentController.dropCourse(indexes);
                     break;
 
                 case 3:

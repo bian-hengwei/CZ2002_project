@@ -16,7 +16,7 @@ public class IndexController {
     }
 
     public void printVacancy() {
-        view.printVacancy(model.getCourseId(), model.getIndexNumber(), model.getVacancy(), model.getWaitListLength());
+        view.printVacancy(model);
     }
 
     public Index getModel() {
@@ -149,7 +149,7 @@ public class IndexController {
         return null;
     }
 
-    public void editIndex() {
+    public void editIndex(Set<Index> indexes) {
         Scanner scan = new Scanner(System.in);
         System.out.println("Editing index " + model.getIndexNumber());
         boolean quit = false;
@@ -185,7 +185,7 @@ public class IndexController {
                     int newVacancy = scan.nextInt();
                     scan.nextLine();
                     model.setVacancy(newVacancy);
-                    fixWaitlist();
+                    fixWaitlist(indexes);
                     break;
 
                 case 4:
@@ -245,6 +245,27 @@ public class IndexController {
         view.printStudents(model);
     }
 
-    public void fixWaitlist() {}
+    public void fixWaitlist(Set<Index> indexes) {
+        while (model.getVacancy() > 0 && model.getWaitListLength() > 0) {
+            System.out.println("Found students on waitlist");
+            System.out.println("Adding student on waitlist to course and sending email");
+            String matricNo = model.removeWaitlist();
+            model.addStudent(matricNo);
+            model.setVacancy(model.getVacancy() - 1);
+
+            ///// modify student
+            StudentController sc = new StudentController();
+            sc.readStudent(matricNo, indexes, 3);
+            sc.getModel().removeOnWaitlist(model);
+            sc.getModel().addCurrentIndexes(model);
+            sc.saveStudentInfo();
+
+            String text = "Dear " + sc.getModel().getName() + ", you have successfully registered " + 
+                          model.getCourseId() + " with index " + model.getIndexNumber();
+            Notification.sendEmail(sc.getModel().getEmail(), text, "Registered course");
+
+            System.out.println("Finished waitlist operation");
+        }
+    }
 
 }

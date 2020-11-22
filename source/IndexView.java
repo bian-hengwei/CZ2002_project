@@ -1,12 +1,13 @@
 import java.util.Set;
 
 public class IndexView {
+
     // print vacancy of a course
-    public void printVacancy(String courseId, int indexNumber, int vacancy, int waitlistLength) {
-        System.out.println("Course id: " + courseId);
-        System.out.println("Index: " + indexNumber);
-        System.out.println("Vacancy: " + vacancy);
-        System.out.println("Length of Wait list: " + waitlistLength);
+    public void printVacancy(Index idx) {
+        System.out.println("Course id: " + idx.getCourseId());
+        System.out.println("Index: " + idx.getIndexNumber());
+        System.out.printf("Vacancy: [%d/%d]\n", idx.getVacancy(), idx.getVacancy() + idx.studentListSize());
+        System.out.println("Length of Wait list: " + idx.getWaitListLength());
     }
 
     public void printModelDetail(Index idx) {

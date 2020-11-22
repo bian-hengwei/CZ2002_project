@@ -1,4 +1,3 @@
-import java.util.Queue;
 import java.util.Set;
 import java.util.Scanner;
 
@@ -32,11 +31,12 @@ public class AdminController extends AccountController {
     }
 
     public boolean readAdmin(String account) {
-        String[] modelInfo = readInfo(account);
+        String[] modelInfo = readInfo(account, 0);
         if (modelInfo == null)
             return false;
-        //model.setName(modelInfo[1]);
-        //model.setNationality(modelInfo[2]);
+        model.setAccount(modelInfo[0])
+        model.setName(modelInfo[1]);
+        model.setNationality(modelInfo[2]);
         return true;
     }
 
@@ -231,7 +231,7 @@ public class AdminController extends AccountController {
                         indexes.add(idxAdd);
                         System.out.println("Index added");
                         IndexController iControlAdd = new IndexController(idxAdd);
-                        iControlAdd.editIndex();
+                        iControlAdd.editIndex(indexes);
                     }
                     break;
 
@@ -250,7 +250,7 @@ public class AdminController extends AccountController {
                     } else {
                         Index idxModify = course.getIndex(indexNo);
                         IndexController iControlModify = new IndexController(idxModify);
-                        iControlModify.editIndex();
+                        iControlModify.editIndex(indexes);
                     }
                     break;
 
@@ -321,10 +321,6 @@ public class AdminController extends AccountController {
         for (Index idx: course.getIndexes()) {
             printByIndex(idx);
         }
-    }
-
-    public void save() {
-        System.out.println("saved");
     }
 
 }
