@@ -64,26 +64,28 @@ public class IndexController {
         String targetExamTime = targetIndex.getExamTime();
         String modelExamTime = model.getExamTime();
 
-        int targetExamDate = Integer.parseInt(targetExamTime.substring(0, 4));
-        int targetExamStart = Integer.parseInt(targetExamTime.substring(4, 8));
-        int targetExamEnd = Integer.parseInt(targetExamTime.substring(9, 13));
+        if(targetExamTime.equals("") && modelExamTime.equals("")) {
+            int targetExamDate = Integer.parseInt(targetExamTime.substring(0, 4));
+            int targetExamStart = Integer.parseInt(targetExamTime.substring(4, 8));
+            int targetExamEnd = Integer.parseInt(targetExamTime.substring(9, 13));
 
-        int modelExamDate = Integer.parseInt(modelExamTime.substring(0, 4));
-        int modelExamStart = Integer.parseInt(modelExamTime.substring(4, 8));
-        int modelExamEnd = Integer.parseInt(modelExamTime.substring(9, 13));
+            int modelExamDate = Integer.parseInt(modelExamTime.substring(0, 4));
+            int modelExamStart = Integer.parseInt(modelExamTime.substring(4, 8));
+            int modelExamEnd = Integer.parseInt(modelExamTime.substring(9, 13));
 
 
-        // check exam time
-        if ((modelExamDate != targetExamDate) && 
-            ((modelExamStart > targetExamStart && 
-                modelExamStart < targetExamEnd) || 
-            (modelExamEnd > targetExamStart && 
-                modelExamEnd < targetExamEnd) || 
-            (modelExamStart > targetExamStart && 
-                modelExamEnd < targetExamEnd) || 
-            (targetExamStart > modelExamStart && 
-                targetExamEnd < modelExamEnd)))
-                noTimeClash = false;
+            // check exam time
+            if ((modelExamDate != targetExamDate) && 
+                ((modelExamStart > targetExamStart && 
+                    modelExamStart < targetExamEnd) || 
+                (modelExamEnd > targetExamStart && 
+                    modelExamEnd < targetExamEnd) || 
+                (modelExamStart > targetExamStart && 
+                    modelExamEnd < targetExamEnd) || 
+                (targetExamStart > modelExamStart && 
+                    targetExamEnd < modelExamEnd)))
+                    noTimeClash = false;
+        }
 
         for(i = 0; i < 4; i++) {
             if(modelArray[i].equals("")) {
@@ -159,11 +161,9 @@ public class IndexController {
             System.out.println("1. Print current index information");
             System.out.println("2. Change index number");
             System.out.println("3. Change vacancy");
-            System.out.println("4. Set lecture");
-            System.out.println("5. Set exam");
-            System.out.println("6. Set tutorial");
-            System.out.println("7. Set lab");
-            System.out.println("8. Exit");
+            System.out.println("4. Set tutorial");
+            System.out.println("5. Set lab");
+            System.out.println("6. Exit");
             System.out.printf("Option: ");
             int option = scan.nextInt();
             scan.nextLine();
@@ -189,32 +189,6 @@ public class IndexController {
                     break;
 
                 case 4:
-                    System.out.printf(String.join(" ", "Lecture Time:", "0.", model.getLectureTime()[0], 
-                        "1.", model.getLectureTime()[1], "\n"));
-                    System.out.println("Select index to edit (or empty lecture to delete)");
-                    System.out.printf("Option: ");
-                    int op = scan.nextInt();
-                    scan.nextLine();
-                    if (op != 0 && op != 1) {
-                        System.out.println("Invalid option");
-                        break;
-                    }
-                    System.out.printf("New lecture time (MON1030-1130): ");
-                    model.setLectureTime(op, scan.nextLine());
-                    System.out.printf("New lecture venue: ");
-                    model.setLectureVenue(op, scan.nextLine());
-                    System.out.println("Successfully saved");
-                    break;
-
-                case 5:
-                    System.out.printf("New exam time (12011000-1100): ");
-                    model.setExamTime(scan.nextLine());
-                    System.out.printf("New exam venue: ");
-                    model.setExamVenue(scan.nextLine());
-                    System.out.println("Successfully saved");
-                    break;
-
-                case 6:
                     System.out.printf("New tutorial time (MON1030-1130): ");
                     model.setTutorialTime(scan.nextLine());
                     System.out.printf("New tutorial venue: ");
@@ -222,7 +196,7 @@ public class IndexController {
                     System.out.println("Successfully saved");
                     break;
 
-                case 7:
+                case 5:
                     System.out.printf("New lab time (ODDMON1030-1230): ");
                     model.setLabTime(scan.nextLine());
                     System.out.printf("New lab venue: ");
@@ -230,7 +204,7 @@ public class IndexController {
                     System.out.println("Successfully saved");
                     break;
 
-                case 8:
+                case 6:
                     quit = true;
                     break;
 

@@ -54,9 +54,9 @@ public class AdminController extends AccountController {
             return;
         }
         String index = String.format("%sY%d", school, year);
-        System.out.printf("Start date (YYYYDDMM): ");
+        System.out.printf("Start date (YYYYMMDD): ");
         String start = scan.nextLine();
-        System.out.printf("End date (YYYYDDMM): ");
+        System.out.printf("End date (YYYYMMDD): ");
         String end = scan.nextLine();
         System.out.printf("Start time (HHMM): ");
         String stime = scan.nextLine();
@@ -114,8 +114,9 @@ public class AdminController extends AccountController {
             System.out.println();
             System.out.println("Select an option: ");
             System.out.println("1. Add a new course");
-            System.out.println("2. Modify an existing course");
-            System.out.println("3. Exit");
+            System.out.println("2. Modify indexes of existing course");
+            System.out.println("3. Modify other information of existing course");
+            System.out.println("4. Exit");
             System.out.printf("Option: ");
             int option = scan.nextInt();
             scan.nextLine();
@@ -124,20 +125,22 @@ public class AdminController extends AccountController {
                 case 1:
                     System.out.printf("Course ID: ");
                     courseId = scan.nextLine();
-                    if (!addCourse(courseId, courses))
-                        break;
-                    addUpdateIndex(courseId, courses, indexes);
+                    addCourse(courseId, courses);
                     break;
 
                 case 2:
                     System.out.printf("Course ID: ");
                     courseId = scan.nextLine();
-                    if (!updateCourse(courseId, courses))
-                        break;
                     addUpdateIndex(courseId, courses, indexes);
                     break;
 
+
                 case 3:
+                    System.out.printf("Course ID: ");
+                    courseId = scan.nextLine();
+                    updateCourse(courseId, courses);
+
+                case 4:
                     quit = true;
                     break;
 
@@ -147,18 +150,22 @@ public class AdminController extends AccountController {
         }
     }
 
-    private boolean addCourse(String courseId, Set<Course> courses) {
+    private void addCourse(String courseId, Set<Course> courses) {
         for (Course c: courses) {
             if (c.getCourseId().equals(courseId)) {
                 System.out.println("Error: current course already exists");
-                return false;
+                return;
             }
         }
         Course newCourse = new Course(courseId);
+        System.out.printf("Course name: ");
+        newCourse.setCourseName(scan.nextLine());
         System.out.printf("School of the course: ");
         newCourse.setSchool(scan.nextLine());
+        System.out.printf("AU: ");
+        newCourse.setAu(scan.nextInt());
+        System.out.println("Course successfully added, please modify an existing course to add more details.");
         courses.add(newCourse);
-        return true;
     }
 
     private boolean updateCourse(String courseId, Set<Course> courses) {
@@ -177,8 +184,12 @@ public class AdminController extends AccountController {
             System.out.println();
             System.out.println("Select an option: ");
             System.out.println("1. Change course id");
-            System.out.println("2. Change school");
-            System.out.println("3. Continue");
+            System.out.println("2. Change course name");
+            System.out.println("3. Change school");
+            System.out.println("4. Change AU");
+            System.out.println("5. Change lecture time");
+            System.out.println("6. Change exam time");            
+            System.out.println("7. Continue");
             System.out.printf("Option: ");
             int option = scan.nextInt();
             scan.nextLine();
@@ -190,12 +201,50 @@ public class AdminController extends AccountController {
                     break;
 
                 case 2:
+                    System.out.printf("Course name: ");
+                    String newName = scan.nextLine();
+                    course.setCourseName(newName);
+                    break;
+
+
+                case 3:
                     System.out.printf("School: ");
                     String school = scan.nextLine();
                     course.setSchool(school);
                     break;
 
-                case 3:
+                case 4:
+                    System.out.printf("AU: ");
+                    int au = scan.nextInt();
+                    course.setAu(au);
+
+                case 5:
+                    System.out.printf(String.join(" ", "Lecture Time:", "0.", course.getLectureTime()[0], 
+                        "1.", course.getLectureTime()[1], "\n"));
+                    System.out.println("Select index to edit (or empty lecture to delete)");
+                    System.out.printf("Option: ");
+                    int op = scan.nextInt();
+                    scan.nextLine();
+                    if (op != 0 && op != 1) {
+                        System.out.println("Invalid option");
+                        break;
+                    }
+                    System.out.printf("New lecture time (MON1030-1130): ");
+                    course.setLectureTime(op, scan.nextLine());
+                    System.out.printf("New lecture venue: ");
+                    course.setLectureVenue(op, scan.nextLine());
+                    System.out.println("Successfully saved");
+                    break;
+
+                case 6:
+                    System.out.printf("New exam time (12011000-1100): ");
+                    course.setExamTime(scan.nextLine());
+                    System.out.printf("New exam venue: ");
+                    course.setExamVenue(scan.nextLine());
+                    System.out.println("Successfully saved");
+                    break;
+
+                case 7:
                     quit = true;
                     break;
 
@@ -247,6 +296,7 @@ public class AdminController extends AccountController {
                         Index idxAdd = new Index(indexNo);
                         course.addIndex(idxAdd);
                         indexes.add(idxAdd);
+                        idxAdd.setCourse(course);
                         System.out.println("Index added");
                         IndexController iControlAdd = new IndexController(idxAdd);
                         iControlAdd.editIndex(indexes);

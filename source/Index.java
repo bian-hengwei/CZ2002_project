@@ -5,28 +5,23 @@ import java.util.Set;
 
 public class Index {
 
-    private String courseId;
-    private String courseName;
-    private String school;
-    private int au;
     private int indexNumber;
     private int vacancy;
-    private String[] lectureTime;
-    private String[] lectureVenue;
-    private String examTime;
-    private String examVenue;
     private String tutorialTime;
     private String tutorialVenue;
     private String labTime;
     private String labVenue;
     private Queue<String> waitlist;
     private Set<String> studentList;
+    private Course course;
     
     public Index() {
         waitlist = new LinkedList<String>();
         studentList = new HashSet<String>();
-        lectureTime = new String[]{"", ""};
-        lectureVenue = new String[]{"", ""};
+        tutorialTime = "";
+        tutorialVenue = "";
+        labTime = "";
+        labVenue = "";
     }
 
     public Index(int idx) {
@@ -37,19 +32,19 @@ public class Index {
     // getters
 
     public String getCourseId() {
-        return courseId;
+        return course.getCourseId();
     }
 
     public String getCourseName() {
-        return courseName;
+        return course.getCourseName();
     }
 
     public String getSchool() {
-        return school;
+        return course.getSchool();
     }
 
     public int getAu() {
-        return au;
+        return course.getAu();
     }
 
     public int getIndexNumber() {
@@ -61,19 +56,19 @@ public class Index {
     }
 
     public String[] getLectureTime() {
-        return lectureTime;
+        return course.getLectureTime();
     }
 
     public String[] getLectureVenue() {
-        return lectureVenue;
+        return course.getLectureVenue();
     }
 
     public String getExamTime() {
-        return examTime;
+        return course.getExamTime();
     }
 
     public String getExamVenue() {
-        return examVenue;
+        return course.getExamVenue();
     }
 
     public String getTutorialTime() {
@@ -100,23 +95,11 @@ public class Index {
         return studentList;
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
     // setters
-
-    public void setCourseId(String cid) {
-        courseId = cid;
-    }
-
-    public void setCourseName(String cName) {
-        courseName = cName;
-    }
-
-    public void setSchool(String s) {
-        school = s;
-    }
-
-    public void setAu(int a) {
-        au = a; 
-    }
 
     public void setIndexNumber(int idxNo){
         indexNumber = idxNo;
@@ -124,40 +107,6 @@ public class Index {
 
     public void setVacancy(int vac){
         vacancy = vac;
-    }
-
-    public void setLectureTime(String lecture) {
-        lectureTime = lecture.split("&");
-        if (lectureTime.length == 0) {
-            lectureTime = new String[]{"", ""};
-        } else if (lectureTime.length == 1) {
-            lectureTime = new String[]{lectureTime[0], ""};
-        }
-    }
-
-    public void setLectureTime(int idx, String time) {
-        lectureTime[idx] = time;
-    }
-
-    public void setLectureVenue(String venue) {
-        lectureVenue = venue.split("&");
-        if (lectureVenue.length == 0) {
-            lectureVenue = new String[]{"", ""};
-        } else if (lectureVenue.length == 1) {
-            lectureVenue = new String[]{lectureVenue[0], ""};
-        }
-    }
-
-    public void setLectureVenue(int idx, String venue) {
-        lectureVenue[idx] = venue;
-    }
-
-    public void setExamTime(String exam) {
-        examTime = exam;
-    }
-
-    public void setExamVenue(String venue) {
-        examVenue = venue;
     }
 
     public void setTutorialTime(String tutorial) {
@@ -192,6 +141,10 @@ public class Index {
         for (String matricNo: matricNoArray) {
             addStudent(matricNo);
         }
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     // lists operations
@@ -234,5 +187,7 @@ public class Index {
     public int studentListSize() {
         return studentList.size();
     }
+
+
 
 }

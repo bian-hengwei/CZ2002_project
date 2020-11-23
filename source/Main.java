@@ -15,6 +15,7 @@ public class Main {
         indexes = new HashSet<Index>();
         courses = new HashSet<Course>();
 
+        readCourses();
         readIndexes();
 
         scan = new Scanner(System.in);
@@ -45,7 +46,10 @@ public class Main {
                 default:
                     System.out.println("Invalid option");
             }
+            saveCourses();
+            saveIndexes();
         }
+        saveCourses();
         saveIndexes();
         scan.close();
     }
@@ -181,41 +185,43 @@ public class Main {
         }
     }
 
+    public static void readCourses() {
+        Set<String> coursesString = FileHandler.readToSet("course_information");
+        for (String line: coursesString) {
+            String[] indexInfoArray = line.split(",");
+            Course course = new Course();
+            course.setCourseId(indexInfoArray[0]);
+            course.setCourseName(indexInfoArray[1]);
+            course.setSchool(indexInfoArray[2]);
+            course.setAu(Integer.parseInt(indexInfoArray[3]));
+            course.setLectureTime(indexInfoArray[4]);
+            course.setLectureVenue(indexInfoArray[5]);
+            course.setExamTime(indexInfoArray[6]);
+            course.setExamVenue(indexInfoArray[7]);
+            courses.add(course);
+        }
+    }
+
     public static void readIndexes() {
         Set<String> indexesString = FileHandler.readToSet("index_information");
         for (String line: indexesString) {
             String[] indexInfoArray = line.split(",");
             Index idx = new Index();
-            idx.setCourseId(indexInfoArray[0]);
-            idx.setCourseName(indexInfoArray[1]);
-            idx.setSchool(indexInfoArray[2]);
-            idx.setAu(Integer.parseInt(indexInfoArray[3]));
-            idx.setIndexNumber(Integer.parseInt(indexInfoArray[4]));
-            idx.setVacancy(Integer.parseInt(indexInfoArray[5]));
-            idx.setLectureTime(indexInfoArray[6]);
-            idx.setLectureVenue(indexInfoArray[7]);
-            idx.setExamTime(indexInfoArray[8]);
-            idx.setExamVenue(indexInfoArray[9]);
-            idx.setTutorialTime(indexInfoArray[10]);
-            idx.setTutorialVenue(indexInfoArray[11]);
-            idx.setLabTime(indexInfoArray[12]);
-            idx.setLabVenue(indexInfoArray[13]);
-            idx.setWaitlist(indexInfoArray[14]);
-            idx.setStudentList(indexInfoArray[15]);
+            idx.setIndexNumber(Integer.parseInt(indexInfoArray[1]));
+            idx.setVacancy(Integer.parseInt(indexInfoArray[2]));
+            idx.setTutorialTime(indexInfoArray[3]);
+            idx.setTutorialVenue(indexInfoArray[4]);
+            idx.setLabTime(indexInfoArray[5]);
+            idx.setLabVenue(indexInfoArray[6]);
+            idx.setWaitlist(indexInfoArray[7]);
+            idx.setStudentList(indexInfoArray[8]);
 
-            boolean added = false;
             for (Course c: courses) {
-                if (c.getCourseId().equals(idx.getCourseId())) {
+                if (c.getCourseId().equals(indexInfoArray[0])) {
                     c.addIndex(idx);
-                    added = true;
+                    idx.setCourse(c);
                     break;
                 }
-            }
-            if (!added) {
-                Course course = new Course(idx.getCourseId());
-                course.setSchool(idx.getSchool());
-                course.addIndex(idx);
-                courses.add(course);
             }
             indexes.add(idx);
         }
@@ -223,18 +229,14 @@ public class Main {
 
     public static void saveIndexes() {
         StringBuilder sb = new StringBuilder();
-        sb.append("id,name,school,au,index,vacancy,lectureTime,lectureVenue,examTime,");
+        sb.append("id,index,vacancy,");
         sb.append("examVenue,tutorialTime,tutorialVenue,labTime,labVenue,waitlist,studentList,;\n");
         for (Index idx: indexes) {
-            String lectureTime = String.join("&", idx.getLectureTime());
-            String lectureVenue = String.join("&", idx.getLectureVenue());
             String waitlist = String.join("&", idx.getWaitList());
             String studentList = String.join("&", idx.getStudentList());
-            sb.append(String.format("%s,%s,%s,%d,%d,%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,;\n", 
-                idx.getCourseId(), idx.getCourseName(), idx.getSchool(), 
-                idx.getAu(), idx.getIndexNumber(), idx.getVacancy(), 
-                lectureTime, lectureVenue, idx.getExamTime(), 
-                idx.getExamVenue(), idx.getTutorialTime(), idx.getTutorialVenue(), 
+            sb.append(String.format("%s,%d,%d,%s,%s,%s,%s,%s,%s,;\n", 
+                idx.getCourseId(), idx.getIndexNumber(), idx.getVacancy(), 
+                idx.getTutorialTime(), idx.getTutorialVenue(), 
                 idx.getLabTime(), idx.getLabVenue(), waitlist, studentList)
             );
         }
@@ -242,4 +244,19 @@ public class Main {
         System.out.println("Indexes successfully saved.");
     }
 
+    public static void saveCourses() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("courseId,name,school,au,lectureTime,lectureVenue,examTime,examVenue,;\n");
+        for (Course c: courses) {
+            String lectureTime = String.join("&", c.getLectureTime());
+            String lectureVenue = String.join("&", c.getLectureVenue());
+            sb.append(String.format("%s,%s,%s,%d,%s,%s,%s,%s,;\n", 
+                c.getCourseId(), c.getCourseName(), c.getSchool(), 
+                c.getAu(), lectureTime, lectureVenue, c.getExamTime(), 
+                c.getExamVenue())
+            );
+        }
+        FileHandler.save("course_information", sb.toString());
+        System.out.println("Courses successfully saved.");
+    }
 }

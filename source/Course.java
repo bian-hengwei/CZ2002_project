@@ -15,6 +15,10 @@ public class Course {
 
     public Course() {
         indexes = new HashSet<Index>();
+        lectureTime = new String[]{"", ""};
+        lectureVenue = new String[]{"", ""};
+        examTime = "";
+        examVenue = "";
     }
 
     public Course(String cid) {

@@ -3,12 +3,12 @@
 Back to [README.md](README.md)
 
 ## PLAN
-- [ ] Coding
-- [ ] Class diagram
-- [ ] Sequence diagram
-- [ ] Java doc
-- [ ] Report
-- [ ] Demo
+- [ ] Coding 0.95
+- [ ] Class diagram 0.5
+- [ ] Sequence diagram 0.6
+- [ ] Java doc 0.0
+- [ ] Report 0.2
+- [ ] Demo 0.0
 
 ## TODO
 - [x] File input for indexes and courses
@@ -33,16 +33,14 @@ Back to [README.md](README.md)
 - [ ] Empty exam/tutorial/lab
 - [ ] Email
 
-
 ## FINAL PLAN
 - [x] Admin add student
 - [x] Admin print by course / index
 - [x] Notification interface
-- [ ] Student current AU
-- [ ] Admin / student / course / index missing attributes
-- [ ] Admin edit course
-- [ ] Scanner
+- [x] Student current AU
+- [x] Admin / student / course / index missing attributes
+- [x] Admin edit course
+- [ ] Scanner, check data type etc
 - [ ] Deal with all invalid inputs
-- [ ] Notification interface
 - [ ] Adjust wording and outputs
 - [ ] Read through code
