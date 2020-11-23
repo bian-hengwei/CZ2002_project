@@ -13,7 +13,6 @@ public class Student {
     private Set<String> takenCourses;
     private Set<Index> currentIndexes;
     private Set<Index> onWaitlist;
-    private String email;
 
     public Student() {
         takenCourses = new HashSet<String>();
@@ -67,10 +66,6 @@ public class Student {
         return onWaitlist;
     }
 
-    public String getEmail(){
-        return email;
-    }
-
     // setters
 
     public void setAccount(String account) {
@@ -99,10 +94,6 @@ public class Student {
 
     public void setCurrentAu(int currentAu) {
         this.currentAU = currentAu;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     // Data structure operations

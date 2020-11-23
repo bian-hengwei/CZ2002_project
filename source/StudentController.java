@@ -65,8 +65,7 @@ public class StudentController extends AccountController {
                     model.addOnWaitlist(idx);
             }
         }
-        model.setEmail(modelInfo[9]);
-        model.setCurrentAu(Integer.parseInt(modelInfo[10]));
+        model.setCurrentAu(Integer.parseInt(modelInfo[9]));
         return true;
     }
 
