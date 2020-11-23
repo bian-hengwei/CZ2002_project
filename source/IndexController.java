@@ -247,23 +247,31 @@ public class IndexController {
 
     public void fixWaitlist(Set<Index> indexes) {
         while (model.getVacancy() > 0 && model.getWaitListLength() > 0) {
+            EmailSender emailSender = new EmailSender();
             System.out.println("Found students on waitlist");
             System.out.println("Adding student on waitlist to course and sending email");
             String matricNo = model.removeWaitlist();
-            model.addStudent(matricNo);
-            model.setVacancy(model.getVacancy() - 1);
 
             ///// modify student
             StudentController sc = new StudentController();
             sc.readStudent(matricNo, indexes, 3);
+
+            while (sc.getModel().getCurrentAu() + model.getAu() > 21) {
+                String text = "Registered\nDear " + sc.getModel().getName() + ", you have already reached the AU limit so we apologize " + 
+                    "for not being able to  register you to " +  model.getCourseId() + " with index " + model.getIndexNumber();
+                emailSender.send(sc.getModel().getAccount(), text);
+                matricNo = model.removeWaitlist();
+                sc.readStudent(matricNo, indexes, 3);
+            }
+
             sc.getModel().removeOnWaitlist(model);
             sc.getModel().addCurrentIndexes(model);
-            sc.saveStudentInfo();
+            model.addStudent(matricNo);
+            model.setVacancy(model.getVacancy() - 1);
+            //sc.saveStudentInfo();
 
             String text = "Registered\nDear " + sc.getModel().getName() + ", you have successfully registered to " + 
                           model.getCourseId() + " with index " + model.getIndexNumber();
-
-            EmailSender emailSender = new EmailSender();
 
             emailSender.send(sc.getModel().getAccount(), text);
         }

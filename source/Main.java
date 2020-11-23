@@ -128,6 +128,7 @@ public class Main {
         int choice = 0;
         while (choice != 7) {
             // print basic student information
+            System.out.println();
             studentController.printModelDetail();
             System.out.println("Please select one of the functions: ");
             System.out.println("1. Add Course");
