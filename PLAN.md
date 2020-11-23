@@ -40,7 +40,7 @@ Back to [README.md](README.md)
 - [ ] Admin print by course / index
 - [ ] Admin / student / course / index missing attributes
 - [ ] Deal with all invalid inputs
-- [ ] Notification interface
+- [x] Notification interface
 - [ ] Adjust wording and outputs
 - [ ] Scanner
 - [ ] Read through code
