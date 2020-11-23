@@ -9,7 +9,7 @@ public class Student {
     private String matricNo;
     private String major;
     private String year;
-    private int currentAU;
+    private int currentAu;
     private Set<String> takenCourses;
     private Set<Index> currentIndexes;
     private Set<Index> onWaitlist;
@@ -18,6 +18,7 @@ public class Student {
         takenCourses = new HashSet<String>();
         currentIndexes = new HashSet<Index>();
         onWaitlist = new HashSet<Index>();
+        currentAu = 0;
     }
 
     public String[] readTime(String index) {
@@ -51,7 +52,7 @@ public class Student {
     }
 
     public int getCurrentAu() {
-        return currentAU;
+        return currentAu;
     }
 
     public Set<String> getTakenCourses() {
@@ -93,7 +94,7 @@ public class Student {
     }
 
     public void setCurrentAu(int currentAu) {
-        this.currentAU = currentAu;
+        this.currentAu = currentAu;
     }
 
     // Data structure operations
@@ -108,10 +109,12 @@ public class Student {
 
     public void addCurrentIndexes(Index index) {
         currentIndexes.add(index);
+        currentAu += index.getAu();
     }
 
     public void removeCurrentIndexes(Index index) {
         currentIndexes.remove(index);
+        currentAu -= index.getAu();
     }
 
     public void addOnWaitlist(Index index) {
