@@ -32,4 +32,15 @@ Back to [README.md](README.md)
 ## TESTS
 - [ ] Empty exam/tutorial/lab
 - [ ] Email
-  
+
+
+## FINAL PLAN
+- [ ] Admin add student
+- [ ] Admin edit course
+- [ ] Admin print by course / index
+- [ ] Admin / student / course / index missing attributes
+- [ ] Deal with all invalid inputs
+- [ ] Notification interface
+- [ ] Adjust wording and outputs
+- [ ] Scanner
+- [ ] Read through code

@@ -16,7 +16,7 @@ public class StudentController extends AccountController {
 
     // getters
 
-    public Student getModel(){
+    public Student getModel() {
         return model;
     }
 
