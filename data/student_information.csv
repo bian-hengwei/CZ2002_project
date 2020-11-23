@@ -1,5 +1,5 @@
 account,name,nationality,matricNo,major,year,taken,current,waitlist,email,currentAU,;
-1,name1,sg,U1,SCSE,Y1,CZ1003,20013&20022&20051,,hbian001@e.ntu.edu.sg,10,;,
+1,name1,sg,U1,SCSE,Y1,CZ1003,20013&20022&20051,,hbian001@e.ntu.edu.sg,10,;
 student2,Alice,sg,U2,SCSE,Y2,CZ2005,20013,20021,hbian001@e.ntu.edu.sg,10,;
 student3,Tom,sg,U3,SCSE,Y2,CZ1003,20021&20013,,hbian001@e.ntu.edu.sg,10,;
 student4,Jack,sg,U4,SCSE,Y2,MH1812,20021&20052,,hbian001@e.ntu.edu.sg,10,;
@@ -14,3 +14,4 @@ student12,Kejie,cn,U12,SCSE,Y3,CZ2001,,,hbian001@e.ntu.edu.sg,10,;
 student13,Liangyi,sg,U13,SCSE,Y4,CZ1004,,,hbian001@e.ntu.edu.sg,10,;
 student14,Kenneth,sg,U14,EEE,Y4,AP3006,,,hbian001@e.ntu.edu.sg,10,;
 student15,Justin,sg,U15,EEE,Y4,AP3006,20011,,hbian001@e.ntu.edu.sg,10,;
+ta,ta,ta,ta,SCSE,Y1,,,,null,0,;

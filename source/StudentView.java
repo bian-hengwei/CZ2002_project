@@ -41,10 +41,13 @@ public class StudentView {
         Set<Index> onWaitlist = student.getOnWaitlist();
         String currentIndexesString = "";
         String onWaitlistString = "";
+        
         for(Index idx : currentIndexes) {
             currentIndexesString += idx.getIndexNumber() + "&";
         }
-        currentIndexesString = currentIndexesString.substring(0, currentIndexesString.length()-1);
+        if (currentIndexesString != "") {
+            currentIndexesString = currentIndexesString.substring(0, currentIndexesString.length()-1);
+        }
 
         for(Index idx : onWaitlist) {
             onWaitlistString += idx.getIndexNumber() + "&";

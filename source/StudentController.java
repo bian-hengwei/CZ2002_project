@@ -45,12 +45,7 @@ public class StudentController extends AccountController {
         String[] modelInfo = readInfo(ref, col);
         if (modelInfo == null)
             return false;
-        model.setAccount(modelInfo[0]);
-        model.setName(modelInfo[1]);
-        model.setNationality(modelInfo[2]);
-        model.setMatricNo(modelInfo[3]);
-        model.setMajor(modelInfo[4]);
-        model.setYear(modelInfo[5]);
+        readPersonalInfo(modelInfo);
         for (String taken: modelInfo[6].split("&")) {
             model.addTakenCourses(taken);
         }
@@ -75,11 +70,21 @@ public class StudentController extends AccountController {
         return true;
     }
 
+    public void readPersonalInfo(String[] modelInfo) {
+        model.setAccount(modelInfo[0]);
+        model.setName(modelInfo[1]);
+        model.setNationality(modelInfo[2]);
+        model.setMatricNo(modelInfo[3]);
+        model.setMajor(modelInfo[4]);
+        model.setYear(modelInfo[5]);
+    }
+
     public boolean checkTime() {
         String index = model.getMajor() + model.getYear();
         String[] accessTime = model.readTime(index);
         if (accessTime == null) {
             System.out.println("Your group is not assigned access time yet");
+            return false;
         }
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
