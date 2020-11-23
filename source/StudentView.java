@@ -59,8 +59,7 @@ public class StudentView {
                                      student.getNationality(), student.getMatricNo(), 
                                      student.getMajor(), student.getYear(), 
                                      takenCourses, 
-                                     currentIndexesString, onWaitlistString, 
-                                     student.getEmail(), 
+                                     currentIndexesString, onWaitlistString,  
                                      Integer.toString(student.getCurrentAu()), ";,");
         FileHandler.writeLine("student_information", student.getAccount(), content);
     }

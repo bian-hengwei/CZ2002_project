@@ -262,7 +262,10 @@ public class IndexController {
 
             String text = "Dear " + sc.getModel().getName() + ", you have successfully registered " + 
                           model.getCourseId() + " with index " + model.getIndexNumber();
-            Notification.sendEmail(sc.getModel().getEmail(), text, "Registered course");
+
+            EmailSender emailSender = new EmailSender();
+
+            emailSender.send(sc.getModel().getAccount(), text, "Registered course");
 
             System.out.println("Finished waitlist operation");
         }
