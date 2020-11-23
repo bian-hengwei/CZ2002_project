@@ -260,15 +260,14 @@ public class IndexController {
             sc.getModel().addCurrentIndexes(model);
             sc.saveStudentInfo();
 
-            String text = "Dear " + sc.getModel().getName() + ", you have successfully registered " + 
+            String text = "Registered\nDear " + sc.getModel().getName() + ", you have successfully registered to " + 
                           model.getCourseId() + " with index " + model.getIndexNumber();
 
             EmailSender emailSender = new EmailSender();
 
-            emailSender.send(sc.getModel().getAccount(), text, "Registered course");
-
-            System.out.println("Finished waitlist operation");
+            emailSender.send(sc.getModel().getAccount(), text);
         }
+        System.out.println("Finished waitlist operation");
     }
 
 }

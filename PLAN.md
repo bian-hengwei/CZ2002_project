@@ -35,12 +35,14 @@ Back to [README.md](README.md)
 
 
 ## FINAL PLAN
-- [ ] Admin add student
-- [ ] Admin edit course
-- [ ] Admin print by course / index
-- [ ] Admin / student / course / index missing attributes
-- [ ] Deal with all invalid inputs
+- [x] Admin add student
+- [x] Admin print by course / index
 - [x] Notification interface
-- [ ] Adjust wording and outputs
+- [ ] Student current AU
+- [ ] Admin / student / course / index missing attributes
+- [ ] Admin edit course
 - [ ] Scanner
+- [ ] Deal with all invalid inputs
+- [ ] Notification interface
+- [ ] Adjust wording and outputs
 - [ ] Read through code

@@ -77,16 +77,34 @@ public class AdminController extends AccountController {
             return;
         }
         System.out.println("Student account does not exist");
-        System.out.println("Saving account and password...");
         byte[] salt = getSalt();
         String saltString = byteArrToHexStr(salt);
         String hashed = hash(accountInfo[1], salt);
         String content = String.join(",", accountInfo[0], saltString, hashed, ";");
-        FileHandler.writeLine("student_passwords", accountInfo[0], content);
-        System.out.println("Successfully saved");
         System.out.println();
         // save student tbd
         // invalid data entry
+        System.out.println("Entering student informations");
+        System.out.printf("Student name: ");
+        String name = scan.nextLine();
+        System.out.printf("Student nationality: ");
+        String nationality = scan.nextLine();
+        System.out.printf("Student matric number: ");
+        String matricNumber = scan.nextLine();
+        System.out.printf("Student major: ");
+        String major = scan.nextLine();
+        System.out.printf("Student year: Year ");
+        String year = "Y" + scan.nextLine();
+
+        System.out.println("Initializing student...");
+        StudentController sControl = new StudentController();
+        sControl.readPersonalInfo(new String[]{accountInfo[0], name, nationality, matricNumber, major, year});
+
+        System.out.println("Account generated");
+        System.out.println("Saving student...");
+        FileHandler.writeLine("student_passwords", accountInfo[0], content);
+        sControl.saveStudentInfo();
+        System.out.println("Student saved");
     }
 
     // 3
@@ -292,8 +310,24 @@ public class AdminController extends AccountController {
 
     public void printByIndex(Set<Index> indexes) {
         // get index number
-        Index index = new Index();
-        printByIndex(index);
+        System.out.printf("Enter the index Id: ");
+        int id = scan.nextInt();
+
+        // loop through all courses to find any match
+        Index idx = null;
+        for (Index i : indexes) {
+            if (i.getIndexNumber() == id) {
+                idx = i;
+                break;
+            }
+        }
+
+        if (idx == null) {
+            System.out.println("Index not found");
+            return;
+        }
+
+        printByIndex(idx);
     }
 
     public void printByCourse(Set<Course> courses) {
