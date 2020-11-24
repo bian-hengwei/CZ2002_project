@@ -22,6 +22,7 @@ public class Student {
     private Set<String> takenCourses;
     private Set<Index> currentIndexes;
     private Set<Index> onWaitlist;
+    private String gender;
 
     /**
      * Constructor of student that initializes the student
@@ -124,6 +125,14 @@ public class Student {
         return onWaitlist;
     }
 
+    /**
+     * getter of gender
+     * @return gender
+     */
+    public String getGender() {
+        return gender;
+    }
+
     // setters
 
     /**
@@ -180,6 +189,14 @@ public class Student {
      */
     public void setCurrentAu(int currentAu) {
         this.currentAu = currentAu;
+    }
+
+    /**
+     * setter of gender
+     * @param g gender
+     */
+    public void setGender(String g) {
+        this.gender = g;
     }
 
     // Data structure operations

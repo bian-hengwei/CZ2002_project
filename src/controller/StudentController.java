@@ -85,6 +85,7 @@ public class StudentController extends AccountController {
         model.setMatricNo(modelInfo[3]);
         model.setMajor(modelInfo[4]);
         model.setYear(modelInfo[5]);
+        model.setGender(modelInfo[9]);
     }
 
     public boolean checkTime() {

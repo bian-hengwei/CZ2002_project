@@ -34,10 +34,10 @@ public class IndexView {
     
     public void printStudents(Index idx) {
         Set<String> studentsInfo = FileHandler.readToSet("student_information");
-        System.out.println("Printing students...");
+        System.out.println("Printing students taking " + idx.getIndexNumber());
         for (String studentRecord: studentsInfo) {
             if (idx.getStudentList().contains(studentRecord.split(",")[3])) {
-                System.out.println(studentRecord.split(",")[3] + " " + studentRecord.split(",")[4]);
+                System.out.printf("Name: %s Nationality: %s Gender: %s\n", studentRecord.split(",")[1], studentRecord.split(",")[2], studentRecord.split(",")[9]);
             }
         }
     }
