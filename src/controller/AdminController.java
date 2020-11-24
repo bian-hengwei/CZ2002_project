@@ -15,6 +15,9 @@ public class AdminController extends AccountController {
     private Scanner scan;
     private InputScanner is;
 
+    /**
+    * construct AdminController object.
+    */
     public AdminController() {
         model = new Admin();
         scan = new Scanner(System.in);
@@ -24,6 +27,10 @@ public class AdminController extends AccountController {
 
     // initialize methods
 
+    /**
+    * initialize admin object, check if admin is legit.
+    * @return returns true if initialization is successful.
+    */
     public boolean init() {
         boolean success = login();
         if (!success) {
@@ -38,6 +45,11 @@ public class AdminController extends AccountController {
         return success;
     }
 
+    /**
+    * read in admin information and update admin object details
+    * @param account account of admin that need to be read.
+    * @return return true if admin is read successfully, else, return false
+    */
     public boolean readAdmin(String account) {
         String[] modelInfo = readInfo(account, 0);
         if (modelInfo == null)
@@ -49,6 +61,9 @@ public class AdminController extends AccountController {
     }
 
     // 1
+    /**
+    * let admin enter the school, year, start date, end date and the starting and ending time. update access_time.csv according to what admin entered.
+    */
     public void editAccessPeriod() {
         System.out.println("You can set the access period for students from any school and any year");
         System.out.printf("School: ");
@@ -70,6 +85,9 @@ public class AdminController extends AccountController {
     }
 
     // 2
+    /**
+    * let admin add a new student account to system. checks if student already exists. If student do not exist, let admin enter student details. student details are then saves into student_information.csv file.
+    */
    public void addStudent() {
         String[] accountInfo = promptForPassword();
         if (FileHandler.readRow("student_passwords", accountInfo[0]) != null) {
@@ -109,6 +127,12 @@ public class AdminController extends AccountController {
     }
 
     // 3
+
+    /**
+    * let admin add or update a course. admin could add a new course, modify indexes of existing course and modify other information of existing course.
+    * @param courses all courses that are valid
+    * @param indexes all indexes that are valid
+    */
     public void addUpdateCourse(Set<Course> courses, Set<Index> indexes) {
         boolean quit = false;
         while (!quit) {
@@ -156,6 +180,11 @@ public class AdminController extends AccountController {
         }
     }
 
+    /**
+    * let admin add a new course that does not exist previously. if course is successfully added, admin is recommended to select option 2 and 3 to add in more details of the newly added course.
+    * @param courseId course ID of the new course that admin want to add
+    * @param courses all the courses that are valid, used to check if course ID admin entered already exist
+    */
     private void addCourse(String courseId, Set<Course> courses) {
         for (Course c: courses) {
             if (c.getCourseId().equals(courseId)) {
@@ -174,6 +203,12 @@ public class AdminController extends AccountController {
         courses.add(newCourse);
     }
 
+    /**
+    * let admin update a course. admin could change course id, change course name, change au, change lecture time and change exam time. If courseId entered does not exist, error message will be printed.
+    * @param courseId course ID of the existing course that admin want to update
+    * @param courses all courses that are valid. used to check if the course ID admin entered exist.
+    * @return returns true if course is successfully updated, else return false.
+    */
     private boolean updateCourse(String courseId, Set<Course> courses) {
         Course course = null;
         for (Course c : courses) {
@@ -272,6 +307,12 @@ public class AdminController extends AccountController {
         return true;
     }
 
+    /**
+    * let admin add or update an index. admin could display all indexes, add new index, modify existing index or remove current index. courseId will be checked to see if it exists, if not, error message will be displayed.
+    * @param courseId course id of the course that admin want to change the index of.
+    * @param courses all courses that are valid.
+    * @param indexes all indexes that are valid.
+    */
     private void addUpdateIndex(String courseId, Set<Course> courses, Set<Index> indexes) {
         Course course = null;
         for (Course c: courses) {
@@ -373,12 +414,20 @@ public class AdminController extends AccountController {
 
     }
 
+    /**
+    * print students that are registered for an index.
+    * @param index index that students are registered for
+    */
     public void printByIndex(Index index) {
         // create index controller for the index and print
         IndexController ic = new IndexController(index);
         ic.printStudents();
     }
 
+    /**
+    * calls printByIndex(Index index) for every index in the set. 
+    * @param indexes set of indexes that need to be looped through
+    */
     public void printByIndex(Set<Index> indexes) {
         // get index number
         System.out.printf("Enter the index Id: ");
@@ -401,6 +450,10 @@ public class AdminController extends AccountController {
         printByIndex(idx);
     }
 
+    /**
+    * print all indexes and students registered for the indexes of a course. checks if the course id entered is legit, if not, error message is printed.
+    * @param courses all courses that are valid.
+    */
     public void printByCourse(Set<Course> courses) {
 
         // prompts for course id input

@@ -16,6 +16,9 @@ public class StudentController extends AccountController {
     private Scanner scan;
     private InputScanner is;
 
+    /**
+    * construct StudentController object
+    */
     public StudentController() {
         model = new Student();
         view = new StudentView();
@@ -25,13 +28,20 @@ public class StudentController extends AccountController {
     }
 
     // getters
-
+    /**
+    * get and returns student object(model)
+    * @return student object(model)
+    */
     public Student getModel() {
         return model;
     }
 
     // initialize methods
-
+    /**
+    * initialize student object, check if student is legit and if student is logging in at assigned access time.
+    * @param indexes pass in all the index
+    * @return return a boolean to indicate if the intialization is successful
+    */
     public boolean init(Set<Index> indexes) {
         boolean success = login();
         if (!success) {
@@ -51,6 +61,13 @@ public class StudentController extends AccountController {
         return success;
     }
 
+    /**
+    * read in student information and update the student object details.
+    * @param ref pass in account
+    * @param indexes pass in all indexes
+    * @param col
+    * @return return if student information is successfull read
+    */
     public boolean readStudent(String ref, Set<Index> indexes, int col) {
         String[] modelInfo = readInfo(ref, col);
         if (modelInfo == null)
@@ -78,6 +95,10 @@ public class StudentController extends AccountController {
         return true;
     }
 
+    /**
+    * set attributes of student object to what is read from student_information.csv.
+    * @param modelInfo array of student information
+    */
     public void readPersonalInfo(String[] modelInfo) {
         model.setAccount(modelInfo[0]);
         model.setName(modelInfo[1]);
@@ -88,6 +109,10 @@ public class StudentController extends AccountController {
         model.setGender(modelInfo[9]);
     }
 
+    /**
+    * check if student is logging in at assigned access time. If not, print out the assigned access time of student.
+    * @return returns false if student is not allowed to log in, else, return true.
+    */
     public boolean checkTime() {
         String index = model.getMajor() + model.getYear();
         String[] accessTime = model.readTime(index);
@@ -130,6 +155,11 @@ public class StudentController extends AccountController {
     // student functions
 
     // 1
+
+    /**
+    * let student enter a index and register that index, check if student has already registered or taken this course, check time clash, check if exceeded maximum AU etc.
+    * @param indexes all the indexes that are valid.
+    */
     public void addCourse(Set<Index> indexes) {
         System.out.println("Please enter the index you want to add: ");
         int i = is.nextInt(0);
@@ -224,6 +254,11 @@ public class StudentController extends AccountController {
     }
 
     // 2
+
+    /**
+    * let student enter an index and drop that index. register the student in waitlist when possible (for the dropped index).
+    * @param indexes all the indexes that are valid
+    */
     public void dropCourse(Set<Index> indexes) {
         System.out.println("Please choose the index to drop from below: ");
 
@@ -279,15 +314,26 @@ public class StudentController extends AccountController {
     }
 
     // 3
+
+    /**
+    * print all the courses that is registered by a student
+    */
     public void printCoursesRegistered() {
         view.printCoursesRegistered(model.getCurrentIndexes());
     }
 
+    /**
+    * print all the courses that a student is on waitlist
+    */
     public void printOnWaitlist() {
         view.printOnWaitlist(model.getOnWaitlist());
     }
 
     // 4
+    /**
+    * let student enter a registered index and a new index, change the registered index to new index. Register a student on waitlist if possible (for the old index).
+    * @param indexes all indexes that are valid
+    */
     public void changeIndex(Set<Index> indexes) {
 
         int curIndex;
@@ -400,7 +446,10 @@ public class StudentController extends AccountController {
     }
 
     // 5
-    
+    /**
+    * allow another student to login and two students to swap indexes (the indexes must be from the same course). Check time clash for two students, check if two students are registered for the indexes they entered.
+    * @param indexes all indexes that are valid
+    */
     public void swapIndex(Set<Index> indexes) {
         boolean success = false;
         int peerIndex = -1;
@@ -489,11 +538,16 @@ public class StudentController extends AccountController {
     }
 
     // 7
-
+    /**
+    * save student information to student_information.csv by calling view.saveStudentInfo(this.model).
+    */
     public void saveStudentInfo() {
         view.saveStudentInfo(this.model);
     }
 
+    /**
+    * print detail of student by calling view.printModelDetail(model).
+    */
     public void printModelDetail() {
         view.printModelDetail(model);
     }
