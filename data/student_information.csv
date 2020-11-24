@@ -1,12 +1,12 @@
 account,name,nationality,matricNo,major,year,taken,current,waitlist,;
-1,name1,sg,U1,SCSE,Y1,CZ1003,20013&20022&20051,,;
+1,name1,sg,U1,SCSE,Y1,CZ1003,20051&20013&20022,,9,;,
 student2,Alice,sg,U2,SCSE,Y2,CZ2005,20013,20021,;
 student3,Tom,sg,U3,SCSE,Y2,CZ1003,20021&20013,,;
 student4,Jack,sg,U4,SCSE,Y2,MH1812,20021&20052,,;
 student5,Jasper,sg,U5,SCSE,Y2,AD1004,20021&20052,,;
 student6,Violet,cn,U6,EEE,Y3,CZ2002,20023&20052,,;
 student7,Diana,us,U7,EEE,Y1,PL1007,20023,,;
-student8,Sato,jap,U8,EEE,Y4,AP3006,20053&20012,,;
+student8,Sato,jap,U8,EEE,Y4,AP3006,20012&20053,,6,;,
 student9,Gal,sg,U9,EEE,Y3,CL3001,20053,20013,;
 hbian001,Jiaqi,cn,U10,EEE,Y1,CL3002,,20013,;
 student11,Xuanmin,sg,U11,SCSE,Y3,CZ1004,,,;

@@ -17,7 +17,6 @@ public class StudentView {
             System.out.println("Not registered to any course yet");
             return;
         }
-        System.out.println("---------- Courses Registered ----------");
         for (Index idx : indexes) {
             System.out.printf("Course: %s %s, Index: %s, School: %s\n", idx.getCourseId(), idx.getCourseName(), 
                 idx.getIndexNumber(), idx.getSchool());
@@ -30,7 +29,6 @@ public class StudentView {
             System.out.println("Not registered on any waitlist");
             return;
         }
-        System.out.println("---------- Courses on Waitlist ----------");
         for (Index idx : indexes) {
             System.out.printf("Course: %s %s, Index: %s, School: %s\n", idx.getCourseId(), idx.getCourseName(), 
                 idx.getIndexNumber(), idx.getSchool());

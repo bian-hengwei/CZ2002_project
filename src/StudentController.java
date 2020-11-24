@@ -152,7 +152,7 @@ public class StudentController extends AccountController {
 
 
         if (model.getCurrentAu() + index.getAu() >= 21) {
-            System.out.println("Taking this course will result in you exceeding maximum AU of 22");
+            System.out.println("Taking this course will result in you exceeding maximum AU of 21");
             return;
         }
 
@@ -227,6 +227,8 @@ public class StudentController extends AccountController {
         switch(courseType) {
 
             case 1:
+            System.out.println();
+            System.out.println("----- Drop registered course -----");
             // get the index object
             Index i1 = model.getIndex(dropIndex);
             if (i1 == null) {
@@ -243,6 +245,7 @@ public class StudentController extends AccountController {
             break;
 
             case 2:
+            System.out.println("----- Drop waitlisted course -----");
             // get the index object
             Index i2 = model.getOnWaitlist(dropIndex);
             if (i2 == null) {
@@ -286,7 +289,6 @@ public class StudentController extends AccountController {
         boolean timeClash = false;
         IndexController indexController = null;
 
-        System.out.println("---------- Change Index -----------");
         System.out.println("Please enter current index: ");
         curIndex = is.nextInt(0);
 
@@ -299,7 +301,7 @@ public class StudentController extends AccountController {
         }
 
         if (!curFound) {
-            System.out.println("You have not registered the current index you entered.");
+            System.out.println("You have not registered for the current index you entered.");
             return;
         }
 
@@ -338,7 +340,6 @@ public class StudentController extends AccountController {
                                " which you are currently on waitlist");
             return;
         }
-
 
         if(newIndex.getVacancy() > 0){
             // confirm to change
@@ -386,7 +387,7 @@ public class StudentController extends AccountController {
                 System.out.println("The new Index do not have vacancy.");
                 return;
             }
-
+            /*
             // confirm to change
             IndexController currentIndexController = new IndexController(currentIndex);
             IndexController newIndexController = new IndexController(newIndex);
@@ -420,7 +421,7 @@ public class StudentController extends AccountController {
                     newIndex.getIndexNumber());
             } else {
                 System.out.println("Changing of indexes cancelled.");
-            }
+            }*/
         }
     }
 

@@ -40,7 +40,7 @@ public class AccountController {
         int count = 0;
         while (!success && count < 3) {
             System.out.println("Logging in as " + prefix + "...");
-            System.out.println("(press enter to exit)");
+            System.out.println("(Press enter to exit)");
             String[] loginInfo = promptForPassword();
             if (loginInfo == null) {
                 return false;

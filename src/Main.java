@@ -81,38 +81,50 @@ public class Main {
         while (choice != 7) {
             System.out.println();
             System.out.println("Please select one of the functions: ");
-            System.out.println("1. Edit Student Access Period");
-            System.out.println("2. Add Student");
-            System.out.println("3. Add/Update A Course");
-            System.out.println("4. Check Available Slot For An Index Number");
-            System.out.println("5. Print Student List By Index Number");
-            System.out.println("6. Print Student List By Course");
+            System.out.println("1. Edit student access period");
+            System.out.println("2. Add student");
+            System.out.println("3. Add/Update a course");
+            System.out.println("4. Check available slot of an index number");
+            System.out.println("5. Print student list by index number");
+            System.out.println("6. Print student list by course");
             System.out.println("7. Exit");
             System.out.printf("Your choice: ");
             choice = is.nextInt(1, 8);
 
             switch (choice) {
                 case 1:
+                    System.out.println();
+                    System.out.println("----- Edit student access period -----");
                     adminController.editAccessPeriod();
                     break;
 
                 case 2:
+                    System.out.println();
+                    System.out.println("----- Add student -----");
                     adminController.addStudent();
                     break;
 
                 case 3:
+                    System.out.println();
+                    System.out.println("----- Add/Update a course -----");
                     adminController.addUpdateCourse(courses, indexes);
                     break;
 
                 case 4:
+                    System.out.println();
+                    System.out.println("----- Check available slot of an index number -----");
                     adminController.checkVacancy(indexes);
                     break;
 
                 case 5:
+                    System.out.println();
+                    System.out.println("----- Print student list bu index number -----");
                     adminController.printByIndex(indexes);
                     break;
 
                 case 6:
+                    System.out.println();
+                    System.out.println("----- Print student list by course -----");
                     // looking for input 6
                     adminController.printByCourse(courses);
                     break;
@@ -137,10 +149,10 @@ public class Main {
             System.out.println("Please select one of the functions: ");
             System.out.println("1. Add Course");
             System.out.println("2. Drop Course");
-            System.out.println("3. Check/Print Courses Registered and on Wait list");
-            System.out.println("4. Change Index Number of Course");
-            System.out.println("5. Swap Index Number with Another Student");
-            System.out.println("6. Check Vacancies Available");
+            System.out.println("3. Check/Print courses registered and on waitlist");
+            System.out.println("4. Change index number of course");
+            System.out.println("5. Swap index number with another student");
+            System.out.println("6. Check vacancies available");
             System.out.println("7. Exit");
             System.out.printf("Your choice: ");
             choice = is.nextInt(1, 8);
@@ -148,27 +160,39 @@ public class Main {
             switch (choice) {
 
                 case 1:
+                    System.out.println();
+                    System.out.println("----- Add course -----");
                     studentController.addCourse(indexes);
                     break;
 
                 case 2:
+                    System.out.println();
+                    System.out.println("----- Drop course -----");
                     studentController.dropCourse(indexes);
                     break;
 
                 case 3:
+                    System.out.println();
+                    System.out.println("----- Check/Print courses registered on waitlist");
                     studentController.printCoursesRegistered();
                     studentController.printOnWaitlist();
                     break;
 
                 case 4:
+                    System.out.println();
+                    System.out.println("----- Change index number of course -----");
                     studentController.changeIndex(indexes);
                     break;
 
                 case 5:
+                    System.out.println();
+                    System.out.println("----- Swap index number with another student -----");
                     studentController.swapIndex(indexes);
                     break;
 
                 case 6:
+                    System.out.println();
+                    System.out.println("----- Check vacancies available -----");
                     studentController.checkVacancy(indexes);
                     break;
 

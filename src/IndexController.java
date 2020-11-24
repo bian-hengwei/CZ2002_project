@@ -125,19 +125,19 @@ public class IndexController {
                 }
                 else if (modelEndTime > targetStartTime && modelEndTime < targetEndTime) {
                     noTimeClash = false;
-                    System.out.printf("%d, %d, 3\n", i, j);
+                    //System.out.printf("%d, %d, 3\n", i, j);
                 }
                 else if (modelStartTime > targetStartTime && modelEndTime < targetEndTime) {
                     noTimeClash = false;
-                    System.out.printf("%d, %d, 4\n", i, j);
+                    //System.out.printf("%d, %d, 4\n", i, j);
                 }
                 else if (targetStartTime > modelStartTime && targetEndTime < modelEndTime) {
                     noTimeClash = false;
-                    System.out.printf("%d, %d, 5\n", i, j);
+                    //System.out.printf("%d, %d, 5\n", i, j);
                 }
                 else if(targetStartTime == modelStartTime){
                     noTimeClash = false;
-                    System.out.printf("%d, %d, 6\n", i, j);
+                    //System.out.printf("%d, %d, 6\n", i, j);
                 }
             }
         }
@@ -172,16 +172,22 @@ public class IndexController {
             switch (option) {
 
                 case 1:
+                    System.out.println();
+                    System.out.println("----- Print current index information -----");
                     view.printModelDetail(model);
                     break;
 
                 case 2:
+                    System.out.println();
+                    System.out.println("----- Change index number -----");
                     System.out.printf("New index number: ");
                     int newIndex = is.nextInt(0);
                     model.setIndexNumber(newIndex);
                     break;
 
                 case 3:
+                    System.out.println();
+                    System.out.println("------ Change vacancy -----");
                     System.out.printf("New vacancy: ");
                     int newVacancy = is.nextInt(0);
                     model.setVacancy(newVacancy);
@@ -189,6 +195,8 @@ public class IndexController {
                     break;
 
                 case 4:
+                    System.out.println();
+                    System.out.println("----- Set tutorial -----");
                     System.out.printf("New tutorial time (MON1030-1130): ");
                     model.setTutorialTime(scan.nextLine());
                     System.out.printf("New tutorial venue: ");
@@ -197,6 +205,8 @@ public class IndexController {
                     break;
 
                 case 5:
+                    System.out.println();
+                    System.out.println("----- Set lab -----");
                     System.out.printf("New lab time (ODDMON1030-1230): ");
                     model.setLabTime(scan.nextLine());
                     System.out.printf("New lab venue: ");
