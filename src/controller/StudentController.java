@@ -138,6 +138,7 @@ public class StudentController extends AccountController {
         boolean indexFound = false;
         boolean currentlyRegistered = false;
         boolean timeClash = false;
+        boolean onWaitlist = false;
 
         Index clashedIndex;
 
@@ -178,6 +179,18 @@ public class StudentController extends AccountController {
             return;
         }
 
+        for (Index idx : model.getOnWaitlist()) {
+            if (idx.getCourseId().equals(index.getCourseId())) {
+                onWaitlist = true;
+                break;
+            }
+        }
+
+        if (onWaitlist) {
+            System.out.println("This course is already added to waitlist");
+            return;
+        }
+
         clashedIndex = indexController.timeClashWithSet(model.getCurrentIndexes());
         if (clashedIndex != null) {
             System.out.println("This Index has a time clash with " + clashedIndex.getCourseId() + 
@@ -214,11 +227,9 @@ public class StudentController extends AccountController {
         System.out.println("Please choose the index to drop from below: ");
 
         // print the list of registered indexes
-        System.out.println("Registered Courses:");
         printCoursesRegistered();
 
         // print list of indexes on WaitList        
-        System.out.println("Courses on WaitList: ");
         printOnWaitlist();
 
         System.out.println("please choose type of course to drop:");

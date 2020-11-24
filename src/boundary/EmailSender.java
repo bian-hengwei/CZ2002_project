@@ -10,8 +10,15 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+
+/**
+ * Sends email to target account
+ */
 public class EmailSender implements Notification {
 
+	/**
+	 * Sends email to target account with string text
+	 */
 	public void send(String targetAccount, String text) {
 
 		String targetEmail = targetAccount + "@e.ntu.edu.sg";

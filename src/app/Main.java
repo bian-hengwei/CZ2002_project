@@ -11,8 +11,11 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-/*
- * Main
+
+/**
+ * Application file of STARS system
+ * Reads in all classes and indexes information
+ * Asks administrator or student to login and modifies the registration information
  */
 public class Main {
 
@@ -23,6 +26,11 @@ public class Main {
     private static Scanner scan;
     private static InputScanner is;
 
+    /**
+     * Main function of STARS system
+     * Builds the set of data
+     * Asks user to choose login mode or exit
+     */
     public static void main(String[] args) {
 
         indexes = new HashSet<Index>();
@@ -65,6 +73,13 @@ public class Main {
         scan.close();
     }
 
+    /**
+     * Login of administrator
+     * First builds an empty admin controller
+     * And try to use admin controller to login and build the administrator model
+     * If the initialization is unsuccessful then go back to main
+     * Else go to the menu of administrator
+     */
     public static void adminLogin() {
         boolean success = false;
         adminController = new AdminController();
@@ -75,6 +90,13 @@ public class Main {
         adminMain();
     }
 
+    /**
+     * Login of student
+     * First builds an empty student controller
+     * And try to use student controller to login and build the student model
+     * If the initialization is unsuccessful then go back to main
+     * Else go to the menu of student
+     */
     public static void studentLogin() {
         boolean success = false;
         studentController = new StudentController();
@@ -85,6 +107,13 @@ public class Main {
         studentMain();
     }
 
+    /**
+     * Main menu of administrator
+     * Asks user to enter any of the 7 options
+     * Perform corresponding function if the input is not 7
+     * Continuously prompt for input if the input
+     * Exit if input is 7
+     */
     public static void adminMain() {
         
         int choice = 0;
@@ -149,6 +178,13 @@ public class Main {
         }
     }
 
+    /**
+     * Main menu of student
+     * Asks user to enter any of the 7 options
+     * Perform corresponding function if the input is not 7
+     * Continuously prompt for input if the input
+     * Exit if input is 7
+     */
     public static void studentMain() {
         
         int choice = 0;
@@ -183,7 +219,7 @@ public class Main {
 
                 case 3:
                     System.out.println();
-                    System.out.println("----- Check/Print courses registered on waitlist");
+                    System.out.println("----- Check/Print courses registered and on waitlist -----");
                     studentController.printCoursesRegistered();
                     studentController.printOnWaitlist();
                     break;
