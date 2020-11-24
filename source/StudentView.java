@@ -37,6 +37,7 @@ public class StudentView {
     }
 
     public void saveStudentInfo(Student student) {
+        System.out.println("Saving student...");
         Set<Index> currentIndexes = student.getCurrentIndexes();
         Set<Index> onWaitlist = student.getOnWaitlist();
         String currentIndexesString = "";
@@ -59,12 +60,11 @@ public class StudentView {
         String takenCourses = String.join("&", student.getTakenCourses());
 
         String content = String.join(",", student.getAccount(), student.getName(), 
-                                     student.getNationality(), student.getMatricNo(), 
-                                     student.getMajor(), student.getYear(), 
-                                     takenCourses, 
-                                     currentIndexesString, onWaitlistString,  
-                                     Integer.toString(student.getCurrentAu()), ";,");
+            student.getNationality(), student.getMatricNo(), 
+            student.getMajor(), student.getYear(), takenCourses, 
+            currentIndexesString, onWaitlistString, Integer.toString(student.getCurrentAu()), ";,");
         FileHandler.writeLine("student_information", student.getAccount(), content);
+        System.out.println("Student information successfully saved");
     }
 
     // printStudentDetail

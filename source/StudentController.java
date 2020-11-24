@@ -428,7 +428,6 @@ public class StudentController extends AccountController {
     
     public void swapIndex(Set<Index> indexes) {
         boolean success = false;
-        int counter = 0;
         int peerIndex = -1;
         Index clashedIndex = null;
         StudentController peer = new StudentController();
@@ -442,12 +441,11 @@ public class StudentController extends AccountController {
             return;
         }
 
-        while(!success && counter < 3){
+        while(!success){
             System.out.println("Trying peer's login...");
             success = peer.init(indexes);
-            counter ++;
         }
-        if(counter == 3 && !success){
+        if(!success){
             System.out.println("You have exceeded 3 tries.");
             return;
         }

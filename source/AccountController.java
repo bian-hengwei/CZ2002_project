@@ -35,7 +35,8 @@ public class AccountController {
     public boolean login() {
         System.out.println("Checking password...");
         boolean success = false;
-        while (!success) {
+        int count = 0;
+        while (!success && count < 3) {
             System.out.println("Logging in as " + prefix + "...");
             System.out.println("(press enter to exit)");
             String[] loginInfo = promptForPassword();
@@ -46,6 +47,7 @@ public class AccountController {
             if (!success) {
                 System.out.println("Login failed.");
                 System.out.println("Check account and password and try again.");
+                count ++;
             } else {
                 System.out.println("Logged in successfully.");
                 System.out.println("Current account: " + account);
