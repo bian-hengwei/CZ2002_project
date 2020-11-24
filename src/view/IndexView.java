@@ -34,9 +34,11 @@ public class IndexView {
     
     public void printStudents(Index idx) {
         Set<String> studentsInfo = FileHandler.readToSet("student_information");
-        System.out.println("Printing students taking " + idx.getIndexNumber());
+        int indexNumber = idx.getIndexNumber();
+        System.out.println("Printing students taking " + indexNumber);
         for (String studentRecord: studentsInfo) {
-            if (idx.getStudentList().contains(studentRecord.split(",")[3])) {
+            boolean insideList = idx.getStudentList().contains(studentRecord.split(",")[3]);
+            if (insideList) {
                 System.out.printf("Name: %s Nationality: %s Gender: %s\n", studentRecord.split(",")[1], studentRecord.split(",")[2], studentRecord.split(",")[9]);
             }
         }

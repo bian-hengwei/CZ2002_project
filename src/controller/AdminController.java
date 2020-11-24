@@ -475,10 +475,11 @@ public class AdminController extends AccountController {
             return;
         }
 
+        Set<Index> courseIndexes = course.getIndexes();
+
         // loop through all indexes in the course and print accordingly
-        for (Index idx : course.getIndexes()) {
+        for (Index idx : courseIndexes) {
             printByIndex(idx);
         }
     }
-
 }
