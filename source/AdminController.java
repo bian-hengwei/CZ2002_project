@@ -4,13 +4,11 @@ import java.util.Scanner;
 public class AdminController extends AccountController {
 
     private Admin model;
-    private AdminView view;
     private Scanner scan;
     private InputScanner is;
 
     public AdminController() {
         model = new Admin();
-        view = new AdminView();
         scan = new Scanner(System.in);
         is = new InputScanner();
         super.setPrefix("admin");

@@ -30,3 +30,7 @@ The assignment for your group will be to design and develop a Console-based appl
 
 ## Deadline:
 - 22nd November 2020, 11.59pm (extended deadline)
+
+## Java doc:
+"C:\Program Files\Java\jdk-11.0.9\bin\javadoc" -d ./html -author -private -noqualifier all -version source
+
