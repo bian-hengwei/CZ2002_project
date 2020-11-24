@@ -54,6 +54,7 @@ public class AccountController {
                 System.out.println("Login failed.");
                 System.out.println("Check account and password and try again.");
                 count ++;
+                System.out.println(count);
             } else {
                 System.out.println("Logged in successfully.");
                 System.out.println("Current account: " + account);
