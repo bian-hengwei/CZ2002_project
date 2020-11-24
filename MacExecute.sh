@@ -1,4 +1,2 @@
 #!/bin/bash
-cd source
-javac -cp .:javax.mail.jar:javax.activation-1.2.0.jar *.java
-java -cp .:javax.mail.jar:javax.activation-1.2.0.jar Main
+javac -d ./class -cp ./src:./lib/javax.mail.jar:./lib/javax.activation-1.2.0.jar: ./src/*.java;java -cp ./class:./lib/javax.mail.jar:./lib/javax.activation-1.2.0.jar: Main

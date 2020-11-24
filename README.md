@@ -13,13 +13,13 @@ The assignment for your group will be to design and develop a Console-based appl
 - Yin Jiarui
   
 ## Functions:
-- [STRUCTURE.md](STRUCTURE.md)
+- [STRUCTURE.md](doc/STRUCTURE.md)
 
 ## TODO:
-- [PLAN.md](PLAN.md)
+- [PLAN.md](doc/PLAN.md)
 
 ## Updates:
-- [UPDATE.md](UPDATE.md)
+- [UPDATE.md](doc/UPDATE.md)
 
 ## Report & Demonstration:
 1. A detailed UML Class Diagram for the application (exported as an image)

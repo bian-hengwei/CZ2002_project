@@ -1,6 +1,6 @@
 # CE/CZ2002: Object-Oriented Design & Programming
   
-Back to [README.md](README.md)
+Back to [README.md](../README.md)
 
 ## UPDATE:
 - [x] Index model

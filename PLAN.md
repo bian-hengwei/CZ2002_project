@@ -1,6 +1,6 @@
 # CE/CZ2002: Object-Oriented Design & Programming
   
-Back to [README.md](README.md)
+Back to [README.md](../README.md)
 
 ## PLAN
 - [ ] Coding 0.95
@@ -40,7 +40,7 @@ Back to [README.md](README.md)
 - [x] Student current AU
 - [x] Admin / student / course / index missing attributes
 - [x] Admin edit course
-- [ ] Scanner, check data type etc
+- [x] Scanner, check data type etc
 - [ ] Deal with all invalid inputs
 - [ ] Adjust wording and outputs
-- [ ] Read through code
+- [x] Read through code
