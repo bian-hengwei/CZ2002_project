@@ -467,7 +467,7 @@ public class StudentController extends AccountController {
         System.out.println("Trying peer's login...");
         success = peer.init(indexes);
         if (!success) {
-            System.out.println("You have exceeded 3 tries.");
+            System.out.println("Peer login unsuccessful.");
             return;
         }
 
