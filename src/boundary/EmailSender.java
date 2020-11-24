@@ -12,12 +12,15 @@ import javax.mail.internet.MimeMessage;
 
 
 /**
- * Sends email to target account
+ * Sends email to target account.
  */
 public class EmailSender implements Notification {
 
 	/**
-	 * Sends email to target account with string text
+	 * Sends email to target ntu email account in the format of
+	 * ACCOUNT@e.ntu.edu.sg.
+	 * @param targetAccount the ntu account we are sending to
+	 * @param text          the content of the email
 	 */
 	public void send(String targetAccount, String text) {
 

@@ -13,9 +13,7 @@ import java.util.Set;
 
 
 /**
- * Application file of STARS system
- * Reads in all classes and indexes information
- * Asks administrator or student to login and modifies the registration information
+ * Application file of STARS system.
  */
 public class Main {
 
@@ -27,9 +25,9 @@ public class Main {
     private static InputScanner is;
 
     /**
-     * Main function of STARS system
-     * Builds the set of data
-     * Asks user to choose login mode or exit
+     * Runs the main program of the STARS system
+     * and asks user to choose login mode or exit.
+     * @param args[] arguments at file execution 
      */
     public static void main(String[] args) {
 
@@ -74,11 +72,8 @@ public class Main {
     }
 
     /**
-     * Login of administrator
-     * First builds an empty admin controller
-     * And try to use admin controller to login and build the administrator model
-     * If the initialization is unsuccessful then go back to main
-     * Else go to the menu of administrator
+     * Administrator login that calls administrator main
+     * if the login is successful else returns to main.
      */
     public static void adminLogin() {
         boolean success = false;
@@ -91,11 +86,8 @@ public class Main {
     }
 
     /**
-     * Login of student
-     * First builds an empty student controller
-     * And try to use student controller to login and build the student model
-     * If the initialization is unsuccessful then go back to main
-     * Else go to the menu of student
+     * Student login that calls student main
+     * if the login is successful else returns to main.
      */
     public static void studentLogin() {
         boolean success = false;
@@ -108,11 +100,8 @@ public class Main {
     }
 
     /**
-     * Main menu of administrator
-     * Asks user to enter any of the 7 options
-     * Perform corresponding function if the input is not 7
-     * Continuously prompt for input if the input
-     * Exit if input is 7
+     * Asks for user to select administrator functions
+     * and calls the corresponding method.
      */
     public static void adminMain() {
         
@@ -179,11 +168,8 @@ public class Main {
     }
 
     /**
-     * Main menu of student
-     * Asks user to enter any of the 7 options
-     * Perform corresponding function if the input is not 7
-     * Continuously prompt for input if the input
-     * Exit if input is 7
+     * Asks for user to select student functions
+     * and calls the corresponding method.
      */
     public static void studentMain() {
         

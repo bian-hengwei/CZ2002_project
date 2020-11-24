@@ -5,8 +5,16 @@ import src.model.Index;
 
 import java.util.Set;
 
+
+/**
+ * Reads and writes all needed data of the main application
+ */
 public class MainIO {
 
+    /**
+     * Reads in all courses and save to a set
+     * @param courses the set to store all courses information
+     */
     public static void readCourses(Set<Course> courses) {
         Set<String> coursesString = FileHandler.readToSet("course_information");
         for (String line: coursesString) {
@@ -24,6 +32,11 @@ public class MainIO {
         }
     }
 
+    /**
+     * Reads in all indexes and save to a set
+     * @param courses the set of courses used to initialize indexes
+     * @param indexes the set to store all indexes information
+     */
     public static void readIndexes(Set<Course> courses, Set<Index> indexes) {
         Set<String> indexesString = FileHandler.readToSet("index_information");
         for (String line: indexesString) {
@@ -49,6 +62,10 @@ public class MainIO {
         }
     }
 
+    /**
+     * Save all courses information to the database
+     * @param courses a set of course objects to be saved
+     */
     public static void saveCourses(Set<Course> courses) {
         StringBuilder sb = new StringBuilder();
         sb.append("courseId,name,school,au,lectureTime,lectureVenue,examTime,examVenue,;\n");
@@ -65,6 +82,10 @@ public class MainIO {
         System.out.println("Courses successfully saved.");
     }
 
+    /**
+     * Save all indexes information to the database
+     * @param indexes a set of index objects to be saved
+     */
     public static void saveIndexes(Set<Index> indexes) {
         StringBuilder sb = new StringBuilder();
         sb.append("id,index,vacancy,");

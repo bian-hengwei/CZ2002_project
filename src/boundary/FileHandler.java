@@ -9,14 +9,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-/*
- * test
+/**
+ * FileHandler class handles all read and write requests with the database.
  */
 public class FileHandler {
 
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_RED   = "\u001B[31m";
 
+    /**
+     * Reads data from a file under data folder
+     * and returns a set of strings containing the data.
+     * @param filename the file name of the .csv file
+     * @return a set of string which are lines read from the database
+     */
     public static Set<String> readToSet(String filename) {
         String path = generatePath(filename);
         Set<String> info = new HashSet<String>();
@@ -40,10 +46,25 @@ public class FileHandler {
         return info;
     }
 
+    /**
+     * Reads all lines of a file and search
+     * the string array and see if the first attribute matches the attribute.
+     * @param filename  the file name of the .csv file
+     * @param attribute the pattern we are looking for in the file
+     * @return the matching row or null if no match found
+     */
     public static String[] readRow(String filename, String attribute) {
         return readRow(filename, attribute, 0);
     }
 
+    /**
+     * Reads all lines of a file and search
+     * the string array and see if the attribute at col matches the attribute.
+     * @param filename  the file name of the .csv file
+     * @param attribute the pattern we are looking for in the file
+     * @param col       the row that the pattern appears in the file
+     * @return the matching row or null if no match found
+     */
     public static String[] readRow(String filename, String attribute, int col) {
         String path = generatePath(filename);
         String[] row = null;
@@ -69,6 +90,11 @@ public class FileHandler {
         return found ? row : null;
     }
 
+    /**
+     * Writes content to a file.
+     * @param filename the file name of the .csv file
+     * @param content  the content to write to the .csv file
+     */
     public static void save(String filename, String content) {
         String path = generatePath(filename);
         try {
@@ -81,6 +107,13 @@ public class FileHandler {
         }
     }
 
+    /**
+     * Replace the existing row if any match is found
+     * else write a new line.
+     * @param filename  the file name of the .csv file
+     * @param attribute the attribute looking for in the .csv file
+     * @param line      the content to write to the .csv file
+     */
     public static void writeLine(String filename, String attribute, String line) {
         String path = generatePath(filename);
         StringBuilder sb = new StringBuilder();
@@ -120,6 +153,11 @@ public class FileHandler {
         }
     }
 
+    /**
+     * Generates the relative path to the project directory.
+     * @param filename  the file name of the .csv file
+     * @return the generated relative path
+     */
     private static String generatePath(String filename) {
         final String SEP = System.getProperty("file.separator");
         return String.format("data%s%s.csv", SEP, filename);
