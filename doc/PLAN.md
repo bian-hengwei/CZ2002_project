@@ -41,6 +41,6 @@ Back to [README.md](../README.md)
 - [x] Admin / student / course / index missing attributes
 - [x] Admin edit course
 - [x] Scanner, check data type etc
-- [ ] Deal with all invalid inputs
-- [ ] Adjust wording and outputs
+- [x] Deal with all invalid inputs
+- [x] Adjust wording and outputs
 - [x] Read through code

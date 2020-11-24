@@ -32,5 +32,6 @@ The assignment for your group will be to design and develop a Console-based appl
 - 22nd November 2020, 11.59pm (extended deadline)
 
 ## Java doc (Win):
-"JAVADOC.EXE_DIR" -d ./html -author -private -noqualifier all -version -cp .src/;.\lib\javax.mail.jar;.\lib\javax.activation-1.2.0.jar; src
+"JAVADOC.EXE_DIR" -d ./html -author -private -noqualifier all -version -cp .src\;.\lib\javax.mail.jar;.\lib\javax.activation-1.2.0.jar; src.app src.boundary src.controller src.model src.view
+
 
