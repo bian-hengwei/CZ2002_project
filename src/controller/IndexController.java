@@ -14,32 +14,64 @@ public class IndexController {
     private Index model;
     private IndexView view;
 
+    /** 
+    * Set up Index Controller.
+    * @param model A set initiated under Index class, a specific input index.
+    * @param view A set initiated under IndexView class for this index.
+    */
     public IndexController() {
         model = new Index();
         view = new IndexView();
     }
 
+    /** 
+    * Set up Index Controller with a parameter.
+    * @param model A set initiated under Index class, a specific input index.
+    * @param view A set initiated under IndexView class.
+    */
     public IndexController(Index model) {
         this.model = model;
         view = new IndexView();
     }
 
+    /** 
+    * Print vacancy of the model.
+    * @param view A set initiated under IndexView class, it calls the printVacancy under IndexView.
+    * to print out vacancy of the model.
+    */
     public void printVacancy() {
         view.printVacancy(model);
     }
 
+    /** 
+    * Gets model of an index.
+    * @return An Index representing the index of a model.
+    */
     public Index getModel() {
         return model;
     }
 
+    /** 
+    * Sets model of an index.
+    * @param i An Index containing the model's index.
+    */
     public void setModel(Index i) {
         model = i;
     }
 
+    /** 
+    * Gets view of an index.
+    * @return An IndexView representing view of the model.
+    */
     public IndexView getView() {
         return view;
     }
 
+    /** 
+    * Check whether there is time clash of 2 indexes when student wants to add a course or swap index with peer.
+    * @param target The input index, it is an object of Index class.
+    * @return A boolean indicating whether there is a time clash.
+    */
     private boolean timeClashWithIndex(Index targetIndex) {
         int modelStartTime;
         int modelEndTime;
@@ -138,6 +170,12 @@ public class IndexController {
         return noTimeClash;
     }
 
+    /** 
+    * Check whether there is time clash of 2 indexes, comparing time slots of target index with all the time slots of 
+    * the currently registered indexes.
+    * @param indexes A set of registered indexes.
+    * @return A null if there is no time clash
+    */
     public Index timeClashWithSet(Set<Index> indexes) {
         for(Index idx : indexes) {
             if(!idx.getCourseId().equals(model.getCourseId()) && !timeClashWithIndex(idx)){
@@ -147,6 +185,11 @@ public class IndexController {
         return null;
     }
 
+    /** 
+    * Edit/update index information. A method under admin.
+    * An admin can modify indexes of different courses, e.g, index number, vacancy etc.
+    * @param indexes A set of current indexes.
+    */
     public void editIndex(Set<Index> indexes) {
         Scanner scan = new Scanner(System.in);
         InputScanner is = new InputScanner();
@@ -218,11 +261,20 @@ public class IndexController {
         }
     }
 
+    /** 
+    * Print all students under an input model(index).
+    * view calls printStudent under IndexView to print out informaion of students.
+    */
     public void printStudents() {
         // print with view
         view.printStudents(model);
     }
 
+    /** 
+    * Remove a student from waitlist and add him/her into the index if there is a vacancy available.
+    * @param indexes A set of current indexes.
+    * Send email to the students when they are removed from a waitlist and successfully get their index.
+    */
     public void fixWaitlist(Set<Index> indexes) {
         while (model.getVacancy() > 0 && model.getWaitListLength() > 0) {
             Notification emailSender = new EmailSender();

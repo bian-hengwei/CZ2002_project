@@ -18,26 +18,44 @@ public class AccountController {
 
     // getters
 
+    /** 
+    * Gets prefix of the account.
+    * @return A string prefix.
+    */
     public String getPrefix() {
         return prefix;
     }
 
+    /** 
+    * Gets account.
+    * @return A string account.
+    */
     public String getAccount() {
         return account;
     }
 
     // setters
-
+    /** 
+    * Sets prefix of the account.
+    * @param pre A string containing prefix of the account.
+    */
     public void setPrefix(String pre) {
         prefix = pre;
     }
 
+    /** 
+    * Sets account.
+    * @param acc string account.
+    */
     public void setAccount(String acc) {
         account = acc;
     }
 
     // common login methods
-
+    /** 
+    * Controls the login function and check the correctness of account and password.
+    * @return A boolean indicating whether the login is successful.
+    */
     public boolean login() {
         System.out.println("Checking password...");
         boolean success = false;
@@ -66,6 +84,10 @@ public class AccountController {
         return success;
     }
 
+    /** 
+    * Prompting users for password.
+    * @return A String containing login information.
+    */
     public String[] promptForPassword() {
         Scanner scan = new Scanner(System.in);
         String[] loginInfo = new String[2];
@@ -82,6 +104,10 @@ public class AccountController {
         return loginInfo;
     }
 
+    /** 
+    * Checking the entered password.
+    * @return A boolean indicating whether the password is correct.
+    */
     public boolean checkPassword(String acc, String password) {
         String[] info = FileHandler.readRow(prefix + "_passwords", acc);
         if (info == null)
@@ -95,12 +121,21 @@ public class AccountController {
         return false;
     }
 
+    /** 
+    * Read information of the account.
+    * @return A String containing account information.
+    */
     public String[] readInfo(String account, int col) {
         return FileHandler.readRow(prefix + "_information", account, col);
     }
 
     // helper methods for hashing
 
+    /** 
+    * Helper methods for hashing.
+    * Hash password to check whether it is correct.
+    * @return A String containing generated password using hashing.
+    */
     public String hash(String password, byte[] salt) {
         String generatedPassword = null;
         try {
@@ -115,6 +150,12 @@ public class AccountController {
         return generatedPassword;
     }
 
+    /** 
+    * Convert byte array to hexadecimal string. Used by hash(String password, byte[] salt) to convert password
+    * into hexadecimal.
+    * Hashed password is changed to hexadecimal form.
+    * @return A String containing converted password in hexadecimal.
+    */
     public String byteArrToHexStr(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < bytes.length; i++) {
@@ -123,6 +164,12 @@ public class AccountController {
         return sb.toString();
     }
 
+    /** 
+    * Convert hexadecimal string to byte array. Used by checkPassword(String acc, String password) to convert password
+    * into byte.
+    * Hashed password is changed to byte form.
+    * @return An Array containing converted password in byte.
+    */
     public byte[] hexStrToByteArr(String hex) {
         byte[] bytes = new byte[hex.length() / 2];
         for (int i = 0; i < bytes.length; i++) {
@@ -132,7 +179,7 @@ public class AccountController {
         }
         return bytes;
     }
-
+/*！！！！！！！！！！！！！！！！！！！1*/
     public byte[] getSalt() {
         try {
             SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
@@ -146,6 +193,10 @@ public class AccountController {
         return null;
     }
 
+    /** 
+    * Both students and admin can check vacancy for indexes.
+    * @param indexes A Set containing all the current indexes. 
+    */
     public void checkVacancy(Set<Index> indexes) {
         Scanner scan = new Scanner(System.in);
         String check = "y";
