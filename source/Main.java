@@ -9,6 +9,7 @@ public class Main {
     private static Set<Index> indexes;
     private static Set<Course> courses;
     private static Scanner scan;
+    private static InputScanner is;
 
     public static void main(String[] args) {
 
@@ -19,6 +20,7 @@ public class Main {
         MainIO.readIndexes(courses, indexes);
 
         scan = new Scanner(System.in);
+        is = new InputScanner();
 
         boolean quit = false;
         while (!quit) {
@@ -31,8 +33,7 @@ public class Main {
             System.out.println("2. Student login");
             System.out.println("3. Quit");
             System.out.printf("Your choice: ");
-            int login = scan.nextInt();
-            scan.nextLine();
+            int login = is.nextInt(1, 4);
             switch (login) {
                 case 1:
                     adminLogin();
@@ -86,8 +87,7 @@ public class Main {
             System.out.println("6. Print Student List By Course");
             System.out.println("7. Exit");
             System.out.printf("Your choice: ");
-            choice = scan.nextInt();
-            scan.nextLine();
+            choice = is.nextInt(1, 8);
 
             switch (choice) {
                 case 1:
@@ -141,8 +141,7 @@ public class Main {
             System.out.println("6. Check Vacancies Available");
             System.out.println("7. Exit");
             System.out.printf("Your choice: ");
-            choice = scan.nextInt();
-            scan.nextLine();
+            choice = is.nextInt(1, 8);
 
             switch (choice) {
 

@@ -6,11 +6,13 @@ public class AdminController extends AccountController {
     private Admin model;
     private AdminView view;
     private Scanner scan;
+    private InputScanner is;
 
     public AdminController() {
         model = new Admin();
         view = new AdminView();
         scan = new Scanner(System.in);
+        is = new InputScanner();
         super.setPrefix("admin");
     }
 
@@ -47,12 +49,7 @@ public class AdminController extends AccountController {
         System.out.printf("School: ");
         String school = scan.nextLine();
         System.out.printf("Year: ");
-        int year = scan.nextInt();
-        scan.nextLine();
-        if (year < 1 || year > 4) {
-            System.out.println("Invalid entry, exiting...");
-            return;
-        }
+        int year = is.nextInt(1, 5);
         String index = String.format("%sY%d", school, year);
         System.out.printf("Start date (YYYYMMDD): ");
         String start = scan.nextLine();
@@ -118,8 +115,7 @@ public class AdminController extends AccountController {
             System.out.println("3. Modify other information of existing course");
             System.out.println("4. Exit");
             System.out.printf("Option: ");
-            int option = scan.nextInt();
-            scan.nextLine();
+            int option = is.nextInt(1, 5);
             String courseId;
             switch (option) {
                 case 1:
@@ -163,7 +159,7 @@ public class AdminController extends AccountController {
         System.out.printf("School of the course: ");
         newCourse.setSchool(scan.nextLine());
         System.out.printf("AU: ");
-        newCourse.setAu(scan.nextInt());
+        newCourse.setAu(is.nextInt(1, 10));
         System.out.println("Course successfully added, please modify an existing course to add more details.");
         courses.add(newCourse);
     }
@@ -191,8 +187,7 @@ public class AdminController extends AccountController {
             System.out.println("6. Change exam time");            
             System.out.println("7. Continue");
             System.out.printf("Option: ");
-            int option = scan.nextInt();
-            scan.nextLine();
+            int option = is.nextInt(1, 8);
             switch (option) {
                 case 1:
                     System.out.printf("Course ID: ");
@@ -215,7 +210,7 @@ public class AdminController extends AccountController {
 
                 case 4:
                     System.out.printf("AU: ");
-                    int au = scan.nextInt();
+                    int au = is.nextInt(1, 10);
                     course.setAu(au);
 
                 case 5:
@@ -223,8 +218,7 @@ public class AdminController extends AccountController {
                         "1.", course.getLectureTime()[1], "\n"));
                     System.out.println("Select index to edit (or empty lecture to delete)");
                     System.out.printf("Option: ");
-                    int op = scan.nextInt();
-                    scan.nextLine();
+                    int op = is.nextInt(0);
                     if (op != 0 && op != 1) {
                         System.out.println("Invalid option");
                         break;
@@ -273,8 +267,7 @@ public class AdminController extends AccountController {
             System.out.println("5. Exit");
             System.out.printf("Option: ");
             int indexNo;
-            int option = scan.nextInt();
-            scan.nextLine();
+            int option = is.nextInt(1, 6);
             switch (option) {
                 case 1:
                     if (course.size() == 0) {
@@ -288,8 +281,7 @@ public class AdminController extends AccountController {
 
                 case 2:
                     System.out.printf("Index number: ");
-                    indexNo = scan.nextInt();
-                    scan.nextLine();
+                    indexNo = is.nextInt(0);
                     if (indexes.contains(indexNo)) {
                         System.out.println("Index already exists");
                     } else {
@@ -305,8 +297,7 @@ public class AdminController extends AccountController {
 
                 case 3:
                     System.out.printf("Index number: ");
-                    indexNo = scan.nextInt();
-                    scan.nextLine();
+                    indexNo = is.nextInt(0);
                     boolean modify = false;
                     for (Index i: course.getIndexes()) {
                         if (i.getIndexNumber() == indexNo) {
@@ -324,8 +315,7 @@ public class AdminController extends AccountController {
 
                 case 4:
                     System.out.printf("Index number: ");
-                    indexNo = scan.nextInt();
-                    scan.nextLine();
+                    indexNo = is.nextInt(0);
                     boolean delete = false;
                     for (Index i: course.getIndexes()) {
                         if (i.getIndexNumber() == indexNo) {
@@ -361,7 +351,7 @@ public class AdminController extends AccountController {
     public void printByIndex(Set<Index> indexes) {
         // get index number
         System.out.printf("Enter the index Id: ");
-        int id = scan.nextInt();
+        int id = is.nextInt(0);
 
         // loop through all courses to find any match
         Index idx = null;

@@ -153,6 +153,7 @@ public class IndexController {
 
     public void editIndex(Set<Index> indexes) {
         Scanner scan = new Scanner(System.in);
+        InputScanner is = new InputScanner();
         System.out.println("Editing index " + model.getIndexNumber());
         boolean quit = false;
         while (!quit) {
@@ -165,8 +166,7 @@ public class IndexController {
             System.out.println("5. Set lab");
             System.out.println("6. Exit");
             System.out.printf("Option: ");
-            int option = scan.nextInt();
-            scan.nextLine();
+            int option = is.nextInt(1, 7);
             switch (option) {
 
                 case 1:
@@ -175,15 +175,13 @@ public class IndexController {
 
                 case 2:
                     System.out.printf("New index number: ");
-                    int newIndex = scan.nextInt();
-                    scan.nextLine();
+                    int newIndex = is.nextInt(0);
                     model.setIndexNumber(newIndex);
                     break;
 
                 case 3:
                     System.out.printf("New vacancy: ");
-                    int newVacancy = scan.nextInt();
-                    scan.nextLine();
+                    int newVacancy = is.nextInt(0);
                     model.setVacancy(newVacancy);
                     fixWaitlist(indexes);
                     break;

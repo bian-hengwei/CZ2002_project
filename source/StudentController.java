@@ -6,11 +6,14 @@ public class StudentController extends AccountController {
 
     private Student model;
     private StudentView view;
-    private Scanner scan = new Scanner(System.in);
+    private Scanner scan;
+    private InputScanner is;
 
     public StudentController() {
         model = new Student();
         view = new StudentView();
+        scan = new Scanner(System.in);
+        is = new InputScanner();
         super.setPrefix("student");
     }
 
@@ -121,8 +124,7 @@ public class StudentController extends AccountController {
     // 1
     public void addCourse(Set<Index> indexes) {
         System.out.println("Please enter the index you want to add: ");
-        int i = scan.nextInt();
-        scan.nextLine();
+        int i = is.nextInt(0);
         Index index = null;
         IndexController indexController = null;
 
@@ -215,12 +217,10 @@ public class StudentController extends AccountController {
         System.out.println("please choose type of course to drop:");
         System.out.println("1. Registered Course");
         System.out.println("2. Course on WaitList");
-        int courseType = scan.nextInt();
-        scan.nextLine();
+        int courseType = is.nextInt(1, 3);
 
         System.out.printf("Index: ");
-        int dropIndex = scan.nextInt();
-        scan.nextLine();
+        int dropIndex = is.nextInt(0);
 
         switch(courseType) {
 
@@ -286,8 +286,7 @@ public class StudentController extends AccountController {
 
         System.out.println("---------- Change Index -----------");
         System.out.println("Please enter current index: ");
-        curIndex = scan.nextInt();
-        scan.nextLine();
+        curIndex = is.nextInt(0);
 
         for(Index idx1 : model.getCurrentIndexes()){
             if(idx1.getIndexNumber() == curIndex){
@@ -303,8 +302,7 @@ public class StudentController extends AccountController {
         }
 
         System.out.println("Please enter new index: ");
-        nIndex = scan.nextInt();
-        scan.nextLine();
+        nIndex = is.nextInt(0);
 
         for (Index idx2 : indexes) {
             if (idx2.getIndexNumber() == nIndex) {
@@ -433,8 +431,7 @@ public class StudentController extends AccountController {
         StudentController peer = new StudentController();
 
         System.out.println("Your index number: ");
-        int myIndex = scan.nextInt();
-        scan.nextLine();
+        int myIndex = is.nextInt(0);
         Index selfIndex = model.getIndex(myIndex);
         if(selfIndex == null){
             System.out.println("You are not registered for " + myIndex);
@@ -451,8 +448,7 @@ public class StudentController extends AccountController {
         }
 
         System.out.println("Peer's index number: ");
-        peerIndex = scan.nextInt();
-        scan.nextLine();
+        peerIndex = is.nextInt(0);
 
         /* 1. check if 2 indexes are under same course
            2. check if they are really registered

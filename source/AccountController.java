@@ -143,8 +143,8 @@ public class AccountController {
         while(check.equals("y")){
             Index index = null;
             System.out.println("please enter the index you want to check: ");
-            i = scan.nextInt();
-            scan.nextLine();
+            InputScanner is = new InputScanner();
+            i = is.nextInt(0);
             for (Index idx : indexes){
                 if(idx.getIndexNumber() == i){
                     index = idx;
