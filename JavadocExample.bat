@@ -1,1 +1,1 @@
-C:\Program Files\Java\jdk-11.0.9\bin\javadoc" -d ./html -author -private -noqualifier all -version -cp .src/;.\lib\javax.mail.jar;.\lib\javax.activation-1.2.0.jar; src
+"C:\Program Files\Java\jdk-11.0.9\bin\javadoc" -d ./html -author -private -noqualifier all -version -cp .src\;.\lib\javax.mail.jar;.\lib\javax.activation-1.2.0.jar; src.app src.boundary src.controller src.model src.view
