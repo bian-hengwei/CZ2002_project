@@ -71,9 +71,9 @@ public class AdminController extends AccountController {
         System.out.printf("Year: ");
         int year = is.nextInt(1, 5);
         String index = String.format("%sY%d", school, year);
-        System.out.printf("Start date (YYYYMMDD): ");
+        System.out.printf("Start date (YYYYDDMM): ");
         String start = scan.nextLine();
-        System.out.printf("End date (YYYYMMDD): ");
+        System.out.printf("End date (YYYYDDMM): ");
         String end = scan.nextLine();
         System.out.printf("Start time (HHMM): ");
         String stime = scan.nextLine();
