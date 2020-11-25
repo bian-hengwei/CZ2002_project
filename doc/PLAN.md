@@ -3,10 +3,10 @@
 Back to [README.md](../README.md)
 
 ## PLAN
-- [ ] Coding 0.95
+- [x] Coding 0.95
 - [ ] Class diagram 0.5
 - [ ] Sequence diagram 0.6
-- [ ] Java doc 0.0
+- [x] Java doc 0.0
 - [ ] Report 0.2
 - [ ] Demo 0.0
 
