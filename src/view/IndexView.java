@@ -39,7 +39,7 @@ public class IndexView {
         for (String studentRecord: studentsInfo) {
             boolean insideList = idx.getStudentList().contains(studentRecord.split(",")[3]);
             if (insideList) {
-                System.out.printf("Name: %s Nationality: %s Gender: %s\n", studentRecord.split(",")[1], studentRecord.split(",")[2], studentRecord.split(",")[9]);
+                System.out.printf("Name: %s Nationality: %s Gender: %s\n", studentRecord.split(",")[1], studentRecord.split(",")[2], studentRecord.split(",")[6]);
             }
         }
     }
