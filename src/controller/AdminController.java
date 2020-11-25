@@ -6,6 +6,8 @@ import src.model.Admin;
 import src.model.Course;
 import src.model.Index;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.Scanner;
 
@@ -103,19 +105,38 @@ public class AdminController extends AccountController {
         System.out.println();
         // save student tbd
         // invalid data entry
+        String name, nationality, matricNumber, major, year, gender = "";
         System.out.println("Please enter student information");
         System.out.printf("Student name: ");
-        String name = scan.nextLine();
+        name = scan.nextLine();
         System.out.printf("Student nationality: ");
-        String nationality = scan.nextLine();
+        nationality = scan.nextLine();
         System.out.printf("Student matric number: ");
-        String matricNumber = scan.nextLine();
-        System.out.printf("Student major (school): ");
-        String major = scan.nextLine().toUpperCase();
+        matricNumber = scan.nextLine();
+
+        String[] schoolsList = new String[] {"SCBE", "CEE", "SCSE", "EEE", "MSE", 
+                "MAE", "NBS", "ADM", "SOH", "SOSS", "WKWSCI", "SBS", "SPMS", "ASE", "LKCM"};
+        List<String> schools = Arrays.asList(schoolsList);
+        while (true) {
+            System.out.printf("Student major (school): ");
+            major = scan.nextLine().toUpperCase();
+            if (schools.contains(major)) {
+                break;
+            }
+            System.out.println("Invalid school name");
+        }
+
         System.out.printf("Student year: Year ");
-        String year = "Y" + scan.nextLine();
-        System.out.printf("Student gender: ");
-        String gender = scan.nextLine();
+        int y = is.nextInt(1, 5);
+        year = String.format("Y%d", y);
+
+        while (!(gender.equals("M") && !(gender.equals("F")))) {
+            System.out.printf("Student gender (M/F): ");
+            gender = scan.nextLine().toUpperCase();
+            if (!(gender.equals("M") && !(gender.equals("F")))) {
+                System.out.println("Invalid gender");
+            }
+        }
 
         System.out.println("Initializing student...");
         StudentController sControl = new StudentController();
