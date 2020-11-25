@@ -65,7 +65,7 @@ public class StudentController extends AccountController {
     * read in student information and update the student object details.
     * @param ref pass in account
     * @param indexes pass in all indexes
-    * @param col
+    * @param col the column of ref to check
     * @return return if student information is successfull read
     */
     public boolean readStudent(String ref, Set<Index> indexes, int col) {

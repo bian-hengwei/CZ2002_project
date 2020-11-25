@@ -55,7 +55,7 @@ public class StudentView {
     }
 
     /** 
-    * save the info of a student to student_information.csv. registered and waitlisted indexes are first concatenated into a string with "&" separating the indexes.
+    * save the info of a student to student_information.csv. registered and waitlisted indexes are first concatenated into a string representation.
     * @param student This passes in the student whose information will be saved in this method
     */
     public void saveStudentInfo(Student student) {

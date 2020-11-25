@@ -106,6 +106,8 @@ public class AccountController {
 
     /** 
     * Checking the entered password.
+    * @param acc the login account
+    * @param password the password for checking
     * @return A boolean indicating whether the password is correct.
     */
     public boolean checkPassword(String acc, String password) {
@@ -123,6 +125,8 @@ public class AccountController {
 
     /** 
     * Read information of the account.
+    * @param account the account to read for
+    * @param col the col where account appears
     * @return A String containing account information.
     */
     public String[] readInfo(String account, int col) {
@@ -134,6 +138,8 @@ public class AccountController {
     /** 
     * Helper methods for hashing.
     * Hash password to check whether it is correct.
+    * @param password the password to be hashed
+    * @param salt the byte array salt
     * @return A String containing generated password using hashing.
     */
     public String hash(String password, byte[] salt) {
@@ -154,6 +160,7 @@ public class AccountController {
     * Convert byte array to hexadecimal string. Used by hash(String password, byte[] salt) to convert password
     * into hexadecimal.
     * Hashed password is changed to hexadecimal form.
+    * @param bytes bytes array to be converted
     * @return A String containing converted password in hexadecimal.
     */
     public String byteArrToHexStr(byte[] bytes) {
@@ -168,6 +175,7 @@ public class AccountController {
     * Convert hexadecimal string to byte array. Used by checkPassword(String acc, String password) to convert password
     * into byte.
     * Hashed password is changed to byte form.
+    * @param hex hexadecimal array to be converted
     * @return An Array containing converted password in byte.
     */
     public byte[] hexStrToByteArr(String hex) {
@@ -179,7 +187,11 @@ public class AccountController {
         }
         return bytes;
     }
-/*！！！！！！！！！！！！！！！！！！！1*/
+    
+    /**
+     * Gets random salt in SHA1
+     * @return byte array salt
+     */
     public byte[] getSalt() {
         try {
             SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");

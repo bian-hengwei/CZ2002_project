@@ -16,8 +16,6 @@ public class IndexController {
 
     /** 
     * Set up Index Controller.
-    * @param model A set initiated under Index class, a specific input index.
-    * @param view A set initiated under IndexView class for this index.
     */
     public IndexController() {
         model = new Index();
@@ -27,7 +25,6 @@ public class IndexController {
     /** 
     * Set up Index Controller with a parameter.
     * @param model A set initiated under Index class, a specific input index.
-    * @param view A set initiated under IndexView class.
     */
     public IndexController(Index model) {
         this.model = model;
@@ -36,7 +33,6 @@ public class IndexController {
 
     /** 
     * Print vacancy of the model.
-    * @param view A set initiated under IndexView class, it calls the printVacancy under IndexView.
     * to print out vacancy of the model.
     */
     public void printVacancy() {
@@ -69,7 +65,7 @@ public class IndexController {
 
     /** 
     * Check whether there is time clash of 2 indexes when student wants to add a course or swap index with peer.
-    * @param target The input index, it is an object of Index class.
+    * @param targetIndex The input index, it is an object of Index class.
     * @return A boolean indicating whether there is a time clash.
     */
     private boolean timeClashWithIndex(Index targetIndex) {
