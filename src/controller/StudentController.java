@@ -73,10 +73,10 @@ public class StudentController extends AccountController {
         if (modelInfo == null)
             return false;
         readPersonalInfo(modelInfo);
-        for (String taken: modelInfo[6].split("&")) {
+        for (String taken: modelInfo[7].split("&")) {
             model.addTakenCourses(taken);
         }
-        for (String taking: modelInfo[7].split("&")) {
+        for (String taking: modelInfo[8].split("&")) {
             if (taking.trim().equals(""))
                 break;
             for (Index idx: indexes) {
@@ -84,7 +84,7 @@ public class StudentController extends AccountController {
                     model.addCurrentIndexes(idx);
             }
         }
-        for (String wl: modelInfo[8].split("&")) {
+        for (String wl: modelInfo[9].split("&")) {
             if (wl.trim().equals(""))
                 break;
             for (Index idx: indexes) {
@@ -106,7 +106,7 @@ public class StudentController extends AccountController {
         model.setMatricNo(modelInfo[3]);
         model.setMajor(modelInfo[4]);
         model.setYear(modelInfo[5]);
-        model.setGender(modelInfo[9]);
+        model.setGender(modelInfo[6]);
     }
 
     /**

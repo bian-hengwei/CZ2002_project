@@ -71,9 +71,9 @@ public class AdminController extends AccountController {
         System.out.printf("Year: ");
         int year = is.nextInt(1, 5);
         String index = String.format("%sY%d", school, year);
-        System.out.printf("Start date (YYYYDDMM): ");
+        System.out.printf("Start date (YYYYMMDD): ");
         String start = scan.nextLine();
-        System.out.printf("End date (YYYYDDMM): ");
+        System.out.printf("End date (YYYYMMDD): ");
         String end = scan.nextLine();
         System.out.printf("Start time (HHMM): ");
         String stime = scan.nextLine();
@@ -114,10 +114,12 @@ public class AdminController extends AccountController {
         String major = scan.nextLine().toUpperCase();
         System.out.printf("Student year: Year ");
         String year = "Y" + scan.nextLine();
+        System.out.printf("Student gender: ");
+        String gender = scan.nextLine();
 
         System.out.println("Initializing student...");
         StudentController sControl = new StudentController();
-        sControl.readPersonalInfo(new String[]{accountInfo[0], name, nationality, matricNumber, major, year});
+        sControl.readPersonalInfo(new String[]{accountInfo[0], name, nationality, matricNumber, major, year, gender});
 
         System.out.println("New student account generated");
         System.out.println("Saving student...");

@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"src.app","h":"","u":""},{"l":"src.boundary","h":"","u":""},{"l":"src.controller","h":"","u":""},{"l":"src.model","h":"","u":""},{"l":"src.view","h":"","u":""},{"l":"所有程序包","h":"","u":"allpackages-index.html"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"src.app"},{"l":"src.boundary"},{"l":"src.controller"},{"l":"src.model"},{"l":"src.view"}]
