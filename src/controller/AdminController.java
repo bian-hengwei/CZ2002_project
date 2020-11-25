@@ -324,7 +324,7 @@ public class AdminController extends AccountController {
         }
         if (course == null) {
             System.out.println("Error: current course does not exist");
-            return false;
+            return;
         }
         boolean quit = false;
         while (!quit) {
