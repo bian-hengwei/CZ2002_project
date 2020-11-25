@@ -55,7 +55,7 @@ public class StudentController extends AccountController {
     /**
     * initialize student object, check if student is legit and if student is logging in at assigned access time.
     * @param indexes pass in all the index
-    * @return return a boolean to indicate if the intialization is successful
+    * @return return a boolean to indicate if the initialization is successful
     */
     public boolean init(Set<Index> indexes) {
         boolean success = login();
@@ -81,7 +81,7 @@ public class StudentController extends AccountController {
     * @param ref pass in account
     * @param indexes pass in all indexes
     * @param col the column of ref to check
-    * @return return if student information is successfull read
+    * @return return if student information is successfully read
     */
     public boolean readStudent(String ref, Set<Index> indexes, int col) {
         String[] modelInfo = readInfo(ref, col);

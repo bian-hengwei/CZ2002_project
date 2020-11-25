@@ -83,8 +83,8 @@ public class StudentView {
 
         String content = String.join(",", student.getAccount(), student.getName(), 
             student.getNationality(), student.getMatricNo(), 
-            student.getMajor(), student.getYear(), takenCourses, 
-            currentIndexesString, onWaitlistString, Integer.toString(student.getCurrentAu()), ";,");
+            student.getMajor(), student.getYear(), student.getGender(), takenCourses, 
+            currentIndexesString, onWaitlistString, ";,");
         FileHandler.writeLine("student_information", student.getAccount(), content);
         System.out.println("Student information successfully saved");
     }
