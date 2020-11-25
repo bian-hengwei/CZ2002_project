@@ -12,15 +12,50 @@ import java.util.Set;
  * Index model that stores all the information of the index
  */
 public class Index {
-
+    
+    /**
+     * Index number.
+     */
     private int indexNumber;
+    
+    /**
+     * Vacancy left.
+     */
     private int vacancy;
+    
+    /**
+     * Tutorial time.
+     */
     private String tutorialTime;
+    
+    /**
+     * Tutorial venue.
+     */
     private String tutorialVenue;
+    
+    /**
+     * Lab time.
+     */
     private String labTime;
+    
+    /**
+     * Lab venue.
+     */
     private String labVenue;
+    
+    /**
+     * Students on wait list.
+     */
     private Queue<String> waitlist;
+    
+    /**
+     * Registered students matric number list.
+     */
     private Set<String> studentList;
+    
+    /**
+     * Course object to refer to.
+     */
     private Course course;
     
     /**

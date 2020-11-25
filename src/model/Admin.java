@@ -6,8 +6,20 @@ package src.model;
  */
 public class Admin{
 
+    
+    /**
+     * Admin account
+     */
     private String account;
+    
+    /**
+     * Admin name
+     */
     private String name;
+    
+    /**
+     * Admin nationality
+     */
     private String nationality;
 
     /**

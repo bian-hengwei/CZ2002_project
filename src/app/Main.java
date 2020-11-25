@@ -17,11 +17,34 @@ import java.util.Set;
  */
 public class Main {
 
+    /** 
+     * Student controller used in the system.
+     */
     private static StudentController studentController;
+
+    /**
+     * Admin controller used in the system.
+     */
     private static AdminController adminController;
+
+    /**
+     * A set of all indexes
+     */
     private static Set<Index> indexes;
+    
+    /**
+     * A set of all courses in the database
+     */
     private static Set<Course> courses;
+    
+    /**
+     * Scanner object for string inputs
+     */
     private static Scanner scan;
+    
+    /**
+     * Input scanner object for int inputs
+     */
     private static InputScanner is;
 
     /**

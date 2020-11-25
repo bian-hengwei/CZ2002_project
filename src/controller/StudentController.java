@@ -10,10 +10,25 @@ import java.util.Set;
 import java.util.Scanner;
 
 public class StudentController extends AccountController {
-
+    
+    /**
+     * Student model with all data.
+     */
     private Student model;
+    
+    /**
+     * Student view to deal with output.
+     */
     private StudentView view;
+    
+    /**
+     * Scanner for string inputs.
+     */
     private Scanner scan;
+    
+    /**
+     * Scanner for integer inputs.
+     */
     private InputScanner is;
 
     /**

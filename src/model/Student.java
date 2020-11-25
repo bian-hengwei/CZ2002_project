@@ -11,17 +11,60 @@ import java.util.Set;
  * Student model that stores all student information
  */
 public class Student {
-
+    
+    /**
+     * Student account.
+     */
     private String account;
+    
+    /**
+     * Student name.
+     */
     private String name;
+    
+    /**
+     * Student nationality.
+     */
     private String nationality;
+    
+    /**
+     * Student matriculation number.
+     */
     private String matricNo;
+    
+    /**
+     * Student major.
+     */
     private String major;
+    
+    /**
+     * Student year.
+     */
     private String year;
+    
+    /**
+     * Current AU registered
+     */
     private int currentAu;
+    
+    /**
+     * Courses taken in previous semesters.
+     */
     private Set<String> takenCourses;
+    
+    /**
+     * Current indexes registered.
+     */
     private Set<Index> currentIndexes;
+    
+    /**
+     * Courses on wait list.
+     */
     private Set<Index> onWaitlist;
+    
+    /**
+     * Student gender.
+     */
     private String gender;
 
     /**

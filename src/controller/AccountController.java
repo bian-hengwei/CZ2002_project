@@ -13,7 +13,15 @@ import java.util.Set;
 
 public class AccountController {
 
+    
+    /**
+     * Account type stored for accessing files
+     */
     private String prefix;
+    
+    /**
+     * Account
+     */
     private String account;
 
     // getters

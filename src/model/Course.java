@@ -10,15 +10,50 @@ import java.util.Set;
  * Course model that stores all information in any course
  */
 public class Course {
-
+    
+    /**
+     * Course id
+     */
     private String courseId;
+    
+    /**
+     * Course name
+     */
     private String courseName;
+    
+    /**
+     * School of course
+     */
     private String school;
+    
+    /**
+     * AU of course
+     */
     private int au;
+    
+    /**
+     * Set of indexes under course
+     */
     private Set<Index> indexes;
+    
+    /**
+     * Lecture times
+     */
     private String[] lectureTime;
+    
+    /**
+     * Lecture venues
+     */
     private String[] lectureVenue;
+    
+    /**
+     * Exam time
+     */
     private String examTime;
+    
+    /**
+     * Exam venue
+     */
     private String examVenue;
 
     /**

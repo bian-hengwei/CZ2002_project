@@ -12,9 +12,20 @@ import java.util.Set;
 import java.util.Scanner;
 
 public class AdminController extends AccountController {
-
+    
+    /**
+     * Admin model that stores all data.
+     */
     private Admin model;
+    
+    /**
+     * Scanner for string inputs.
+     */
     private Scanner scan;
+    
+    /**
+     * Scanner for integer inputs.
+     */
     private InputScanner is;
 
     /**

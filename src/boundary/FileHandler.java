@@ -13,8 +13,15 @@ import java.util.Set;
  * FileHandler class handles all read and write requests with the database.
  */
 public class FileHandler {
-
+    
+    /**
+     * The console reset string.
+     */
     private static final String ANSI_RESET = "\u001B[0m";
+    
+    /**
+     * The console red string.
+     */
     private static final String ANSI_RED   = "\u001B[31m";
 
     /**

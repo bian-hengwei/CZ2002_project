@@ -11,7 +11,15 @@ import java.util.Set;
 import java.util.Scanner;
 
 public class IndexController {
+    
+    /**
+     * Index model that stores all index data.
+     */
     private Index model;
+    
+    /**
+     * Index view for all prints and outputs
+     */
     private IndexView view;
 
     /** 

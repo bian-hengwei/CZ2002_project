@@ -7,6 +7,10 @@ import java.util.Scanner;
  */
 public class InputScanner {
 
+    
+    /**
+     * Scanner object for input
+     */
     Scanner scan;
 
     /**
