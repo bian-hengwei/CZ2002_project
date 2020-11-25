@@ -26,12 +26,12 @@ The assignment for your group will be to design and develop a Console-based appl
 "JAVADOC.EXE_DIR" -d ./html -author -private -noqualifier all -version -cp .src\;.\lib\javax.mail.jar;.\lib\javax.activation-1.2.0.jar; src.app src.boundary src.controller src.model src.view
   
 ## Compile and run:
-WindowsExecute.bat (Win)
-OR
-javac -d .\class -cp .src/;.\lib\javax.mail.jar;.\lib\javax.activation-1.2.0.jar; .\src\app\*.java .\src\boundary\*.java .\src\controller\*.java .\src\model\*.java .\src\view\*.java
-java -cp .\class;.\lib\javax.mail.jar;.\lib\javax.activation-1.2.0.jar; src.app.Main
+WindowsExecute.bat (Win)  
+OR  
+javac -d .\class -cp .src/;.\lib\javax.mail.jar;.\lib\javax.activation-1.2.0.jar; .\src\app\*.java .\src\boundary\*.java .\src\controller\*.java .\src\model\*.java .\src\view\*.java  
+java -cp .\class;.\lib\javax.mail.jar;.\lib\javax.activation-1.2.0.jar; src.app.Main  
   
-MacExecute.sh(Mac)
-OR
-javac -d ./class -cp ./src:./lib/javax.mail.jar:./lib/javax.activation-1.2.0.jar: ./src/app/*.java ./src/boundary/*.java ./src/controller/*.java ./src/model/*.java ./src/view/*.java
+MacExecute.sh(Mac)  
+OR  
+javac -d ./class -cp ./src:./lib/javax.mail.jar:./lib/javax.activation-1.2.0.jar: ./src/app/*.java ./src/boundary/*.java ./src/controller/*.java ./src/model/*.java ./src/view/*.java  
 java -cp ./class:./lib/javax.mail.jar:./lib/javax.activation-1.2.0.jar: src.app.Main
