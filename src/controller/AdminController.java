@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AdminController extends AccountController {
     
@@ -116,12 +118,32 @@ public class AdminController extends AccountController {
         System.out.println();
         // save student tbd
         // invalid data entry
-        String name, nationality, matricNumber, major, year, gender = "";
+        String name = "", nationality = "", matricNumber, major, year, gender = "";
+        Pattern p = Pattern.compile("^[ A-Za-z]+$");
+        Matcher m;
         System.out.println("Please enter student information");
-        System.out.printf("Student name: ");
-        name = scan.nextLine();
-        System.out.printf("Student nationality: ");
-        nationality = scan.nextLine();
+        boolean validName = false;
+        while (!validName) {
+            System.out.printf("Student name: ");
+            name = scan.nextLine();
+            m = p.matcher(name);
+            validName = m.matches();
+            if (!validName) {
+                System.out.println("Invalid  name");
+            }
+        }
+        boolean validCountry = false;
+        while (!validCountry) {
+            System.out.printf("Student nationality: ");
+            nationality = scan.nextLine();
+            p = Pattern.compile("^[A-Za-z]+$");
+            m = p.matcher(nationality);
+            validCountry = m.matches();
+            if (!validCountry) {
+                System.out.println("Invalid country");
+            }
+        }
+
         System.out.printf("Student matric number: ");
         matricNumber = scan.nextLine();
 
@@ -229,8 +251,21 @@ public class AdminController extends AccountController {
         Course newCourse = new Course(courseId);
         System.out.printf("Course name: ");
         newCourse.setCourseName(scan.nextLine());
-        System.out.printf("School of the course: ");
-        newCourse.setSchool(scan.nextLine());
+
+        String school = "";
+        String[] schoolsList = new String[] {"SCBE", "CEE", "SCSE", "EEE", "MSE", 
+                "MAE", "NBS", "ADM", "SOH", "SOSS", "WKWSCI", "SBS", "SPMS", "ASE", "LKCM"};
+        List<String> schools = Arrays.asList(schoolsList);
+        while (true) {
+            System.out.printf("School: ");
+            school = scan.nextLine().toUpperCase();
+            if (schools.contains(school)) {
+                break;
+            }
+            System.out.println("Invalid school name");
+        }
+
+        newCourse.setSchool(school);
         System.out.printf("AU: ");
         newCourse.setAu(is.nextInt(1, 10));
         System.out.println("Course successfully added, please select option 2 and 3 to add more details.");
@@ -289,8 +324,19 @@ public class AdminController extends AccountController {
                 case 3:
                     System.out.println();
                     System.out.println("----- Change school -----");
-                    System.out.printf("School: ");
-                    String school = scan.nextLine();
+                    String school = "";
+                    String[] schoolsList = new String[] {"SCBE", "CEE", "SCSE", "EEE", "MSE", 
+                            "MAE", "NBS", "ADM", "SOH", "SOSS", "WKWSCI", "SBS", "SPMS", "ASE", "LKCM"};
+                    List<String> schools = Arrays.asList(schoolsList);
+                    while (true) {
+                        System.out.printf("School: ");
+                        school = scan.nextLine().toUpperCase();
+                        if (schools.contains(school)) {
+                            break;
+                        }
+                        System.out.println("Invalid school name");
+                    }
+
                     course.setSchool(school);
                     break;
 
@@ -308,11 +354,7 @@ public class AdminController extends AccountController {
                         "1.", course.getLectureTime()[1], "\n"));
                     System.out.println("Select index to edit (or empty lecture to delete)");
                     System.out.printf("Option: ");
-                    int op = is.nextInt(0);
-                    if (op != 0 && op != 1) {
-                        System.out.println("Invalid option");
-                        break;
-                    }
+                    int op = is.nextInt(0, 2);
                     System.out.printf("New lecture time (MON1030-1130): ");
                     course.setLectureTime(op, scan.nextLine());
                     System.out.printf("New lecture venue: ");

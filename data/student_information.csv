@@ -1,5 +1,5 @@
 account,name,nationality,matricNo,major,year,Gender,taken,current,waitlist,;
-1,name1,sg,U1,SCSE,Y1,m,CZ1003,20051&20013&20022,,;
+1,name1,sg,U1,SCSE,Y1,CZ1003,20051&20013&20022,,9,;,
 student2,Alice,sg,U2,SCSE,Y2,f,CZ2005,20013,20021,;
 student3,Tom,sg,U3,SCSE,Y2,m,CZ1003,20021&20013,,;
 student4,Jack,sg,U4,SCSE,Y2,f,MH1812,20021&20052,,;
